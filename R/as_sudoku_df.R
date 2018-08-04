@@ -3,7 +3,6 @@
 #' Convert a sudoku matrix to a sudoku data frame
 
 #' @export
-
 as_sudoku_df <- function(sudoku_matrix) {
   sudoku_df <- data.frame(
     value = c(sudoku_matrix),
