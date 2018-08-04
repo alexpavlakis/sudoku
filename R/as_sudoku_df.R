@@ -11,5 +11,5 @@ as_sudoku_df <- function(sudoku_matrix) {
     col = rep(c(1:9), each = 9),
     box = c(boxes)
   )
-  return()
+  return(sudoku_df)
 }
