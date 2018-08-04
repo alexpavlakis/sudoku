@@ -11,7 +11,7 @@
 solve_sudoku <- function(sudoku_matrix, verbose = FALSE,
                           attempts = 50) {
   
-  sudoku_df <- as_sudoku_df(sudoku_matrix)
+  sudoku_df <<- as_sudoku_df(sudoku_matrix)
   
   attempt <- logical_solver(sudoku_df, verbose = verbose)
   
