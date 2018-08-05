@@ -10,19 +10,19 @@
 #' solved_puzzle_2 <- solve_sudoku(sudoku2)
 
 solve_sudoku <- function(sudoku_matrix, verbose = FALSE,
-                          attempts = 50) {
+                          attempts = 100) {
   
   sudoku_df <<- as_sudoku_df(sudoku_matrix)
   
   attempt <- logical_solver(sudoku_df, verbose = verbose)
   
-  if(check_integrity(attempt)) {
+  if(check_integrity(matrix(attempt$value, nrow = 9, ncol = 9))) {
     out <- attempt
   } else {
-    out <- guesser(attempt, verbose = verbose,
+    out <- guesser(attempt = attempt, verbose = verbose,
                    attempts = attempts)
   }
-  if(!check_integrity(out)) {
+  if(!check_integrity( matrix(out$value, nrow = 9, ncol = 9))) {
     out <- NULL
     print("No solution was found!")
   } else {
