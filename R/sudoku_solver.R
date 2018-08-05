@@ -6,7 +6,8 @@
 #' @param attempts if the program cannot solve with only logic, it will make educated guesses.  How many attempt should it make with educated guesses before giving up?
 #' @export
 #' @examples
-#' solved_puzzle <- solve_sudoku(sudok)
+#' solved_puzzle <- solve_sudoku(sudoku)
+#' solved_puzzle_2 <- solve_sudoku(sudoku2)
 
 solve_sudoku <- function(sudoku_matrix, verbose = FALSE,
                           attempts = 50) {
