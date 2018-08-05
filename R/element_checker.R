@@ -3,7 +3,7 @@
 #' These functions help the sudoku solver solve puzzles!
 #' @param sudoku_df an unsolved sudoku, in dataframe form.
 #' @param cant_bes all the cant_bes of the current sudoku
-#' @param dimention row, col, or box
+#' @param dimension row, col, or box
 
 #' @export
 element_checker <- function(sudoku_df, cant_bes,

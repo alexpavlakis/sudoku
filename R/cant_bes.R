@@ -3,7 +3,6 @@
 #' These functions help the sudoku solver solve puzzles!
 #' @param sudoku_df an unsolved sudoku, in dataframe form.
 #' @export
-#' @examples
 
 cant_bes_getter <- function(sudoku_df) {
   # Get all the can't bes!
