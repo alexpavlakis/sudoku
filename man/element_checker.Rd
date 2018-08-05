@@ -11,7 +11,7 @@ element_checker(sudoku_df, cant_bes, dimension = c("row", "col", "box"))
 
 \item{cant_bes}{all the cant_bes of the current sudoku}
 
-\item{dimention}{row, col, or box}
+\item{dimension}{row, col, or box}
 }
 \description{
 These functions help the sudoku solver solve puzzles!
