@@ -14,28 +14,32 @@ solve_backtracking <- function(sudoku_df, empties, verbose) {
   }
   
   index <- empties[1]
-  cant_be_here <- cant_bes_getter_index(sudoku_df, index)
+  can_be_here <- can_bes_getter_index(sudoku_df, index)
   
-  for(i in 1:9) {
+  for(i in can_be_here) {
+    sudoku_df[index, 1] <- i
     
-    if(!i %in% cant_be_here) {
-      
-      sudoku_df[index, 1] <- i
-      
-      if(verbose) {
-        print(matrix(sudoku_df[, 1], nrow = 9, ncol = 9))
-      }
-      
-      if(solve_backtracking(sudoku_df = sudoku_df, 
-                            empties   = which(is.na(sudoku_df[, 1])),
-                            verbose   = verbose)) {
-        return(TRUE)
-      }
-      sudoku_df[index, 1] <- NA
+    if(verbose) {
+      print(matrix(sudoku_df[, 1], nrow = 9, ncol = 9))
     }
+    
+    if(solve_backtracking(sudoku_df = sudoku_df, 
+                          empties   = empties[-1],
+                          verbose   = verbose)) {
+      return(TRUE)
+    }
+    sudoku_df[index, 1] <- NA
   }
   return(FALSE)
 }
+
+
+
+
+
+
+
+
 
 
 

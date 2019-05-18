@@ -21,9 +21,7 @@ solve_sudoku <- function(sudoku_matrix, verbose = FALSE) {
   # IF that doesn't work, try backtracking
   if(!check_integrity(sudoku_df)) {
     empties <- which(is.na(sudoku_df[, 1]))
-    cant_bes <- cant_bes_getter(sudoku_df)
     solve_backtracking(sudoku_df, empties, verbose)
-    out <- out
   } else {
     out <- sudoku_df
   }
