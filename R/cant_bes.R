@@ -20,17 +20,16 @@ cant_bes_getter <- function(sudoku_df) {
 }
 
 #' @export
-cant_bes_getter_index <- function(sudoku_df, index) {
+can_bes_getter_index <- function(sudoku_df, index) {
   if(is.na(sudoku_df[index, 1])) {
     # Get all the can't bes!
-    cant_bes <- unique(c(sudoku_df[, 1][sudoku_df[, 2] == sudoku_df[index, 2]],
-                         sudoku_df[, 1][sudoku_df[, 3] == sudoku_df[index, 3]],
-                         sudoku_df[, 1][sudoku_df[, 4] == sudoku_df[index, 4]]))
-    
+    can_bes <- which(!c(1:9) %in% c(sudoku_df[, 1][sudoku_df[, 2] == sudoku_df[index, 2]],
+                                    sudoku_df[, 1][sudoku_df[, 3] == sudoku_df[index, 3]],
+                                    sudoku_df[, 1][sudoku_df[, 4] == sudoku_df[index, 4]]))
   } else {
-    cant_bes <- NA
+    can_bes <- NA
   }
-  return(cant_bes)
+  return(can_bes)
 }
 
 
@@ -39,7 +38,7 @@ cant_bes_lengths <- function(sudoku_df, cant_bes) {
   length_cant_bes <- unlist(lapply(cant_bes, length))
   for(i in seq_along(length_cant_bes)) {
     if(length_cant_bes[i] == 8) {
-      sudoku_df[i, 1] <- c(1:9)[!c(1:9) %in% cant_bes[[i]]]
+      sudoku_df[i, 1] <- which(!c(1:9) %in% cant_bes[[i]])
     }  
   }
   return(sudoku_df)
@@ -47,3 +46,10 @@ cant_bes_lengths <- function(sudoku_df, cant_bes) {
 
 
 
+
+sdf <- as_sudoku_df(a_sudoku)
+
+cant_bes_getter2(sdf)
+
+microbenchmark(now = c(1:9)[!c(1:9) %in% cant_bes[[i]]],
+               poss = which(!c(1:9) %in% cant_bes[[i]]), times = 5000)
