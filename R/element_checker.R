@@ -29,9 +29,9 @@ element_checker <- function(sudoku_df, cant_bes,
       
       answers <- which(possibilities == open_elements)[!which(possibilities == open_elements) %in% in_already[!is.na(in_already)]]
       # Check the answers
-      answers <- answers[answers %in% not_in_box(sudoku_df[i, 4])]
-      answers <- answers[answers %in% not_in_col(sudoku_df[i, 3])]
-      answers <- answers[answers %in% not_in_row(sudoku_df[i, 2])]
+      answers <- answers[answers %in% not_in_box(sudoku_df, sudoku_df[i, 4])]
+      answers <- answers[answers %in% not_in_col(sudoku_df, sudoku_df[i, 3])]
+      answers <- answers[answers %in% not_in_row(sudoku_df, sudoku_df[i, 2])]
       if(length(answers[!is.na(answers)]) == 1) {
         sudoku_df[i, 1] <- answers
       }  

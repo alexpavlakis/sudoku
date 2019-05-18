@@ -4,16 +4,16 @@
 \alias{solve_backtracking}
 \title{Solve a sudoku by the backtracking algorithm}
 \usage{
-solve_backtracking(sudoku_df, empties, cant_bes, verbose)
+solve_backtracking(sudoku_df, empties, verbose)
 }
 \arguments{
 \item{sudoku_df}{a sudku dataframe}
 
 \item{empties}{the empty elements}
 
-\item{cant_bes}{a list of what each empty element can't be}
-
 \item{verbose}{do you want to see the output at every step? (it's a lot!)}
+
+\item{cant_bes}{a list of what each empty element can't be}
 }
 \description{
 This function recursively solves a sudoku

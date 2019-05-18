@@ -2,7 +2,7 @@
 #'
 #' This function allows you to solve a sudoku puzzle
 #' @param sudoku_matrix an unsolved sudoku, in matrix form, with NA values for empty cells
-#' @param verbose set to TRUE if you want to print intermediate steps.  Default is FALSE.
+#' @param verbose set to TRUE if you want to print intermediate steps.  Default is FALSE.  Note, setting it to TRUE can increase the time to complete by up to a factor of 10 if backtracking is necessary.
 #' @param attempts if the program cannot solve with only logic, it will make educated guesses.  How many attempt should it make with educated guesses before giving up?
 #' @export
 #' @examples
@@ -11,14 +11,18 @@
 
 solve_sudoku <- function(sudoku_matrix, verbose = FALSE) {
   
+  if(nrow(sudoku_matrix) != 9 & ncol(sudoku_matrix) != 9) {
+    stop('sudoku_matrix must by a 9x9 numeric matrix with NAs for empty values')
+  }
+  
   # Attempt to solve with just logic
-  sudoku_df <- logical_solver(as_sudoku_df(sudoku_matrix = sudoku_matrix))
+  sudoku_df <- logical_solver(sudoku_df = as_sudoku_df(sudoku_matrix = sudoku_matrix))
   
   # IF that doesn't work, try backtracking
   if(!check_integrity(sudoku_df)) {
     empties <- which(is.na(sudoku_df[, 1]))
     cant_bes <- cant_bes_getter(sudoku_df)
-    solve_backtracking(sudoku_df, empties, cant_bes)
+    solve_backtracking(sudoku_df, empties, verbose)
     out <- out
   } else {
     out <- sudoku_df

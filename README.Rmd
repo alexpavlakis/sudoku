@@ -1,0 +1,49 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+# sudoku
+
+The goal of sudoku is to provide simple functions for solving most sudoku puzzles.
+
+## Installation
+
+You can install sudoku from github with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("alexpavlakis/sudoku")
+```
+
+
+## Example
+
+The workhorse function is `solve_sudoku`, which takes two arguments:
+
+* `sudoku_matrix`: an unsolved sudoku puzzle in matrix form, with `NA` in unknown cells;
+* `verbose`: `TRUE` if you want the function to print intermediate steps (defaults to `FALSE`)
+
+`check_integrity` will tell you if a puzzle is completed correctly.
+
+solve sudoku first attempts to solve the sudoku with basic sudoku logic.  If this does not work, it uses a backtracking algorithm to find a solution (if one exists).
+
+```{r, puzzle}
+# An unsolved puzzle
+print(sudoku)
+
+# Solve
+solved_puzzle <- solve_sudoku(sudoku)
+
+# Check that it is correct
+check_integrity(solved_puzzle)
+```

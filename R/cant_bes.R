@@ -19,6 +19,20 @@ cant_bes_getter <- function(sudoku_df) {
   return(cant_bes)
 }
 
+#' @export
+cant_bes_getter_index <- function(sudoku_df, index) {
+  if(is.na(sudoku_df[index, 1])) {
+    # Get all the can't bes!
+    cant_bes <- unique(c(sudoku_df[, 1][sudoku_df[, 2] == sudoku_df[index, 2]],
+                         sudoku_df[, 1][sudoku_df[, 3] == sudoku_df[index, 3]],
+                         sudoku_df[, 1][sudoku_df[, 4] == sudoku_df[index, 4]]))
+    
+  } else {
+    cant_bes[[i]] <- NA
+  }
+  return(cant_bes)
+}
+
 
 #' @export
 cant_bes_lengths <- function(sudoku_df, cant_bes) {
@@ -30,3 +44,6 @@ cant_bes_lengths <- function(sudoku_df, cant_bes) {
   }
   return(sudoku_df)
 }
+
+
+

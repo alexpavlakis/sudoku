@@ -17,7 +17,6 @@ logical_solver <- function(sudoku_df, verbose = FALSE) {
     sudoku_df <- cant_bes_lengths(sudoku_df = sudoku_df,
                                   cant_bes = cant_bes)
     
-    
     ### WHAT CAN'T BE IN THE BOX
     sudoku_df <- element_checker(sudoku_df = sudoku_df,
                                  cant_bes = cant_bes,

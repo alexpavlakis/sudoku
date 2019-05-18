@@ -6,15 +6,15 @@
 #' @param cant_bes a list of what each empty element can't be
 #' @param verbose do you want to see the output at every step? (it's a lot!)
 
-solve_backtracking <- function(sudoku_df, empties, cant_bes, verbose) {
+solve_backtracking <- function(sudoku_df, empties, verbose) {
   
   if(length(empties) == 0) {
-    out <- sudoku_df
+    out <<- sudoku_df
     return(TRUE)
   }
   
   index <- empties[1]
-  cant_be_here <- cant_bes[[index]]
+  cant_be_here <- cant_bes_getter_index(sudoku_df, index)
   
   for(i in 1:9) {
     
@@ -27,8 +27,8 @@ solve_backtracking <- function(sudoku_df, empties, cant_bes, verbose) {
       }
       
       if(solve_backtracking(sudoku_df = sudoku_df, 
-                            empties = which(is.na(sudoku_df[, 1])),
-                            cant_bes = cant_bes_getter(sudoku_df))) {
+                            empties   = which(is.na(sudoku_df[, 1])),
+                            verbose   = verbose)) {
         return(TRUE)
       }
       sudoku_df[index, 1] <- NA
@@ -36,3 +36,9 @@ solve_backtracking <- function(sudoku_df, empties, cant_bes, verbose) {
   }
   return(FALSE)
 }
+
+
+
+
+
+
