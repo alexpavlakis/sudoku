@@ -43,13 +43,3 @@ cant_bes_lengths <- function(sudoku_df, cant_bes) {
   }
   return(sudoku_df)
 }
-
-
-
-
-sdf <- as_sudoku_df(a_sudoku)
-
-cant_bes_getter2(sdf)
-
-microbenchmark(now = c(1:9)[!c(1:9) %in% cant_bes[[i]]],
-               poss = which(!c(1:9) %in% cant_bes[[i]]), times = 5000)
