@@ -9,25 +9,27 @@
 #' solved_puzzle <- solve_sudoku(sudoku)
 #' solved_puzzle_2 <- solve_sudoku(sudoku2)
 
-solve_sudoku <- function(sudoku_matrix, verbose = FALSE,
-                          attempts = 100) {
+solve_sudoku <- function(sudoku_matrix, verbose = FALSE) {
   
-  sudoku_df <<- as_sudoku_df(sudoku_matrix)
+  # Attempt to solve with just logic
+  sudoku_df <- logical_solver(as_sudoku_df(sudoku_matrix = sudoku_matrix))
   
-  attempt <- logical_solver(sudoku_df, verbose = verbose)
-  
-  if(check_integrity(matrix(attempt$value, nrow = 9, ncol = 9))) {
-    out <- attempt
+  # IF that doesn't work, try backtracking
+  if(!check_integrity(sudoku_df)) {
+    empties <- which(is.na(sudoku_df[, 1]))
+    cant_bes <- cant_bes_getter(sudoku_df)
+    solve_backtracking(sudoku_df, empties, cant_bes)
+    out <- out
   } else {
-    out <- guesser(attempt = attempt, verbose = verbose,
-                   attempts = attempts)
+    out <- sudoku_df
   }
-  if(!check_integrity( matrix(out$value, nrow = 9, ncol = 9))) {
+  if(!check_integrity(out)) {
     out <- NULL
     print("No solution was found!")
   } else {
-    out <- matrix(out$value, nrow = 9, ncol = 9)
+    out <- matrix(out[, 1], nrow = 9, ncol = 9)
     print("A solution is found!")
   }
   return(out)
 }
+

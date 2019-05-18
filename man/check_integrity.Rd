@@ -4,7 +4,7 @@
 \alias{check_integrity}
 \title{Check the integrity of a sudoku}
 \usage{
-check_integrity(sudoku_matrix)
+check_integrity(sudoku_df)
 }
 \arguments{
 \item{sudoku_matrix}{a sudku matrix}

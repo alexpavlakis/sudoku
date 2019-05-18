@@ -4,7 +4,7 @@
 \alias{solve_sudoku}
 \title{Sudoko solver}
 \usage{
-solve_sudoku(sudoku_matrix, verbose = FALSE, attempts = 50)
+solve_sudoku(sudoku_matrix, verbose = FALSE)
 }
 \arguments{
 \item{sudoku_matrix}{an unsolved sudoku, in matrix form, with NA values for empty cells}
@@ -17,5 +17,6 @@ solve_sudoku(sudoku_matrix, verbose = FALSE, attempts = 50)
 This function allows you to solve a sudoku puzzle
 }
 \examples{
-solved_puzzle <- solve_sudoku(sudok)
+solved_puzzle <- solve_sudoku(sudoku)
+solved_puzzle_2 <- solve_sudoku(sudoku2)
 }

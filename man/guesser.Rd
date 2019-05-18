@@ -4,7 +4,7 @@
 \alias{guesser}
 \title{Intermediate functions}
 \usage{
-guesser(attempt, verbose, attempts)
+guesser(attempt, verbose, attempts, env = parent.frame())
 }
 \description{
 These functions help the sudoku solver solve puzzles!
