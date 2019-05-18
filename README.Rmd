@@ -43,6 +43,7 @@ print(sudoku)
 
 # Solve
 solved_puzzle <- solve_sudoku(sudoku)
+print(solved_puzzle)
 
 # Check that it is correct
 check_integrity(solved_puzzle)
