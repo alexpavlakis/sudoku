@@ -8,6 +8,11 @@
 #' check_integrity(solved_puzzle)
 
 check_integrity <- function(sudoku_df) {
+  
+  if(nrow(sudoku_df) == 9) {
+    sudoku_df <- as_sudoku_df(sudoku_df)
+  }
+  
   rows_good <- NULL
   cols_good <- NULL
   boxes_good <- NULL

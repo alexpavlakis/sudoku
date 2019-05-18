@@ -47,5 +47,5 @@ solved_puzzle <- solve_sudoku(sudoku)
 
 # Check that it is correct
 check_integrity(solved_puzzle)
-#> [1] FALSE
+#> [1] TRUE
 ```
