@@ -3,6 +3,9 @@
 #' This function attempt to solve a sudoku logically
 #' @param sudoku_df an unsolved sudoku, in dataframe form.
 #' @param verbose set to TRUE if you want to print intermediate steps.  Default is FALSE.
+#' 
+#' @useDynLib sudoku, .registration = TRUE
+#' @importFrom Rcpp sourceCpp
 #' @export
 
 logical_solver <- function(sudoku_df, verbose = FALSE) {

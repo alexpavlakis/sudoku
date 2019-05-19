@@ -14,7 +14,7 @@ solve_backtracking <- function(sudoku_df, empties, verbose) {
   }
   
   index <- empties[1]
-  can_be_here <- can_bes_getter_index(sudoku_df, index)
+  can_be_here <- can_bes_getter_index_c(sudoku_df, index-1)
   
   for(i in can_be_here) {
     sudoku_df[index, 1] <- i

@@ -27,7 +27,7 @@ can_bes_getter_index <- function(sudoku_df, index) {
                                     sudoku_df[, 1][sudoku_df[, 3] == sudoku_df[index, 3]],
                                     sudoku_df[, 1][sudoku_df[, 4] == sudoku_df[index, 4]]))
   } else {
-    can_bes <- NA
+    can_bes <- NA_integer_
   }
   return(can_bes)
 }
