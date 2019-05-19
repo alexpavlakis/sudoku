@@ -4,7 +4,7 @@
 \alias{element_checker}
 \title{Intermediate functions}
 \usage{
-element_checker(sudoku_df, cant_bes, dimension = c("row", "col", "box"))
+element_checker(sudoku_df, cant_bes, dimension = c(2, 3, 4))
 }
 \arguments{
 \item{sudoku_df}{an unsolved sudoku, in dataframe form.}
