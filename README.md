@@ -3,7 +3,7 @@
 sudoku
 ======
 
-The goal of sudoku is to provide simple functions for solving most sudoku puzzles.
+The goal of sudoku is to provide simple functions for solving sudoku puzzles in R.
 
 Installation
 ------------
@@ -59,4 +59,53 @@ print(solved_puzzle)
 # Check that it is correct
 check_integrity(solved_puzzle)
 #> [1] TRUE
+```
+
+`solve_sudoku` solves sudokus in the blink of an eye. The example below shows the time taken to solve an easy puzzle (49 empty cells) and a hard puzzle (59 empty cells). The easy puzzle is solved in 20-30 milliseconds and the hard puzzle is solved in less than half a second.
+
+``` r
+# Easy puzzle - 49 empty cells
+sum(!is.na(sudoku))
+#> [1] 32
+print(sudoku)
+#>       V1 V2 V3 V4 V5 V6 V7 V8 V9
+#>  [1,]  2  1 NA NA NA NA NA NA NA
+#>  [2,]  4 NA  8 NA NA  1 NA  2 NA
+#>  [3,] NA  6  5 NA  2 NA NA NA  4
+#>  [4,] NA NA  2  5 NA  3 NA  9 NA
+#>  [5,]  8 NA  7 NA NA NA  5 NA  2
+#>  [6,] NA  5 NA  2 NA  4  7 NA NA
+#>  [7,]  5 NA NA NA  1 NA  4  7 NA
+#>  [8,] NA  2 NA  7 NA NA  6 NA  1
+#>  [9,] NA NA NA NA NA NA NA  8  9
+
+# Hard Puzzle - 59 empty cells
+sum(!is.na(hard_sudoku))
+#> [1] 22
+print(hard_sudoku)
+#>       V1 V2 V3 V4 V5 V6 V7 V8 V9
+#>  [1,]  8  7 NA  5 NA NA NA NA  3
+#>  [2,] NA NA NA NA NA  8 NA NA  7
+#>  [3,] NA NA NA NA  4 NA NA NA NA
+#>  [4,] NA NA  9 NA NA NA NA NA NA
+#>  [5,] NA  8 NA  7 NA NA NA  1  6
+#>  [6,] NA NA  2 NA  8  6 NA NA NA
+#>  [7,]  2 NA NA NA NA NA NA NA NA
+#>  [8,] NA  5 NA  1 NA NA  2  3 NA
+#>  [9,] NA  9  6 NA NA NA NA NA NA
+```
+
+``` r
+library(microbenchmark)
+m <- microbenchmark(easy = solve_sudoku(sudoku),
+                    hard = solve_sudoku(hard_sudoku), 
+                    times = 100, unit = 's')
+```
+
+``` r
+print(m, digits = 3)
+#> Unit: seconds
+#>  expr    min     lq   mean median     uq    max neval
+#>  easy 0.0201 0.0212 0.0239 0.0245 0.0254 0.0351   100
+#>  hard 0.3795 0.3948 0.4074 0.4011 0.4080 0.5100   100
 ```

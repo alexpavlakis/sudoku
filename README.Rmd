@@ -49,5 +49,24 @@ print(solved_puzzle)
 check_integrity(solved_puzzle)
 ```
 
-`solve_sudoku` 
+`solve_sudoku` solves sudokus in the blink of an eye.  The example below shows the time taken to solve an easy puzzle (49 empty cells) and a hard puzzle (59 empty cells).  The easy puzzle is solved in 20-30 milliseconds and the hard puzzle is solved in less than half a second.
 
+```{r showpuzzles}
+# Easy puzzle - 49 empty cells
+sum(!is.na(sudoku))
+print(sudoku)
+
+# Hard Puzzle - 59 empty cells
+sum(!is.na(hard_sudoku))
+print(hard_sudoku)
+
+```
+```{r rmb, warning=F, message=F, results=F}
+library(microbenchmark)
+m <- microbenchmark(easy = solve_sudoku(sudoku),
+                    hard = solve_sudoku(hard_sudoku), 
+                    times = 100, unit = 's')
+```
+```{r showmb}
+print(m, digits = 3)
+```
