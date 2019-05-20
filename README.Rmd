@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
 ```
 # sudoku
 
-The goal of sudoku is to provide simple functions for solving most sudoku puzzles.
+The goal of sudoku is to provide simple functions for solving sudoku puzzles in R.
 
 ## Installation
 
@@ -48,3 +48,6 @@ print(solved_puzzle)
 # Check that it is correct
 check_integrity(solved_puzzle)
 ```
+
+`solve_sudoku` 
+
