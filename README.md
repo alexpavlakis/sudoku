@@ -43,7 +43,6 @@ print(sudoku)
 
 # Solve
 solved_puzzle <- solve_sudoku(sudoku)
-#> [1] "A solution was found!"
 print(solved_puzzle)
 #>       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9]
 #>  [1,]    2    1    3    8    4    7    9    6    5
@@ -105,7 +104,7 @@ m <- microbenchmark(easy = solve_sudoku(sudoku),
 ``` r
 print(m, digits = 3)
 #> Unit: seconds
-#>  expr    min     lq   mean median     uq    max neval
-#>  easy 0.0203 0.0217 0.0252 0.0231 0.0262 0.0873   100
-#>  hard 0.3904 0.4098 0.4567 0.4289 0.4703 0.7834   100
+#>  expr    min     lq   mean median     uq   max neval
+#>  easy 0.0209 0.0216 0.0246 0.0224 0.0255 0.140   100
+#>  hard 0.3803 0.3892 0.4021 0.3941 0.3989 0.528   100
 ```

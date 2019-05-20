@@ -55,7 +55,6 @@ devtools<span class="op">::</span><span class="kw">install_github</span>(<span c
 
 <span class="co"># Solve</span>
 solved_puzzle &lt;-<span class="st"> </span><span class="kw">solve_sudoku</span>(sudoku)
-<span class="co">#&gt; [1] &quot;A solution was found!&quot;</span>
 <span class="kw">print</span>(solved_puzzle)
 <span class="co">#&gt;       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9]</span>
 <span class="co">#&gt;  [1,]    2    1    3    8    4    7    9    6    5</span>
@@ -107,9 +106,9 @@ m &lt;-<span class="st"> </span><span class="kw">microbenchmark</span>(<span cla
                     <span class="dt">times =</span> <span class="dv">100</span>, <span class="dt">unit =</span> <span class="st">'s'</span>)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(m, <span class="dt">digits =</span> <span class="dv">3</span>)
 <span class="co">#&gt; Unit: seconds</span>
-<span class="co">#&gt;  expr    min     lq   mean median     uq    max neval</span>
-<span class="co">#&gt;  easy 0.0203 0.0217 0.0252 0.0231 0.0262 0.0873   100</span>
-<span class="co">#&gt;  hard 0.3904 0.4098 0.4567 0.4289 0.4703 0.7834   100</span></code></pre></div>
+<span class="co">#&gt;  expr    min     lq   mean median     uq   max neval</span>
+<span class="co">#&gt;  easy 0.0209 0.0216 0.0246 0.0224 0.0255 0.140   100</span>
+<span class="co">#&gt;  hard 0.3803 0.3892 0.4021 0.3941 0.3989 0.528   100</span></code></pre></div>
 
 </body>
 </html>
