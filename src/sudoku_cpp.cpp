@@ -162,7 +162,7 @@ bool check_integrity_c(IntegerMatrix sudoku_df) {
   for(int i = 0; i < 81; i++) {
     IntegerVector res;
     res = can_bes_getter_index_c(sudoku_df, i);
-    if(is_false(all(is_na(res)))) {
+    if(is_false(all(is_na(res))) || sudoku_df(i, 0) == NA_INTEGER) {
       return false;
     }
   }

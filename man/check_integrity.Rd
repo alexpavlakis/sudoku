@@ -7,7 +7,7 @@
 check_integrity(sudoku_df)
 }
 \arguments{
-\item{sudoku_matrix}{a sudku matrix}
+\item{sudoku_df}{a sudku matrix}
 }
 \description{
 This function allows you to check whether a sudoku solution is good

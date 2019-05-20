@@ -48,8 +48,6 @@ logical_solver <- function(sudoku_df, verbose) {
   return(sudoku_df)
 }
 
-
-#' @export
 element_checker <- function(sudoku_df, cant_bes,
                             dimension = c(2, 3, 4)) {
   

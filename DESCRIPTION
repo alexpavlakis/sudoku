@@ -1,10 +1,13 @@
 Package: sudoku
-Title: What the Package Does (one line, title case)
+Title: Simple Functions for Solving Sudoku Puzzles
 Version: 0.0.0.9000
-Authors@R: person("First", "Last", email = "first.last@example.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
+Authors@R: c(
+             person("Alex", "Pavlakis", email = "alexpavlakist@gmail.com", role = c("aut", "cre", "cph"))
+             )
+Description: Sudoku solves sudoku puzzles.  It first attempts to solve puzzles logically. 
+             If that fails, it defaults to a backtracking algorithm.
 Depends: R (>= 3.4.1)
-License: What license is it under?
+License: GPL (>= 2)
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.0.1.9000
