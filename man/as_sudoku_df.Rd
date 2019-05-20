@@ -6,6 +6,9 @@
 \usage{
 as_sudoku_df(sudoku_matrix)
 }
+\arguments{
+\item{sudoku_matrix}{a 9x9 sudoku matrix.}
+}
 \description{
 Convert a sudoku matrix to a sudoku data frame
 }

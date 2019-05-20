@@ -25,12 +25,10 @@ solve_sudoku <- function(sudoku_matrix, verbose = FALSE) {
     solve_backtracking_c(sudoku_df, empties-1)
   }
     
-  if(!check_integrity_c(sudoku_df)) {
-    out <- NULL
-    print("No solution was found!")
+  if(!check_integrity(sudoku_df)) {
+    print('no solution was found')
   } else {
     out <- matrix(sudoku_df[, 1], nrow = 9, ncol = 9)
-    print("A solution was found!")
+    return(out)
   }
-  return(out)
 }

@@ -1,7 +1,7 @@
 #' Check the integrity of a sudoku
 #'
 #' This function allows you to check whether a sudoku solution is good
-#' @param sudoku_matrix a sudku matrix
+#' @param sudoku_df a sudku matrix
 #' @export
 #' @examples
 #' solved_puzzle <- solve_sudoku(sudoku)
