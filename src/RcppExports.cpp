@@ -53,12 +53,62 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// cant_bes_getter_c
+List cant_bes_getter_c(IntegerMatrix sudoku_df);
+RcppExport SEXP _sudoku_cant_bes_getter_c(SEXP sudoku_dfSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerMatrix >::type sudoku_df(sudoku_dfSEXP);
+    rcpp_result_gen = Rcpp::wrap(cant_bes_getter_c(sudoku_df));
+    return rcpp_result_gen;
+END_RCPP
+}
+// solve_backtracking_c
+bool solve_backtracking_c(IntegerMatrix sudoku_df, IntegerVector empties);
+RcppExport SEXP _sudoku_solve_backtracking_c(SEXP sudoku_dfSEXP, SEXP emptiesSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerMatrix >::type sudoku_df(sudoku_dfSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type empties(emptiesSEXP);
+    rcpp_result_gen = Rcpp::wrap(solve_backtracking_c(sudoku_df, empties));
+    return rcpp_result_gen;
+END_RCPP
+}
+// check_integrity_c
+bool check_integrity_c(IntegerMatrix sudoku_df);
+RcppExport SEXP _sudoku_check_integrity_c(SEXP sudoku_dfSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerMatrix >::type sudoku_df(sudoku_dfSEXP);
+    rcpp_result_gen = Rcpp::wrap(check_integrity_c(sudoku_df));
+    return rcpp_result_gen;
+END_RCPP
+}
+// cant_bes_lengths_c
+IntegerMatrix cant_bes_lengths_c(IntegerMatrix sudoku_df, List cant_bes);
+RcppExport SEXP _sudoku_cant_bes_lengths_c(SEXP sudoku_dfSEXP, SEXP cant_besSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerMatrix >::type sudoku_df(sudoku_dfSEXP);
+    Rcpp::traits::input_parameter< List >::type cant_bes(cant_besSEXP);
+    rcpp_result_gen = Rcpp::wrap(cant_bes_lengths_c(sudoku_df, cant_bes));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_sudoku_not_in_row_c", (DL_FUNC) &_sudoku_not_in_row_c, 2},
     {"_sudoku_not_in_col_c", (DL_FUNC) &_sudoku_not_in_col_c, 2},
     {"_sudoku_not_in_box_c", (DL_FUNC) &_sudoku_not_in_box_c, 2},
     {"_sudoku_can_bes_getter_index_c", (DL_FUNC) &_sudoku_can_bes_getter_index_c, 2},
+    {"_sudoku_cant_bes_getter_c", (DL_FUNC) &_sudoku_cant_bes_getter_c, 1},
+    {"_sudoku_solve_backtracking_c", (DL_FUNC) &_sudoku_solve_backtracking_c, 2},
+    {"_sudoku_check_integrity_c", (DL_FUNC) &_sudoku_check_integrity_c, 1},
+    {"_sudoku_cant_bes_lengths_c", (DL_FUNC) &_sudoku_cant_bes_lengths_c, 2},
     {NULL, NULL, 0}
 };
 

@@ -43,7 +43,7 @@ print(sudoku)
 
 # Solve
 solved_puzzle <- solve_sudoku(sudoku)
-#> [1] "A solution is found!"
+#> [1] "A solution was found!"
 print(solved_puzzle)
 #>       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9]
 #>  [1,]    2    1    3    8    4    7    9    6    5

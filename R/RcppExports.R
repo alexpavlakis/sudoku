@@ -17,3 +17,19 @@ can_bes_getter_index_c <- function(sudoku_df, index) {
     .Call(`_sudoku_can_bes_getter_index_c`, sudoku_df, index)
 }
 
+cant_bes_getter_c <- function(sudoku_df) {
+    .Call(`_sudoku_cant_bes_getter_c`, sudoku_df)
+}
+
+solve_backtracking_c <- function(sudoku_df, empties) {
+    .Call(`_sudoku_solve_backtracking_c`, sudoku_df, empties)
+}
+
+check_integrity_c <- function(sudoku_df) {
+    .Call(`_sudoku_check_integrity_c`, sudoku_df)
+}
+
+cant_bes_lengths_c <- function(sudoku_df, cant_bes) {
+    .Call(`_sudoku_cant_bes_lengths_c`, sudoku_df, cant_bes)
+}
+

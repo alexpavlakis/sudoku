@@ -15,23 +15,33 @@ solve_sudoku <- function(sudoku_matrix, verbose = FALSE) {
     stop('sudoku_matrix must by a 9x9 numeric matrix with NAs for empty values')
   }
   
-  # Attempt to solve with just logic
-  sudoku_df <- logical_solver(sudoku_df = as_sudoku_df(sudoku_matrix = sudoku_matrix))
+  # Attempt to solve with logic
+  sudoku_df <- logical_solver(sudoku_df = as_sudoku_df(sudoku_matrix = sudoku_matrix),
+                              verbose   = verbose)
   
   # IF that doesn't work, try backtracking
-  if(!check_integrity(sudoku_df)) {
+  if(!check_integrity_c(sudoku_df)) {
     empties <- which(is.na(sudoku_df[, 1]))
-    solve_backtracking(sudoku_df, empties, verbose)
-  } else {
-    out <- sudoku_df
+    solve_backtracking_c(sudoku_df, empties-1)
   }
-  if(!check_integrity(out)) {
+    
+  if(!check_integrity_c(sudoku_df)) {
     out <- NULL
     print("No solution was found!")
   } else {
-    out <- matrix(out[, 1], nrow = 9, ncol = 9)
-    print("A solution is found!")
+    out <- matrix(sudoku_df[, 1], nrow = 9, ncol = 9)
+    print("A solution was found!")
   }
   return(out)
+}
+
+
+solve_sudoku2 <- function(sudoku_matrix, verbose = FALSE) {
+  sudoku_df <- as_sudoku_df(sudoku_matrix)
+  sudoku_df <- apply(sudoku_df, 2, as.integer)
+  empties <- which(is.na(sudoku_df[, 1]))
+  solve_backtracking_c(sudoku_df, empties-1)
+  out <- sudoku_df
+  return(sudoku_df)
 }
 
