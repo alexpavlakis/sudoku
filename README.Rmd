@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
 ```
 # sudoku
 
-The goal of sudoku is to provide simple functions for solving most sudoku puzzles.
+The goal of sudoku is to provide simple functions for solving sudoku puzzles in R.
 
 ## Installation
 
@@ -35,7 +35,7 @@ The workhorse function is `solve_sudoku`, which takes two arguments:
 
 `check_integrity` will tell you if a puzzle is completed correctly.
 
-solve sudoku first attempts to solve the sudoku with basic sudoku logic.  If this does not work, it uses a backtracking algorithm to find a solution (if one exists).
+solve sudoku first attempts to solve the sudoku with basic sudoku logic.  If this does not work, it uses a backtracking algorithm to find a solution (if one exists).  Core functions (such as backtracking) are written in C++ for speed.
 
 ```{r, puzzle}
 # An unsolved puzzle
@@ -47,4 +47,26 @@ print(solved_puzzle)
 
 # Check that it is correct
 check_integrity(solved_puzzle)
+```
+
+`solve_sudoku` completes puzzles in the blink of an eye.  The example below shows the time taken to solve an easy puzzle (49 empty cells) and a hard puzzle (59 empty cells).  The easy puzzle is solved in 20-30 milliseconds and the hard puzzle is solved in less than half a second.
+
+```{r showpuzzles}
+# Easy puzzle - 49 empty cells
+sum(is.na(sudoku))
+print(sudoku)
+
+# Hard Puzzle - 59 empty cells
+sum(is.na(hard_sudoku))
+print(hard_sudoku)
+
+```
+```{r rmb, warning=F, message=F, results=F}
+library(microbenchmark)
+m <- microbenchmark(easy = solve_sudoku(sudoku),
+                    hard = solve_sudoku(hard_sudoku), 
+                    times = 100, unit = 's')
+```
+```{r showmb}
+print(m, digits = 3)
 ```

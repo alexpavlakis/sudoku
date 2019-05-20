@@ -10,5 +10,17 @@ as_sudoku_df <- function(sudoku_matrix) {
       rep(c(1:9), each = 9),
       c(sudoku::boxes)), nrow = 81, byrow = FALSE
   )
-  return(sudoku_df)
+  return(apply(sudoku_df, 2, as.integer))
 }
+
+#' @export
+boxes <- matrix(c(1, 1, 1, 2, 2, 2, 3, 3, 3,
+                  1, 1, 1, 2, 2, 2, 3, 3, 3,
+                  1, 1, 1, 2, 2, 2, 3, 3, 3,
+                  4, 4, 4, 5, 5, 5, 6, 6, 6,
+                  4, 4, 4, 5, 5, 5, 6, 6, 6,
+                  4, 4, 4, 5, 5, 5, 6, 6, 6,
+                  7, 7, 7, 8, 8, 8, 9, 9, 9,
+                  7, 7, 7, 8, 8, 8, 9, 9, 9,
+                  7, 7, 7, 8, 8, 8, 9, 9, 9),
+                nrow = 9, ncol = 9, byrow = TRUE)
