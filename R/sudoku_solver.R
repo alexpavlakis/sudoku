@@ -1,13 +1,13 @@
 #' Sudoko solver
 #'
-#' This function allows you to solve a sudoku puzzle
+#' This function solves sudoku puzzles.
 #' @param sudoku_matrix an unsolved sudoku, in matrix form, with NA values for empty cells
-#' @param verbose set to TRUE if you want to print intermediate steps.  Default is FALSE.  Note, setting it to TRUE can increase the time to complete by up to a factor of 10 if backtracking is necessary.
-#' @param attempts if the program cannot solve with only logic, it will make educated guesses.  How many attempt should it make with educated guesses before giving up?
+#' @param verbose set to TRUE if you want to print intermediate steps.  Default is FALSE. 
 #' @export
 #' @examples
-#' solved_puzzle <- solve_sudoku(sudoku)
-#' solved_puzzle_2 <- solve_sudoku(sudoku2)
+#' print(sudoku)
+#' solved_sudoku <- solve_sudoku(sudoku)
+#' print(solved_sudoku)
 
 solve_sudoku <- function(sudoku_matrix, verbose = FALSE) {
   
@@ -34,14 +34,3 @@ solve_sudoku <- function(sudoku_matrix, verbose = FALSE) {
   }
   return(out)
 }
-
-
-solve_sudoku2 <- function(sudoku_matrix, verbose = FALSE) {
-  sudoku_df <- as_sudoku_df(sudoku_matrix)
-  sudoku_df <- apply(sudoku_df, 2, as.integer)
-  empties <- which(is.na(sudoku_df[, 1]))
-  solve_backtracking_c(sudoku_df, empties-1)
-  out <- sudoku_df
-  return(sudoku_df)
-}
-

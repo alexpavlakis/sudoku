@@ -25,7 +25,7 @@ The workhorse function is `solve_sudoku`, which takes two arguments:
 
 `check_integrity` will tell you if a puzzle is completed correctly.
 
-solve sudoku first attempts to solve the sudoku with basic sudoku logic. If this does not work, it uses a backtracking algorithm to find a solution (if one exists).
+solve sudoku first attempts to solve the sudoku with basic sudoku logic. If this does not work, it uses a backtracking algorithm to find a solution (if one exists). Core functions (such as backtracking) are written in C++ for speed.
 
 ``` r
 # An unsolved puzzle
@@ -61,12 +61,12 @@ check_integrity(solved_puzzle)
 #> [1] TRUE
 ```
 
-`solve_sudoku` solves sudokus in the blink of an eye. The example below shows the time taken to solve an easy puzzle (49 empty cells) and a hard puzzle (59 empty cells). The easy puzzle is solved in 20-30 milliseconds and the hard puzzle is solved in less than half a second.
+`solve_sudoku` completes puzzles in the blink of an eye. The example below shows the time taken to solve an easy puzzle (49 empty cells) and a hard puzzle (59 empty cells). The easy puzzle is solved in 20-30 milliseconds and the hard puzzle is solved in less than half a second.
 
 ``` r
 # Easy puzzle - 49 empty cells
-sum(!is.na(sudoku))
-#> [1] 32
+sum(is.na(sudoku))
+#> [1] 49
 print(sudoku)
 #>       V1 V2 V3 V4 V5 V6 V7 V8 V9
 #>  [1,]  2  1 NA NA NA NA NA NA NA
@@ -80,8 +80,8 @@ print(sudoku)
 #>  [9,] NA NA NA NA NA NA NA  8  9
 
 # Hard Puzzle - 59 empty cells
-sum(!is.na(hard_sudoku))
-#> [1] 22
+sum(is.na(hard_sudoku))
+#> [1] 59
 print(hard_sudoku)
 #>       V1 V2 V3 V4 V5 V6 V7 V8 V9
 #>  [1,]  8  7 NA  5 NA NA NA NA  3
@@ -106,6 +106,6 @@ m <- microbenchmark(easy = solve_sudoku(sudoku),
 print(m, digits = 3)
 #> Unit: seconds
 #>  expr    min     lq   mean median     uq    max neval
-#>  easy 0.0201 0.0212 0.0239 0.0245 0.0254 0.0351   100
-#>  hard 0.3795 0.3948 0.4074 0.4011 0.4080 0.5100   100
+#>  easy 0.0203 0.0217 0.0252 0.0231 0.0262 0.0873   100
+#>  hard 0.3904 0.4098 0.4567 0.4289 0.4703 0.7834   100
 ```

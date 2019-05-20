@@ -99,9 +99,7 @@ List cant_bes_getter_c(IntegerMatrix sudoku_df) {
   int n = sudoku_df(_, 0).size();
   
   for(int i = 0; i < n; i++) {
-    
     if(sudoku_df(i, 0) == NA_INTEGER) {
-      
       
       IntegerVector x;
       int row = sudoku_df(i, 1);
@@ -117,9 +115,7 @@ List cant_bes_getter_c(IntegerMatrix sudoku_df) {
           x.push_back(sudoku_df(j, 0));
         }
       }
-      
       out.push_back(unique(na_omit(x)));
-      
     } else {
       out.push_back(NA_INTEGER);
     }
@@ -141,24 +137,20 @@ bool solve_backtracking_c(IntegerMatrix sudoku_df, IntegerVector empties) {
   int index = empties[0];
   NumericVector can_be_here;
   can_be_here = can_bes_getter_index_c(sudoku_df, index);
-  
   int options_length = can_be_here.size();
   
   for(int i = 0; i < options_length; i++) {
     
     sudoku_df(index, 0) = can_be_here[i];
-    
     IntegerVector empties2;
     int n = empties.size();
     
     for(int j = 1; j < n; j++) {
       empties2.push_back(empties[j]);
     }
-    
     if(solve_backtracking_c(sudoku_df, empties2)) {
       return true;
     }
-    
     sudoku_df(index, 0) = NA_INTEGER;
   }
   return false;

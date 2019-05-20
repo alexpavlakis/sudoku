@@ -39,7 +39,7 @@ devtools<span class="op">::</span><span class="kw">install_github</span>(<span c
 <li><code>verbose</code>: <code>TRUE</code> if you want the function to print intermediate steps (defaults to <code>FALSE</code>)</li>
 </ul>
 <p><code>check_integrity</code> will tell you if a puzzle is completed correctly.</p>
-<p>solve sudoku first attempts to solve the sudoku with basic sudoku logic. If this does not work, it uses a backtracking algorithm to find a solution (if one exists).</p>
+<p>solve sudoku first attempts to solve the sudoku with basic sudoku logic. If this does not work, it uses a backtracking algorithm to find a solution (if one exists). Core functions (such as backtracking) are written in C++ for speed.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># An unsolved puzzle</span>
 <span class="kw">print</span>(sudoku)
 <span class="co">#&gt;       V1 V2 V3 V4 V5 V6 V7 V8 V9</span>
@@ -71,10 +71,10 @@ solved_puzzle &lt;-<span class="st"> </span><span class="kw">solve_sudoku</span>
 <span class="co"># Check that it is correct</span>
 <span class="kw">check_integrity</span>(solved_puzzle)
 <span class="co">#&gt; [1] TRUE</span></code></pre></div>
-<p><code>solve_sudoku</code> solves sudokus in the blink of an eye. The example below shows the time taken to solve an easy puzzle (49 empty cells) and a hard puzzle (59 empty cells). The easy puzzle is solved in 20-30 milliseconds and the hard puzzle is solved in less than half a second.</p>
+<p><code>solve_sudoku</code> completes puzzles in the blink of an eye. The example below shows the time taken to solve an easy puzzle (49 empty cells) and a hard puzzle (59 empty cells). The easy puzzle is solved in 20-30 milliseconds and the hard puzzle is solved in less than half a second.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Easy puzzle - 49 empty cells</span>
-<span class="kw">sum</span>(<span class="op">!</span><span class="kw">is.na</span>(sudoku))
-<span class="co">#&gt; [1] 32</span>
+<span class="kw">sum</span>(<span class="kw">is.na</span>(sudoku))
+<span class="co">#&gt; [1] 49</span>
 <span class="kw">print</span>(sudoku)
 <span class="co">#&gt;       V1 V2 V3 V4 V5 V6 V7 V8 V9</span>
 <span class="co">#&gt;  [1,]  2  1 NA NA NA NA NA NA NA</span>
@@ -88,8 +88,8 @@ solved_puzzle &lt;-<span class="st"> </span><span class="kw">solve_sudoku</span>
 <span class="co">#&gt;  [9,] NA NA NA NA NA NA NA  8  9</span>
 
 <span class="co"># Hard Puzzle - 59 empty cells</span>
-<span class="kw">sum</span>(<span class="op">!</span><span class="kw">is.na</span>(hard_sudoku))
-<span class="co">#&gt; [1] 22</span>
+<span class="kw">sum</span>(<span class="kw">is.na</span>(hard_sudoku))
+<span class="co">#&gt; [1] 59</span>
 <span class="kw">print</span>(hard_sudoku)
 <span class="co">#&gt;       V1 V2 V3 V4 V5 V6 V7 V8 V9</span>
 <span class="co">#&gt;  [1,]  8  7 NA  5 NA NA NA NA  3</span>
@@ -108,8 +108,8 @@ m &lt;-<span class="st"> </span><span class="kw">microbenchmark</span>(<span cla
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(m, <span class="dt">digits =</span> <span class="dv">3</span>)
 <span class="co">#&gt; Unit: seconds</span>
 <span class="co">#&gt;  expr    min     lq   mean median     uq    max neval</span>
-<span class="co">#&gt;  easy 0.0201 0.0212 0.0239 0.0245 0.0254 0.0351   100</span>
-<span class="co">#&gt;  hard 0.3795 0.3948 0.4074 0.4011 0.4080 0.5100   100</span></code></pre></div>
+<span class="co">#&gt;  easy 0.0203 0.0217 0.0252 0.0231 0.0262 0.0873   100</span>
+<span class="co">#&gt;  hard 0.3904 0.4098 0.4567 0.4289 0.4703 0.7834   100</span></code></pre></div>
 
 </body>
 </html>

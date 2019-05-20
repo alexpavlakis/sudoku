@@ -9,14 +9,13 @@ solve_sudoku(sudoku_matrix, verbose = FALSE)
 \arguments{
 \item{sudoku_matrix}{an unsolved sudoku, in matrix form, with NA values for empty cells}
 
-\item{verbose}{set to TRUE if you want to print intermediate steps.  Default is FALSE.  Note, setting it to TRUE can increase the time to complete by up to a factor of 10 if backtracking is necessary.}
-
-\item{attempts}{if the program cannot solve with only logic, it will make educated guesses.  How many attempt should it make with educated guesses before giving up?}
+\item{verbose}{set to TRUE if you want to print intermediate steps.  Default is FALSE.}
 }
 \description{
-This function allows you to solve a sudoku puzzle
+This function solves sudoku puzzles.
 }
 \examples{
-solved_puzzle <- solve_sudoku(sudoku)
-solved_puzzle_2 <- solve_sudoku(sudoku2)
+print(sudoku)
+solved_sudoku <- solve_sudoku(sudoku)
+print(solved_sudoku)
 }
