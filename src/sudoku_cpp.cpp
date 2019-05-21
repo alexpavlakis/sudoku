@@ -109,9 +109,9 @@ List cant_bes_getter_c(IntegerMatrix sudoku_df) {
       for(int j = 0; j < n; j++) {
         if(sudoku_df(j, 1) == row) {
           x.push_back(sudoku_df(j, 0));
-        } if(sudoku_df(j, 2) == col) {
+        } else if(sudoku_df(j, 2) == col) {
           x.push_back(sudoku_df(j, 0));
-        } if(sudoku_df(j, 3) == box) {
+        } else if(sudoku_df(j, 3) == box) {
           x.push_back(sudoku_df(j, 0));
         }
       }
@@ -142,12 +142,9 @@ bool solve_backtracking_c(IntegerMatrix sudoku_df, IntegerVector empties) {
   for(int i = 0; i < options_length; i++) {
     
     sudoku_df(index, 0) = can_be_here[i];
-    IntegerVector empties2;
-    int n = empties.size();
+    IntegerVector empties2 = empties;
+    empties2.erase(0);
     
-    for(int j = 1; j < n; j++) {
-      empties2.push_back(empties[j]);
-    }
     if(solve_backtracking_c(sudoku_df, empties2)) {
       return true;
     }
