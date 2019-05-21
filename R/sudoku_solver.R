@@ -2,7 +2,9 @@
 #'
 #' This function solves sudoku puzzles.
 #' @param sudoku_matrix an unsolved sudoku, in matrix form, with NA values for empty cells
-#' @param verbose set to TRUE if you want to print intermediate steps.  Default is FALSE. 
+#' @param verbose set to TRUE if you want to print intermediate steps.  Default is FALSE. Note that setting to TRUE can increase the time it takes to solve a puzzle by an order of magnitude.
+#' @useDynLib sudoku, .registration = TRUE
+#' @importFrom Rcpp sourceCpp
 #' @export
 #' @examples
 #' print(sudoku)
@@ -22,7 +24,7 @@ solve_sudoku <- function(sudoku_matrix, verbose = FALSE) {
   # IF that doesn't work, try backtracking
   if(!check_integrity_c(sudoku_df)) {
     empties <- which(is.na(sudoku_df[, 1]))
-    solve_backtracking_c(sudoku_df, empties-1)
+    solve_backtracking_c(sudoku_df, empties-1, verbose)
   }
     
   if(!check_integrity(sudoku_df)) {

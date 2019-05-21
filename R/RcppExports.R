@@ -21,8 +21,8 @@ cant_bes_getter_c <- function(sudoku_df) {
     .Call(`_sudoku_cant_bes_getter_c`, sudoku_df)
 }
 
-solve_backtracking_c <- function(sudoku_df, empties) {
-    .Call(`_sudoku_solve_backtracking_c`, sudoku_df, empties)
+solve_backtracking_c <- function(sudoku_df, empties, verbose) {
+    .Call(`_sudoku_solve_backtracking_c`, sudoku_df, empties, verbose)
 }
 
 check_integrity_c <- function(sudoku_df) {

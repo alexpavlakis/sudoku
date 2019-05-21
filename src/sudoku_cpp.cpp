@@ -126,7 +126,7 @@ List cant_bes_getter_c(IntegerMatrix sudoku_df) {
 
 
 // [[Rcpp::export]]
-bool solve_backtracking_c(IntegerMatrix sudoku_df, IntegerVector empties) {
+bool solve_backtracking_c(IntegerMatrix sudoku_df, IntegerVector empties, bool verbose) {
   
   int n = empties.size();
   
@@ -145,7 +145,13 @@ bool solve_backtracking_c(IntegerMatrix sudoku_df, IntegerVector empties) {
     IntegerVector empties2 = empties;
     empties2.erase(0);
     
-    if(solve_backtracking_c(sudoku_df, empties2)) {
+    if(verbose) {
+      IntegerVector smat = sudoku_df(_, 0);
+      smat.attr("dim") = Dimension(9, 9);
+      print(smat);
+    }
+    
+    if(solve_backtracking_c(sudoku_df, empties2, verbose)) {
       return true;
     }
     sudoku_df(index, 0) = NA_INTEGER;
