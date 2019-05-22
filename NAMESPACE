@@ -3,6 +3,7 @@
 export(as_sudoku_df)
 export(check_integrity)
 export(logical_solver)
+export(print_sudoku)
 export(solve_sudoku)
 importFrom(Rcpp,sourceCpp)
 useDynLib(sudoku, .registration = TRUE)

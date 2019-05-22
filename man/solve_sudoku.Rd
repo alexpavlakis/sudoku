@@ -9,7 +9,7 @@ solve_sudoku(sudoku_matrix, verbose = FALSE)
 \arguments{
 \item{sudoku_matrix}{an unsolved sudoku, in matrix form, with NA values for empty cells}
 
-\item{verbose}{set to TRUE if you want to print intermediate steps.  Default is FALSE.}
+\item{verbose}{set to TRUE if you want to print intermediate steps.  Default is FALSE. Note that setting to TRUE can increase the time it takes to solve a puzzle by an order of magnitude.}
 }
 \description{
 This function solves sudoku puzzles.

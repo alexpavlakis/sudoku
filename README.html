@@ -41,74 +41,90 @@ devtools<span class="op">::</span><span class="kw">install_github</span>(<span c
 <p><code>check_integrity</code> will tell you if a puzzle is completed correctly.</p>
 <p>solve sudoku first attempts to solve the sudoku with basic sudoku logic. If this does not work, it uses a backtracking algorithm to find a solution (if one exists). Core functions (such as backtracking) are written in C++ for speed.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># An unsolved puzzle</span>
-<span class="kw">print</span>(sudoku)
-<span class="co">#&gt;       V1 V2 V3 V4 V5 V6 V7 V8 V9</span>
-<span class="co">#&gt;  [1,]  2  1 NA NA NA NA NA NA NA</span>
-<span class="co">#&gt;  [2,]  4 NA  8 NA NA  1 NA  2 NA</span>
-<span class="co">#&gt;  [3,] NA  6  5 NA  2 NA NA NA  4</span>
-<span class="co">#&gt;  [4,] NA NA  2  5 NA  3 NA  9 NA</span>
-<span class="co">#&gt;  [5,]  8 NA  7 NA NA NA  5 NA  2</span>
-<span class="co">#&gt;  [6,] NA  5 NA  2 NA  4  7 NA NA</span>
-<span class="co">#&gt;  [7,]  5 NA NA NA  1 NA  4  7 NA</span>
-<span class="co">#&gt;  [8,] NA  2 NA  7 NA NA  6 NA  1</span>
-<span class="co">#&gt;  [9,] NA NA NA NA NA NA NA  8  9</span>
+<span class="kw">print_sudoku</span>(sudoku)
+<span class="co">#&gt;                           </span>
+<span class="co">#&gt;  + - - - + - - - + - - - +</span>
+<span class="co">#&gt;  | 2 1   |       |       |</span>
+<span class="co">#&gt;  | 4   8 |     1 |   2   |</span>
+<span class="co">#&gt;  |   6 5 |   2   |     4 |</span>
+<span class="co">#&gt;  + - - - + - - - + - - - +</span>
+<span class="co">#&gt;  |     2 | 5   3 |   9   |</span>
+<span class="co">#&gt;  | 8   7 |       | 5   2 |</span>
+<span class="co">#&gt;  |   5   | 2   4 | 7     |</span>
+<span class="co">#&gt;  + - - - + - - - + - - - +</span>
+<span class="co">#&gt;  | 5     |   1   | 4 7   |</span>
+<span class="co">#&gt;  |   2   | 7     | 6   1 |</span>
+<span class="co">#&gt;  |       |       |   8 9 |</span>
+<span class="co">#&gt;  + - - - + - - - + - - - +</span>
 
 <span class="co"># Solve</span>
 solved_puzzle &lt;-<span class="st"> </span><span class="kw">solve_sudoku</span>(sudoku)
-<span class="kw">print</span>(solved_puzzle)
-<span class="co">#&gt;       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9]</span>
-<span class="co">#&gt;  [1,]    2    1    3    8    4    7    9    6    5</span>
-<span class="co">#&gt;  [2,]    4    9    8    6    5    1    3    2    7</span>
-<span class="co">#&gt;  [3,]    7    6    5    3    2    9    8    1    4</span>
-<span class="co">#&gt;  [4,]    6    4    2    5    7    3    1    9    8</span>
-<span class="co">#&gt;  [5,]    8    3    7    1    9    6    5    4    2</span>
-<span class="co">#&gt;  [6,]    1    5    9    2    8    4    7    3    6</span>
-<span class="co">#&gt;  [7,]    5    8    6    9    1    2    4    7    3</span>
-<span class="co">#&gt;  [8,]    9    2    4    7    3    8    6    5    1</span>
-<span class="co">#&gt;  [9,]    3    7    1    4    6    5    2    8    9</span>
+<span class="kw">print_sudoku</span>(solved_puzzle)
+<span class="co">#&gt;                           </span>
+<span class="co">#&gt;  + - - - + - - - + - - - +</span>
+<span class="co">#&gt;  | 2 1 3 | 8 4 7 | 9 6 5 |</span>
+<span class="co">#&gt;  | 4 9 8 | 6 5 1 | 3 2 7 |</span>
+<span class="co">#&gt;  | 7 6 5 | 3 2 9 | 8 1 4 |</span>
+<span class="co">#&gt;  + - - - + - - - + - - - +</span>
+<span class="co">#&gt;  | 6 4 2 | 5 7 3 | 1 9 8 |</span>
+<span class="co">#&gt;  | 8 3 7 | 1 9 6 | 5 4 2 |</span>
+<span class="co">#&gt;  | 1 5 9 | 2 8 4 | 7 3 6 |</span>
+<span class="co">#&gt;  + - - - + - - - + - - - +</span>
+<span class="co">#&gt;  | 5 8 6 | 9 1 2 | 4 7 3 |</span>
+<span class="co">#&gt;  | 9 2 4 | 7 3 8 | 6 5 1 |</span>
+<span class="co">#&gt;  | 3 7 1 | 4 6 5 | 2 8 9 |</span>
+<span class="co">#&gt;  + - - - + - - - + - - - +</span>
 
 <span class="co"># Check that it is correct</span>
 <span class="kw">check_integrity</span>(solved_puzzle)
 <span class="co">#&gt; [1] TRUE</span></code></pre></div>
-<p><code>solve_sudoku</code> completes puzzles in the blink of an eye. The example below shows the time taken to solve an easy puzzle (49 empty cells) and a hard puzzle (59 empty cells). The easy puzzle is solved in 20-30 milliseconds and the hard puzzle is solved in less than half a second.</p>
+<p><code>solve_sudoku</code> completes puzzles in the blink of an eye. The example below shows the time taken to solve an easy puzzle (49 empty cells) and a hard puzzle (59 empty cells). The easy puzzle is solved in ~20 milliseconds and the hard puzzle is solved in less than half on a MacBook Air.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Easy puzzle - 49 empty cells</span>
 <span class="kw">sum</span>(<span class="kw">is.na</span>(sudoku))
 <span class="co">#&gt; [1] 49</span>
-<span class="kw">print</span>(sudoku)
-<span class="co">#&gt;       V1 V2 V3 V4 V5 V6 V7 V8 V9</span>
-<span class="co">#&gt;  [1,]  2  1 NA NA NA NA NA NA NA</span>
-<span class="co">#&gt;  [2,]  4 NA  8 NA NA  1 NA  2 NA</span>
-<span class="co">#&gt;  [3,] NA  6  5 NA  2 NA NA NA  4</span>
-<span class="co">#&gt;  [4,] NA NA  2  5 NA  3 NA  9 NA</span>
-<span class="co">#&gt;  [5,]  8 NA  7 NA NA NA  5 NA  2</span>
-<span class="co">#&gt;  [6,] NA  5 NA  2 NA  4  7 NA NA</span>
-<span class="co">#&gt;  [7,]  5 NA NA NA  1 NA  4  7 NA</span>
-<span class="co">#&gt;  [8,] NA  2 NA  7 NA NA  6 NA  1</span>
-<span class="co">#&gt;  [9,] NA NA NA NA NA NA NA  8  9</span>
+<span class="kw">print_sudoku</span>(sudoku)
+<span class="co">#&gt;                           </span>
+<span class="co">#&gt;  + - - - + - - - + - - - +</span>
+<span class="co">#&gt;  | 2 1   |       |       |</span>
+<span class="co">#&gt;  | 4   8 |     1 |   2   |</span>
+<span class="co">#&gt;  |   6 5 |   2   |     4 |</span>
+<span class="co">#&gt;  + - - - + - - - + - - - +</span>
+<span class="co">#&gt;  |     2 | 5   3 |   9   |</span>
+<span class="co">#&gt;  | 8   7 |       | 5   2 |</span>
+<span class="co">#&gt;  |   5   | 2   4 | 7     |</span>
+<span class="co">#&gt;  + - - - + - - - + - - - +</span>
+<span class="co">#&gt;  | 5     |   1   | 4 7   |</span>
+<span class="co">#&gt;  |   2   | 7     | 6   1 |</span>
+<span class="co">#&gt;  |       |       |   8 9 |</span>
+<span class="co">#&gt;  + - - - + - - - + - - - +</span>
 
 <span class="co"># Hard Puzzle - 59 empty cells</span>
 <span class="kw">sum</span>(<span class="kw">is.na</span>(hard_sudoku))
 <span class="co">#&gt; [1] 59</span>
-<span class="kw">print</span>(hard_sudoku)
-<span class="co">#&gt;       V1 V2 V3 V4 V5 V6 V7 V8 V9</span>
-<span class="co">#&gt;  [1,]  8  7 NA  5 NA NA NA NA  3</span>
-<span class="co">#&gt;  [2,] NA NA NA NA NA  8 NA NA  7</span>
-<span class="co">#&gt;  [3,] NA NA NA NA  4 NA NA NA NA</span>
-<span class="co">#&gt;  [4,] NA NA  9 NA NA NA NA NA NA</span>
-<span class="co">#&gt;  [5,] NA  8 NA  7 NA NA NA  1  6</span>
-<span class="co">#&gt;  [6,] NA NA  2 NA  8  6 NA NA NA</span>
-<span class="co">#&gt;  [7,]  2 NA NA NA NA NA NA NA NA</span>
-<span class="co">#&gt;  [8,] NA  5 NA  1 NA NA  2  3 NA</span>
-<span class="co">#&gt;  [9,] NA  9  6 NA NA NA NA NA NA</span></code></pre></div>
+<span class="kw">print_sudoku</span>(hard_sudoku)
+<span class="co">#&gt;                           </span>
+<span class="co">#&gt;  + - - - + - - - + - - - +</span>
+<span class="co">#&gt;  | 8 7   | 5     |     3 |</span>
+<span class="co">#&gt;  |       |     8 |     7 |</span>
+<span class="co">#&gt;  |       |   4   |       |</span>
+<span class="co">#&gt;  + - - - + - - - + - - - +</span>
+<span class="co">#&gt;  |     9 |       |       |</span>
+<span class="co">#&gt;  |   8   | 7     |   1 6 |</span>
+<span class="co">#&gt;  |     2 |   8 6 |       |</span>
+<span class="co">#&gt;  + - - - + - - - + - - - +</span>
+<span class="co">#&gt;  | 2     |       |       |</span>
+<span class="co">#&gt;  |   5   | 1     | 2 3   |</span>
+<span class="co">#&gt;  |   9 6 |       |       |</span>
+<span class="co">#&gt;  + - - - + - - - + - - - +</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(microbenchmark)
 m &lt;-<span class="st"> </span><span class="kw">microbenchmark</span>(<span class="dt">easy =</span> <span class="kw">solve_sudoku</span>(sudoku),
                     <span class="dt">hard =</span> <span class="kw">solve_sudoku</span>(hard_sudoku), 
                     <span class="dt">times =</span> <span class="dv">100</span>, <span class="dt">unit =</span> <span class="st">'s'</span>)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(m, <span class="dt">digits =</span> <span class="dv">3</span>)
 <span class="co">#&gt; Unit: seconds</span>
-<span class="co">#&gt;  expr    min     lq   mean median     uq   max neval</span>
-<span class="co">#&gt;  easy 0.0209 0.0216 0.0246 0.0224 0.0255 0.140   100</span>
-<span class="co">#&gt;  hard 0.3803 0.3892 0.4021 0.3941 0.3989 0.528   100</span></code></pre></div>
+<span class="co">#&gt;  expr    min     lq   mean median     uq    max neval</span>
+<span class="co">#&gt;  easy 0.0206 0.0221 0.0247 0.0236 0.0268 0.0348   100</span>
+<span class="co">#&gt;  hard 0.3715 0.3978 0.4262 0.4132 0.4429 0.6217   100</span></code></pre></div>
 
 </body>
 </html>
