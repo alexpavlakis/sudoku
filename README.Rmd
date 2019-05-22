@@ -39,11 +39,11 @@ solve sudoku first attempts to solve the sudoku with basic sudoku logic.  If thi
 
 ```{r, puzzle}
 # An unsolved puzzle
-print(sudoku)
+print_sudoku(sudoku)
 
 # Solve
 solved_puzzle <- solve_sudoku(sudoku)
-print(solved_puzzle)
+print_sudoku(solved_puzzle)
 
 # Check that it is correct
 check_integrity(solved_puzzle)
@@ -54,11 +54,11 @@ check_integrity(solved_puzzle)
 ```{r showpuzzles}
 # Easy puzzle - 49 empty cells
 sum(is.na(sudoku))
-print(sudoku)
+print_sudoku(sudoku)
 
 # Hard Puzzle - 59 empty cells
 sum(is.na(hard_sudoku))
-print(hard_sudoku)
+print_sudoku(hard_sudoku)
 
 ```
 ```{r rmb, warning=F, message=F, results=F}

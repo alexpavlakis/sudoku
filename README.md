@@ -29,31 +29,39 @@ solve sudoku first attempts to solve the sudoku with basic sudoku logic. If this
 
 ``` r
 # An unsolved puzzle
-print(sudoku)
-#>       V1 V2 V3 V4 V5 V6 V7 V8 V9
-#>  [1,]  2  1 NA NA NA NA NA NA NA
-#>  [2,]  4 NA  8 NA NA  1 NA  2 NA
-#>  [3,] NA  6  5 NA  2 NA NA NA  4
-#>  [4,] NA NA  2  5 NA  3 NA  9 NA
-#>  [5,]  8 NA  7 NA NA NA  5 NA  2
-#>  [6,] NA  5 NA  2 NA  4  7 NA NA
-#>  [7,]  5 NA NA NA  1 NA  4  7 NA
-#>  [8,] NA  2 NA  7 NA NA  6 NA  1
-#>  [9,] NA NA NA NA NA NA NA  8  9
+print_sudoku(sudoku)
+#>                           
+#>  + - - - + - - - + - - - +
+#>  | 2 1   |       |       |
+#>  | 4   8 |     1 |   2   |
+#>  |   6 5 |   2   |     4 |
+#>  + - - - + - - - + - - - +
+#>  |     2 | 5   3 |   9   |
+#>  | 8   7 |       | 5   2 |
+#>  |   5   | 2   4 | 7     |
+#>  + - - - + - - - + - - - +
+#>  | 5     |   1   | 4 7   |
+#>  |   2   | 7     | 6   1 |
+#>  |       |       |   8 9 |
+#>  + - - - + - - - + - - - +
 
 # Solve
 solved_puzzle <- solve_sudoku(sudoku)
-print(solved_puzzle)
-#>       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9]
-#>  [1,]    2    1    3    8    4    7    9    6    5
-#>  [2,]    4    9    8    6    5    1    3    2    7
-#>  [3,]    7    6    5    3    2    9    8    1    4
-#>  [4,]    6    4    2    5    7    3    1    9    8
-#>  [5,]    8    3    7    1    9    6    5    4    2
-#>  [6,]    1    5    9    2    8    4    7    3    6
-#>  [7,]    5    8    6    9    1    2    4    7    3
-#>  [8,]    9    2    4    7    3    8    6    5    1
-#>  [9,]    3    7    1    4    6    5    2    8    9
+print_sudoku(solved_puzzle)
+#>                           
+#>  + - - - + - - - + - - - +
+#>  | 2 1 3 | 8 4 7 | 9 6 5 |
+#>  | 4 9 8 | 6 5 1 | 3 2 7 |
+#>  | 7 6 5 | 3 2 9 | 8 1 4 |
+#>  + - - - + - - - + - - - +
+#>  | 6 4 2 | 5 7 3 | 1 9 8 |
+#>  | 8 3 7 | 1 9 6 | 5 4 2 |
+#>  | 1 5 9 | 2 8 4 | 7 3 6 |
+#>  + - - - + - - - + - - - +
+#>  | 5 8 6 | 9 1 2 | 4 7 3 |
+#>  | 9 2 4 | 7 3 8 | 6 5 1 |
+#>  | 3 7 1 | 4 6 5 | 2 8 9 |
+#>  + - - - + - - - + - - - +
 
 # Check that it is correct
 check_integrity(solved_puzzle)
@@ -66,32 +74,40 @@ check_integrity(solved_puzzle)
 # Easy puzzle - 49 empty cells
 sum(is.na(sudoku))
 #> [1] 49
-print(sudoku)
-#>       V1 V2 V3 V4 V5 V6 V7 V8 V9
-#>  [1,]  2  1 NA NA NA NA NA NA NA
-#>  [2,]  4 NA  8 NA NA  1 NA  2 NA
-#>  [3,] NA  6  5 NA  2 NA NA NA  4
-#>  [4,] NA NA  2  5 NA  3 NA  9 NA
-#>  [5,]  8 NA  7 NA NA NA  5 NA  2
-#>  [6,] NA  5 NA  2 NA  4  7 NA NA
-#>  [7,]  5 NA NA NA  1 NA  4  7 NA
-#>  [8,] NA  2 NA  7 NA NA  6 NA  1
-#>  [9,] NA NA NA NA NA NA NA  8  9
+print_sudoku(sudoku)
+#>                           
+#>  + - - - + - - - + - - - +
+#>  | 2 1   |       |       |
+#>  | 4   8 |     1 |   2   |
+#>  |   6 5 |   2   |     4 |
+#>  + - - - + - - - + - - - +
+#>  |     2 | 5   3 |   9   |
+#>  | 8   7 |       | 5   2 |
+#>  |   5   | 2   4 | 7     |
+#>  + - - - + - - - + - - - +
+#>  | 5     |   1   | 4 7   |
+#>  |   2   | 7     | 6   1 |
+#>  |       |       |   8 9 |
+#>  + - - - + - - - + - - - +
 
 # Hard Puzzle - 59 empty cells
 sum(is.na(hard_sudoku))
 #> [1] 59
-print(hard_sudoku)
-#>       V1 V2 V3 V4 V5 V6 V7 V8 V9
-#>  [1,]  8  7 NA  5 NA NA NA NA  3
-#>  [2,] NA NA NA NA NA  8 NA NA  7
-#>  [3,] NA NA NA NA  4 NA NA NA NA
-#>  [4,] NA NA  9 NA NA NA NA NA NA
-#>  [5,] NA  8 NA  7 NA NA NA  1  6
-#>  [6,] NA NA  2 NA  8  6 NA NA NA
-#>  [7,]  2 NA NA NA NA NA NA NA NA
-#>  [8,] NA  5 NA  1 NA NA  2  3 NA
-#>  [9,] NA  9  6 NA NA NA NA NA NA
+print_sudoku(hard_sudoku)
+#>                           
+#>  + - - - + - - - + - - - +
+#>  | 8 7   | 5     |     3 |
+#>  |       |     8 |     7 |
+#>  |       |   4   |       |
+#>  + - - - + - - - + - - - +
+#>  |     9 |       |       |
+#>  |   8   | 7     |   1 6 |
+#>  |     2 |   8 6 |       |
+#>  + - - - + - - - + - - - +
+#>  | 2     |       |       |
+#>  |   5   | 1     | 2 3   |
+#>  |   9 6 |       |       |
+#>  + - - - + - - - + - - - +
 ```
 
 ``` r
@@ -104,7 +120,7 @@ m <- microbenchmark(easy = solve_sudoku(sudoku),
 ``` r
 print(m, digits = 3)
 #> Unit: seconds
-#>  expr    min     lq  mean median     uq    max neval cld
-#>  easy 0.0146 0.0155 0.019 0.0164 0.0205 0.0428   100  a 
-#>  hard 0.1641 0.1781 0.210 0.1905 0.2174 0.4355   100   b
+#>  expr   min     lq   mean median     uq    max neval
+#>  easy 0.021 0.0223 0.0271 0.0246 0.0283 0.0626   100
+#>  hard 0.386 0.4003 0.4644 0.4159 0.4628 0.9541   100
 ```
