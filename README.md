@@ -68,7 +68,7 @@ check_integrity(solved_puzzle)
 #> [1] TRUE
 ```
 
-`solve_sudoku` completes puzzles in the blink of an eye. The example below shows the time taken to solve an easy puzzle (49 empty cells) and a hard puzzle (59 empty cells). The easy puzzle is solved in 10-20 milliseconds and the hard puzzle is solved in 150-200 milliseconds.
+`solve_sudoku` completes puzzles in the blink of an eye. The example below shows the time taken to solve an easy puzzle (49 empty cells) and a hard puzzle (59 empty cells). The easy puzzle is solved in ~20 milliseconds and the hard puzzle is solved in less than half on a MacBook Air.
 
 ``` r
 # Easy puzzle - 49 empty cells
@@ -120,7 +120,7 @@ m <- microbenchmark(easy = solve_sudoku(sudoku),
 ``` r
 print(m, digits = 3)
 #> Unit: seconds
-#>  expr   min     lq   mean median     uq    max neval
-#>  easy 0.021 0.0223 0.0271 0.0246 0.0283 0.0626   100
-#>  hard 0.386 0.4003 0.4644 0.4159 0.4628 0.9541   100
+#>  expr    min     lq   mean median     uq    max neval
+#>  easy 0.0206 0.0221 0.0247 0.0236 0.0268 0.0348   100
+#>  hard 0.3715 0.3978 0.4262 0.4132 0.4429 0.6217   100
 ```
