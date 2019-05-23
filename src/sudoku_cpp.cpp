@@ -161,8 +161,10 @@ bool solve_backtracking_c(IntegerMatrix sudoku_df, IntegerVector empties, bool v
 
 // [[Rcpp::export]]
 bool check_integrity_c(IntegerMatrix sudoku_df) {
+  
+  int n = sudoku_df.size();
  
-  for(int i = 0; i < 81; i++) {
+  for(int i = 0; i < n; i++) {
     IntegerVector res;
     res = can_bes_getter_index_c(sudoku_df, i);
     if(is_false(all(is_na(res))) || sudoku_df(i, 0) == NA_INTEGER) {
@@ -176,8 +178,9 @@ bool check_integrity_c(IntegerMatrix sudoku_df) {
 IntegerMatrix cant_bes_lengths_c(IntegerMatrix sudoku_df, List cant_bes) {
   
   IntegerVector nums = IntegerVector::create(1, 2, 3, 4, 5, 6, 7, 8, 9);
+  int n = sudoku_df.size();
   
-  for(int i = 0; i < 81; i++) {
+  for(int i = 0; i < n; i++) {
     if(sudoku_df(i, 0) == NA_INTEGER) {
       IntegerVector cb;
       cb = cant_bes[i];
