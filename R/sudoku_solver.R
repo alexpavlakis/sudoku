@@ -24,10 +24,6 @@ solve_sudoku <- function(sudoku_matrix, verbose = FALSE) {
   # IF that doesn't work, try backtracking
   if(!check_integrity_c(sudoku_df)) {
     empties <- which(is.na(sudoku_df[, 1]))
-    cant_bes <- cant_bes_getter_c(sudoku_df)
-    cant_bes <- cant_bes[which(!is.na(cant_bes))]
-    l <- unlist(lapply(cant_bes, length))
-    empties <- empties[order(l)]
     solve_backtracking_c(sudoku_df, empties-1, verbose)
   }
     
