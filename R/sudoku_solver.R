@@ -23,8 +23,7 @@ solve_sudoku <- function(sudoku_matrix, verbose = FALSE) {
   
   # IF that doesn't work, try backtracking
   if(!check_integrity_c(sudoku_df)) {
-    empties <- which(is.na(sudoku_df[, 1]))
-    solve_backtracking_c(sudoku_df, empties-1, verbose)
+    solve_backtracking_c(sudoku_df, which(is.na(sudoku_df[, 1]))-1, verbose)
   }
     
   if(!check_integrity(sudoku_df)) {

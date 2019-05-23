@@ -51,13 +51,13 @@ element_checker <- function(sudoku_df, cant_bes,
       possibilities <- vector(mode = "integer", length = 9)
       for(n in 1:9) possibilities[n] <- length(unlist(cant_bes_in)[unlist(cant_bes_in) == n])
       
-      answers <- which(possibilities == open_elements)[!which(possibilities == open_elements) %in% in_already[!is.na(in_already)]]
+      a <- which(possibilities == open_elements)[!which(possibilities == open_elements) %in% in_already[!is.na(in_already)]]
       # Check the answers
-      answers <- answers[answers %in% not_in_box_c(sudoku_df, sudoku_df[i, 4])]
-      answers <- answers[answers %in% not_in_col_c(sudoku_df, sudoku_df[i, 3])]
-      answers <- answers[answers %in% not_in_row_c(sudoku_df, sudoku_df[i, 2])]
-      if(length(answers[!is.na(answers)]) == 1) {
-        sudoku_df[i, 1] <- answers
+      a <- a[a %in% not_in_box_c(sudoku_df, sudoku_df[i, 4])]
+      a <- a[a %in% not_in_col_c(sudoku_df, sudoku_df[i, 3])]
+      a <- a[a %in% not_in_row_c(sudoku_df, sudoku_df[i, 2])]
+      if(length(a[!is.na(a)]) == 1) {
+        sudoku_df[i, 1] <- a
       }  
     }
   }
