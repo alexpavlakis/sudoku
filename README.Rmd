@@ -49,7 +49,7 @@ print_sudoku(solved_puzzle)
 check_integrity(solved_puzzle)
 ```
 
-`solve_sudoku` completes puzzles in the blink of an eye.  The example below shows the time taken to solve an easy puzzle (49 empty cells) and a hard puzzle (59 empty cells).  The easy puzzle is solved in ~20 milliseconds and the hard puzzle is solved in less than half on a MacBook Air.
+`solve_sudoku` completes puzzles in the blink of an eye.  The example below shows the time taken to solve an easy puzzle (49 empty cells) and a hard puzzle (59 empty cells).  The easy puzzle is solved in <20 milliseconds and the hard puzzle is solved in a fraction of a second on a MacBook Air.
 
 ```{r showpuzzles}
 # Easy puzzle - 49 empty cells

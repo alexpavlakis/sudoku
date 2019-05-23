@@ -78,7 +78,7 @@ solved_puzzle &lt;-<span class="st"> </span><span class="kw">solve_sudoku</span>
 <span class="co"># Check that it is correct</span>
 <span class="kw">check_integrity</span>(solved_puzzle)
 <span class="co">#&gt; [1] TRUE</span></code></pre></div>
-<p><code>solve_sudoku</code> completes puzzles in the blink of an eye. The example below shows the time taken to solve an easy puzzle (49 empty cells) and a hard puzzle (59 empty cells). The easy puzzle is solved in ~20 milliseconds and the hard puzzle is solved in less than half on a MacBook Air.</p>
+<p><code>solve_sudoku</code> completes puzzles in the blink of an eye. The example below shows the time taken to solve an easy puzzle (49 empty cells) and a hard puzzle (59 empty cells). The easy puzzle is solved in &lt;20 milliseconds and the hard puzzle is solved in a fraction of a second on a MacBook Air.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Easy puzzle - 49 empty cells</span>
 <span class="kw">sum</span>(<span class="kw">is.na</span>(sudoku))
 <span class="co">#&gt; [1] 49</span>
@@ -122,9 +122,9 @@ m &lt;-<span class="st"> </span><span class="kw">microbenchmark</span>(<span cla
                     <span class="dt">times =</span> <span class="dv">100</span>, <span class="dt">unit =</span> <span class="st">'s'</span>)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(m, <span class="dt">digits =</span> <span class="dv">3</span>)
 <span class="co">#&gt; Unit: seconds</span>
-<span class="co">#&gt;  expr    min     lq   mean median     uq    max neval</span>
-<span class="co">#&gt;  easy 0.0206 0.0221 0.0247 0.0236 0.0268 0.0348   100</span>
-<span class="co">#&gt;  hard 0.3715 0.3978 0.4262 0.4132 0.4429 0.6217   100</span></code></pre></div>
+<span class="co">#&gt;  expr    min    lq   mean median     uq   max neval</span>
+<span class="co">#&gt;  easy 0.0123 0.013 0.0155 0.0139 0.0163 0.031   100</span>
+<span class="co">#&gt;  hard 0.1795 0.187 0.2000 0.1935 0.1994 0.298   100</span></code></pre></div>
 
 </body>
 </html>

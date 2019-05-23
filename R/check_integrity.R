@@ -9,19 +9,14 @@
 
 check_integrity <- function(sudoku_df) {
   
-  if(nrow(sudoku_df) == 9) {
-    sudoku_df <- as_sudoku_df(sudoku_df)
-  }
+  if(nrow(sudoku_df) == 9) sudoku_df <- as_sudoku_df(sudoku_df)
+  if(any(is.na(sudoku_df[, 1]))) return(FALSE)
   
-  rows_good <- vector('logical', 9)
-  cols_good <- vector('logical', 9)
-  boxes_good <- vector('logical', 9)
-  suppressWarnings(
-    for(i in 1:9) {
-      rows_good[i] <- all(sort(sudoku_df[sudoku_df[, 2] == i, 1]) == c(1:9)) 
-      cols_good[i] <- all(sort(sudoku_df[sudoku_df[, 3] == i, 1]) == c(1:9)) 
-      boxes_good[i] <- all(sort(sudoku_df[sudoku_df[, 4] == i, 1]) == c(1:9)) 
-    } 
-  )
-  return(all(rows_good, cols_good, boxes_good))
+  check_integrity_c(sudoku_df, c(1L:9L))
 }
+
+
+
+
+
+

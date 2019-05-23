@@ -14,20 +14,21 @@ logical_solver <- function(sudoku_df, verbose) {
   while(empty_start != empty_finish) {
     empty_start <- sum(is.na(sudoku_df[, 1]))
     # If there's only one option, it's that
-    sudoku_df <- cant_bes_lengths_c(sudoku_df, cant_bes_getter_c(sudoku_df = sudoku_df))
+    sudoku_df <- cant_bes_lengths_c(sudoku_df, cant_bes_getter_c(sudoku_df), nums)
     # Can't be in box
-    sudoku_df <- element_checker(sudoku_df, cant_bes_getter_c(sudoku_df = sudoku_df), 4)
+    sudoku_df <- element_checker(sudoku_df, cant_bes_getter_c(sudoku_df), 4)
     # Can't be in row
-    sudoku_df <- element_checker(sudoku_df,cant_bes_getter_c(sudoku_df = sudoku_df), 2)
+    sudoku_df <- element_checker(sudoku_df, cant_bes_getter_c(sudoku_df), 2)
     # Can't be in col
-    sudoku_df <- element_checker(sudoku_df, cant_bes_getter_c(sudoku_df = sudoku_df), 3)
-    sudoku_df <- cant_bes_lengths_c(sudoku_df,cant_bes_getter_c(sudoku_df = sudoku_df))
+    sudoku_df <- element_checker(sudoku_df, cant_bes_getter_c(sudoku_df), 3)
+    sudoku_df <- cant_bes_lengths_c(sudoku_df, cant_bes_getter_c(sudoku_df), nums)
+    
+    empty_finish <- sum(is.na(sudoku_df[, 1]))
     
     # Convert back to matrix and show
     if(verbose) {
       print(matrix(sudoku_df[, 1], nrow = 9, ncol = 9)) 
     }
-    empty_finish <- sum(is.na(sudoku_df[, 1]))
   }
   return(sudoku_df)
 }
@@ -53,9 +54,11 @@ element_checker <- function(sudoku_df, cant_bes,
       
       a <- which(possibilities == open_elements)[!which(possibilities == open_elements) %in% in_already[!is.na(in_already)]]
       # Check the answers
-      a <- a[a %in% not_in_box_c(sudoku_df, sudoku_df[i, 4])]
-      a <- a[a %in% not_in_col_c(sudoku_df, sudoku_df[i, 3])]
-      a <- a[a %in% not_in_row_c(sudoku_df, sudoku_df[i, 2])]
+      if(length(a) > 0) {
+        a <- a[a %in% not_in_box_c(sudoku_df, sudoku_df[i, 4], nums)]
+        a <- a[a %in% not_in_col_c(sudoku_df, sudoku_df[i, 3], nums)]
+        a <- a[a %in% not_in_row_c(sudoku_df, sudoku_df[i, 2], nums)]
+      }
       if(length(a[!is.na(a)]) == 1) {
         sudoku_df[i, 1] <- a
       }  
