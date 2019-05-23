@@ -73,9 +73,9 @@ IntegerVector can_bes_getter_index_c(IntegerMatrix sudoku_df, int index) {
     IntegerVector nums = IntegerVector::create(1, 2, 3, 4, 5, 6, 7, 8, 9);
     
     for(int i=0; i < n; i++) {
-      if(sudoku_df(i, 1) == row) {
+      if(sudoku_df(i, 1) == row & sudoku_df(i, 0) != NA_INTEGER) {
         x.push_back(sudoku_df(i, 0));
-      } else if(sudoku_df(i, 2) == col) {
+      } else if(sudoku_df(i, 2) == col ) {
         x.push_back(sudoku_df(i, 0));
       } else if(sudoku_df(i, 3) == box) {
         x.push_back(sudoku_df(i, 0));
@@ -189,4 +189,5 @@ IntegerMatrix cant_bes_lengths_c(IntegerMatrix sudoku_df, List cant_bes) {
   }
   return sudoku_df;
 }
+
 
