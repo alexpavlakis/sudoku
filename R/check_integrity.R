@@ -14,9 +14,3 @@ check_integrity <- function(sudoku_df) {
   
   check_integrity_c(sudoku_df, c(1L:9L))
 }
-
-
-
-
-
-
