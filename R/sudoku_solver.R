@@ -20,7 +20,7 @@ solve_sudoku <- function(sudoku_matrix, verbose = FALSE) {
   # Attempt to solve with logic
   nums <- c(1L:9L)
   sudoku_df <- logical_solver(sudoku_df = as_sudoku_df(sudoku_matrix = sudoku_matrix),
-                              verbose   = verbose)
+                              verbose   = verbose, nums)
   
   # IF that doesn't work, try backtracking
   if(!check_integrity(sudoku_df)) {

@@ -3,16 +3,17 @@
 #' This function attempt to solve a sudoku logically
 #' @param sudoku_df an unsolved sudoku, in dataframe form.
 #' @param verbose set to TRUE if you want to print intermediate steps.  Default is FALSE.
+#' @param nums numbers 1:9
 #' 
 #' @useDynLib sudoku, .registration = TRUE
 #' @importFrom Rcpp sourceCpp
 #' @export
 
-logical_solver <- function(sudoku_df, verbose) {
+logical_solver <- function(sudoku_df, verbose, nums) {
   empty_start <- 1
   empty_finish <- 0
-  while(empty_start != empty_finish) {
-    empty_start <- sum(is.na(sudoku_df[, 1]))
+  while(empty_start != empty_finish & sum(is.na(sudoku_df)) > 0) {
+    empty_start <- sum(is.na(sudoku_df))
     # If there's only one option, it's that
     sudoku_df <- cant_bes_lengths_c(sudoku_df, cant_bes_getter_c(sudoku_df), nums)
     # Can't be in box
@@ -23,7 +24,7 @@ logical_solver <- function(sudoku_df, verbose) {
     sudoku_df <- element_checker(sudoku_df, cant_bes_getter_c(sudoku_df), 3)
     sudoku_df <- cant_bes_lengths_c(sudoku_df, cant_bes_getter_c(sudoku_df), nums)
     
-    empty_finish <- sum(is.na(sudoku_df[, 1]))
+    empty_finish <- sum(is.na(sudoku_df))
     
     # Convert back to matrix and show
     if(verbose) {
@@ -33,11 +34,11 @@ logical_solver <- function(sudoku_df, verbose) {
   return(sudoku_df)
 }
 
-element_checker <- function(sudoku_df, cant_bes,
+element_checker <- function(sudoku_df, cant_bes, nums,
                             dimension = c(2, 3, 4)) {
   
   # Look over the df and fill in values
-  for(i in 1:nrow(sudoku_df)) {
+  for(i in 1:81) {
     if(is.na(sudoku_df[i, 1])) {
       # Which idices are in the same value of dimension?
       in_index <- which(sudoku_df[, dimension] == sudoku_df[i, dimension])
@@ -58,10 +59,10 @@ element_checker <- function(sudoku_df, cant_bes,
         a <- a[a %in% not_in_box_c(sudoku_df, sudoku_df[i, 4], nums)]
         a <- a[a %in% not_in_col_c(sudoku_df, sudoku_df[i, 3], nums)]
         a <- a[a %in% not_in_row_c(sudoku_df, sudoku_df[i, 2], nums)]
+        if(length(a[!is.na(a)]) == 1) {
+          sudoku_df[i, 1] <- a
+        }
       }
-      if(length(a[!is.na(a)]) == 1) {
-        sudoku_df[i, 1] <- a
-      }  
     }
   }
   return(sudoku_df)

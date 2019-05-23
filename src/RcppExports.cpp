@@ -6,50 +6,54 @@
 using namespace Rcpp;
 
 // not_in_row_c
-IntegerVector not_in_row_c(IntegerMatrix sudoku_df, int row);
-RcppExport SEXP _sudoku_not_in_row_c(SEXP sudoku_dfSEXP, SEXP rowSEXP) {
+IntegerVector not_in_row_c(IntegerMatrix sudoku_df, int row, IntegerVector nums);
+RcppExport SEXP _sudoku_not_in_row_c(SEXP sudoku_dfSEXP, SEXP rowSEXP, SEXP numsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< IntegerMatrix >::type sudoku_df(sudoku_dfSEXP);
     Rcpp::traits::input_parameter< int >::type row(rowSEXP);
-    rcpp_result_gen = Rcpp::wrap(not_in_row_c(sudoku_df, row));
+    Rcpp::traits::input_parameter< IntegerVector >::type nums(numsSEXP);
+    rcpp_result_gen = Rcpp::wrap(not_in_row_c(sudoku_df, row, nums));
     return rcpp_result_gen;
 END_RCPP
 }
 // not_in_col_c
-IntegerVector not_in_col_c(IntegerMatrix sudoku_df, int col);
-RcppExport SEXP _sudoku_not_in_col_c(SEXP sudoku_dfSEXP, SEXP colSEXP) {
+IntegerVector not_in_col_c(IntegerMatrix sudoku_df, int col, IntegerVector nums);
+RcppExport SEXP _sudoku_not_in_col_c(SEXP sudoku_dfSEXP, SEXP colSEXP, SEXP numsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< IntegerMatrix >::type sudoku_df(sudoku_dfSEXP);
     Rcpp::traits::input_parameter< int >::type col(colSEXP);
-    rcpp_result_gen = Rcpp::wrap(not_in_col_c(sudoku_df, col));
+    Rcpp::traits::input_parameter< IntegerVector >::type nums(numsSEXP);
+    rcpp_result_gen = Rcpp::wrap(not_in_col_c(sudoku_df, col, nums));
     return rcpp_result_gen;
 END_RCPP
 }
 // not_in_box_c
-IntegerVector not_in_box_c(IntegerMatrix sudoku_df, int box);
-RcppExport SEXP _sudoku_not_in_box_c(SEXP sudoku_dfSEXP, SEXP boxSEXP) {
+IntegerVector not_in_box_c(IntegerMatrix sudoku_df, int box, IntegerVector nums);
+RcppExport SEXP _sudoku_not_in_box_c(SEXP sudoku_dfSEXP, SEXP boxSEXP, SEXP numsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< IntegerMatrix >::type sudoku_df(sudoku_dfSEXP);
     Rcpp::traits::input_parameter< int >::type box(boxSEXP);
-    rcpp_result_gen = Rcpp::wrap(not_in_box_c(sudoku_df, box));
+    Rcpp::traits::input_parameter< IntegerVector >::type nums(numsSEXP);
+    rcpp_result_gen = Rcpp::wrap(not_in_box_c(sudoku_df, box, nums));
     return rcpp_result_gen;
 END_RCPP
 }
 // can_bes_getter_index_c
-IntegerVector can_bes_getter_index_c(IntegerMatrix sudoku_df, int index);
-RcppExport SEXP _sudoku_can_bes_getter_index_c(SEXP sudoku_dfSEXP, SEXP indexSEXP) {
+IntegerVector can_bes_getter_index_c(IntegerMatrix sudoku_df, int index, IntegerVector nums);
+RcppExport SEXP _sudoku_can_bes_getter_index_c(SEXP sudoku_dfSEXP, SEXP indexSEXP, SEXP numsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< IntegerMatrix >::type sudoku_df(sudoku_dfSEXP);
     Rcpp::traits::input_parameter< int >::type index(indexSEXP);
-    rcpp_result_gen = Rcpp::wrap(can_bes_getter_index_c(sudoku_df, index));
+    Rcpp::traits::input_parameter< IntegerVector >::type nums(numsSEXP);
+    rcpp_result_gen = Rcpp::wrap(can_bes_getter_index_c(sudoku_df, index, nums));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -65,51 +69,54 @@ BEGIN_RCPP
 END_RCPP
 }
 // solve_backtracking_c
-bool solve_backtracking_c(IntegerMatrix sudoku_df, IntegerVector empties, bool verbose);
-RcppExport SEXP _sudoku_solve_backtracking_c(SEXP sudoku_dfSEXP, SEXP emptiesSEXP, SEXP verboseSEXP) {
+bool solve_backtracking_c(IntegerMatrix sudoku_df, IntegerVector empties, bool verbose, IntegerVector nums);
+RcppExport SEXP _sudoku_solve_backtracking_c(SEXP sudoku_dfSEXP, SEXP emptiesSEXP, SEXP verboseSEXP, SEXP numsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< IntegerMatrix >::type sudoku_df(sudoku_dfSEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type empties(emptiesSEXP);
     Rcpp::traits::input_parameter< bool >::type verbose(verboseSEXP);
-    rcpp_result_gen = Rcpp::wrap(solve_backtracking_c(sudoku_df, empties, verbose));
-    return rcpp_result_gen;
-END_RCPP
-}
-// check_integrity_c
-bool check_integrity_c(IntegerMatrix sudoku_df);
-RcppExport SEXP _sudoku_check_integrity_c(SEXP sudoku_dfSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< IntegerMatrix >::type sudoku_df(sudoku_dfSEXP);
-    rcpp_result_gen = Rcpp::wrap(check_integrity_c(sudoku_df));
+    Rcpp::traits::input_parameter< IntegerVector >::type nums(numsSEXP);
+    rcpp_result_gen = Rcpp::wrap(solve_backtracking_c(sudoku_df, empties, verbose, nums));
     return rcpp_result_gen;
 END_RCPP
 }
 // cant_bes_lengths_c
-IntegerMatrix cant_bes_lengths_c(IntegerMatrix sudoku_df, List cant_bes);
-RcppExport SEXP _sudoku_cant_bes_lengths_c(SEXP sudoku_dfSEXP, SEXP cant_besSEXP) {
+IntegerMatrix cant_bes_lengths_c(IntegerMatrix sudoku_df, List cant_bes, IntegerVector nums);
+RcppExport SEXP _sudoku_cant_bes_lengths_c(SEXP sudoku_dfSEXP, SEXP cant_besSEXP, SEXP numsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< IntegerMatrix >::type sudoku_df(sudoku_dfSEXP);
     Rcpp::traits::input_parameter< List >::type cant_bes(cant_besSEXP);
-    rcpp_result_gen = Rcpp::wrap(cant_bes_lengths_c(sudoku_df, cant_bes));
+    Rcpp::traits::input_parameter< IntegerVector >::type nums(numsSEXP);
+    rcpp_result_gen = Rcpp::wrap(cant_bes_lengths_c(sudoku_df, cant_bes, nums));
+    return rcpp_result_gen;
+END_RCPP
+}
+// check_integrity_c
+bool check_integrity_c(IntegerMatrix sudoku_df, IntegerVector nums);
+RcppExport SEXP _sudoku_check_integrity_c(SEXP sudoku_dfSEXP, SEXP numsSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerMatrix >::type sudoku_df(sudoku_dfSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type nums(numsSEXP);
+    rcpp_result_gen = Rcpp::wrap(check_integrity_c(sudoku_df, nums));
     return rcpp_result_gen;
 END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_sudoku_not_in_row_c", (DL_FUNC) &_sudoku_not_in_row_c, 2},
-    {"_sudoku_not_in_col_c", (DL_FUNC) &_sudoku_not_in_col_c, 2},
-    {"_sudoku_not_in_box_c", (DL_FUNC) &_sudoku_not_in_box_c, 2},
-    {"_sudoku_can_bes_getter_index_c", (DL_FUNC) &_sudoku_can_bes_getter_index_c, 2},
+    {"_sudoku_not_in_row_c", (DL_FUNC) &_sudoku_not_in_row_c, 3},
+    {"_sudoku_not_in_col_c", (DL_FUNC) &_sudoku_not_in_col_c, 3},
+    {"_sudoku_not_in_box_c", (DL_FUNC) &_sudoku_not_in_box_c, 3},
+    {"_sudoku_can_bes_getter_index_c", (DL_FUNC) &_sudoku_can_bes_getter_index_c, 3},
     {"_sudoku_cant_bes_getter_c", (DL_FUNC) &_sudoku_cant_bes_getter_c, 1},
-    {"_sudoku_solve_backtracking_c", (DL_FUNC) &_sudoku_solve_backtracking_c, 3},
-    {"_sudoku_check_integrity_c", (DL_FUNC) &_sudoku_check_integrity_c, 1},
-    {"_sudoku_cant_bes_lengths_c", (DL_FUNC) &_sudoku_cant_bes_lengths_c, 2},
+    {"_sudoku_solve_backtracking_c", (DL_FUNC) &_sudoku_solve_backtracking_c, 4},
+    {"_sudoku_cant_bes_lengths_c", (DL_FUNC) &_sudoku_cant_bes_lengths_c, 3},
+    {"_sudoku_check_integrity_c", (DL_FUNC) &_sudoku_check_integrity_c, 2},
     {NULL, NULL, 0}
 };
 

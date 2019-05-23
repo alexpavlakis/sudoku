@@ -4,12 +4,14 @@
 \alias{logical_solver}
 \title{Sudoko logic}
 \usage{
-logical_solver(sudoku_df, verbose)
+logical_solver(sudoku_df, verbose, nums)
 }
 \arguments{
 \item{sudoku_df}{an unsolved sudoku, in dataframe form.}
 
 \item{verbose}{set to TRUE if you want to print intermediate steps.  Default is FALSE.}
+
+\item{nums}{numbers 1:9}
 }
 \description{
 This function attempt to solve a sudoku logically

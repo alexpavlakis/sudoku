@@ -23,10 +23,4 @@ These are four sample sudokus for testing and experimentation.  s
 \details{
 `sudoku` is a very easy sudoku. `sudoku2` is a somewhat harder sudoku. `hard_sudoku` is a very hard sudoku.  `evil_sudoku` is an extremenly hard sudoku.
 }
-\examples{
-sudoku
-sudoku2
-hard_sudoku
-evil_sudoku
-}
 \keyword{datasets}
