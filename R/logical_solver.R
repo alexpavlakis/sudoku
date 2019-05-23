@@ -13,31 +13,23 @@ logical_solver <- function(sudoku_df, verbose) {
   empty_finish <- 0
   while(empty_start != empty_finish) {
     empty_start <- sum(is.na(sudoku_df[, 1]))
-    
-    # Get all the can't bes!
-    cant_bes <- cant_bes_getter_c(sudoku_df = sudoku_df)
-    
+    # If there's only one option, it's that
     sudoku_df <- cant_bes_lengths_c(sudoku_df = sudoku_df,
-                                    cant_bes = cant_bes)
-    
-    ### WHAT CAN'T BE IN THE BOX
+                                    cant_bes = cant_bes_getter_c(sudoku_df = sudoku_df))
+    # Can't be in box
     sudoku_df <- element_checker(sudoku_df = sudoku_df,
-                                 cant_bes = cant_bes,
+                                 cant_bes = cant_bes_getter_c(sudoku_df = sudoku_df),
                                  dimension = 4)
-    
-    cant_bes <- cant_bes_getter_c(sudoku_df = sudoku_df)
-    
-    ### WHAT CAN'T BE IN THE ROW
+    # Can't be in row
     sudoku_df <- element_checker(sudoku_df = sudoku_df,
-                                 cant_bes = cant_bes,
+                                 cant_bes = cant_bes_getter_c(sudoku_df = sudoku_df),
                                  dimension = 2)
-    
-    cant_bes <- cant_bes_getter_c(sudoku_df = sudoku_df)
-    
-    ### WHAT CAN'T BE IN THE COLUMN
+    # Can't be in col
     sudoku_df <- element_checker(sudoku_df = sudoku_df,
-                                 cant_bes = cant_bes,
+                                 cant_bes = cant_bes_getter_c(sudoku_df = sudoku_df),
                                  dimension = 3)
+    sudoku_df <- cant_bes_lengths_c(sudoku_df = sudoku_df,
+                                    cant_bes = cant_bes_getter_c(sudoku_df = sudoku_df))
     
     # Convert back to matrix and show
     if(verbose) {
@@ -81,4 +73,3 @@ element_checker <- function(sudoku_df, cant_bes,
   }
   return(sudoku_df)
 }
-
