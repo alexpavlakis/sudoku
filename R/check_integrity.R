@@ -13,9 +13,9 @@ check_integrity <- function(sudoku_df) {
     sudoku_df <- as_sudoku_df(sudoku_df)
   }
   
-  rows_good <- NULL
-  cols_good <- NULL
-  boxes_good <- NULL
+  rows_good <- vector('logical', 9)
+  cols_good <- vector('logical', 9)
+  boxes_good <- vector('logical', 9)
   suppressWarnings(
     for(i in 1:9) {
       rows_good[i] <- all(sort(sudoku_df[sudoku_df[, 2] == i, 1]) == c(1:9)) 

@@ -30,8 +30,7 @@ solve_sudoku <- function(sudoku_matrix, verbose = FALSE) {
   if(!check_integrity(sudoku_df)) {
     print('no solution was found')
   } else {
-    out <- matrix(sudoku_df[, 1], nrow = 9, ncol = 9)
-    return(out)
+    return(matrix(sudoku_df[, 1], nrow = 9, ncol = 9))
   }
 }
 

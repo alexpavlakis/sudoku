@@ -6,12 +6,7 @@
 #' `sudoku` is a very easy sudoku. `sudoku2` is a somewhat harder sudoku. `hard_sudoku` is a very hard sudoku.  `evil_sudoku` is an extremenly hard sudoku.
 #' 
 #' @format Each is a matrix with 9 rows and 9 columns.
-#' @examples
-#' sudoku
-#' sudoku2
-#' hard_sudoku
-#' evil_sudoku
-
+#' 
 #' @rdname sudoku
 "sudoku"
 

@@ -14,22 +14,14 @@ logical_solver <- function(sudoku_df, verbose) {
   while(empty_start != empty_finish) {
     empty_start <- sum(is.na(sudoku_df[, 1]))
     # If there's only one option, it's that
-    sudoku_df <- cant_bes_lengths_c(sudoku_df = sudoku_df,
-                                    cant_bes = cant_bes_getter_c(sudoku_df = sudoku_df))
+    sudoku_df <- cant_bes_lengths_c(sudoku_df, cant_bes_getter_c(sudoku_df = sudoku_df))
     # Can't be in box
-    sudoku_df <- element_checker(sudoku_df = sudoku_df,
-                                 cant_bes = cant_bes_getter_c(sudoku_df = sudoku_df),
-                                 dimension = 4)
+    sudoku_df <- element_checker(sudoku_df, cant_bes_getter_c(sudoku_df = sudoku_df), 4)
     # Can't be in row
-    sudoku_df <- element_checker(sudoku_df = sudoku_df,
-                                 cant_bes = cant_bes_getter_c(sudoku_df = sudoku_df),
-                                 dimension = 2)
+    sudoku_df <- element_checker(sudoku_df,cant_bes_getter_c(sudoku_df = sudoku_df), 2)
     # Can't be in col
-    sudoku_df <- element_checker(sudoku_df = sudoku_df,
-                                 cant_bes = cant_bes_getter_c(sudoku_df = sudoku_df),
-                                 dimension = 3)
-    sudoku_df <- cant_bes_lengths_c(sudoku_df = sudoku_df,
-                                    cant_bes = cant_bes_getter_c(sudoku_df = sudoku_df))
+    sudoku_df <- element_checker(sudoku_df, cant_bes_getter_c(sudoku_df = sudoku_df), 3)
+    sudoku_df <- cant_bes_lengths_c(sudoku_df,cant_bes_getter_c(sudoku_df = sudoku_df))
     
     # Convert back to matrix and show
     if(verbose) {
@@ -57,9 +49,7 @@ element_checker <- function(sudoku_df, cant_bes,
       
       # Find those that can't be in as many elements as are open
       possibilities <- vector(mode = "integer", length = 9)
-      for(n in 1:9) {
-        possibilities[n] <- length(unlist(cant_bes_in)[unlist(cant_bes_in) == n])
-      }
+      for(n in 1:9) possibilities[n] <- length(unlist(cant_bes_in)[unlist(cant_bes_in) == n])
       
       answers <- which(possibilities == open_elements)[!which(possibilities == open_elements) %in% in_already[!is.na(in_already)]]
       # Check the answers

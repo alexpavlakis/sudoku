@@ -14,14 +14,13 @@ print_sudoku <- function(sudoku_matrix) {
     stop('sudoku_matrix must be a 9x9 matrix')
   }
   
-  # Spread out the letters
+  # Spread out the letters and fill in
   sdf <- cbind(sudoku_matrix,
                cbind(matrix(rep(rep(NA, 9), 4), ncol = 4)))[,c(10,1:3,11,4:6,12,7:9,13)]
   sdf <- rbind(sdf, 
                rbind(matrix(rep(rep(NA, 13), 4), nrow = 4)))[c(10,1:3,11,4:6,12,7:9,13),]
   sdf <- apply(sdf, 2, function(x) ifelse(is.na(x), '', x))
   
-  # Fill in with dividers
   out <- matrix('', 13, 13)
   for(i in 1:13) {
     for(j in 1:13) {
@@ -36,7 +35,6 @@ print_sudoku <- function(sudoku_matrix) {
       }
     }
   }
-  rownames(out) <- rep('', 13)
-  colnames(out) <- rep('', 13)
+  dimnames(out) <- list(rep('', 13), rep('', 13))
   print(out, quote = F)
 }
