@@ -17,11 +17,11 @@ logical_solver <- function(sudoku_df, verbose, nums) {
     # If there's only one option, it's that
     sudoku_df <- cant_bes_lengths_c(sudoku_df, cant_bes_getter_c(sudoku_df), nums)
     # Can't be in box
-    sudoku_df <- element_checker(sudoku_df, cant_bes_getter_c(sudoku_df), 4)
+    sudoku_df <- element_checker(sudoku_df, cant_bes_getter_c(sudoku_df), nums, 4)
     # Can't be in row
-    sudoku_df <- element_checker(sudoku_df, cant_bes_getter_c(sudoku_df), 2)
+    sudoku_df <- element_checker(sudoku_df, cant_bes_getter_c(sudoku_df), nums, 2)
     # Can't be in col
-    sudoku_df <- element_checker(sudoku_df, cant_bes_getter_c(sudoku_df), 3)
+    sudoku_df <- element_checker(sudoku_df, cant_bes_getter_c(sudoku_df), nums, 3)
     sudoku_df <- cant_bes_lengths_c(sudoku_df, cant_bes_getter_c(sudoku_df), nums)
     
     empty_finish <- sum(is.na(sudoku_df))
@@ -40,7 +40,7 @@ element_checker <- function(sudoku_df, cant_bes, nums,
   # Look over the df and fill in values
   for(i in 1:81) {
     if(is.na(sudoku_df[i, 1])) {
-      # Which idices are in the same value of dimension?
+      # Which indices are in the same value of dimension?
       in_index <- which(sudoku_df[, dimension] == sudoku_df[i, dimension])
       in_index <- in_index[in_index != i]
       in_already <- sudoku_df[, 1][sudoku_df[, dimension] == sudoku_df[i, dimension]]
