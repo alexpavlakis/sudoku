@@ -3,39 +3,24 @@ using namespace Rcpp;
 
 
 // [[Rcpp::export]]
-IntegerVector can_bes_getter_index_c(IntegerMatrix sudoku_df, int index, 
-                                     IntegerVector nums) {
+IntegerVector can_bes_getter_index_c(IntegerMatrix& sudoku_df, int& index, 
+                                     IntegerVector& nums) {
   
-  IntegerVector out;
-  
-  if(sudoku_df(index, 0) == NA_INTEGER) {
+  IntegerVector x = nums;
+  for(int i = 0; i < 81; i++) {
     
-    int row = sudoku_df(index, 1);
-    int col = sudoku_df(index, 2);
-    int box = sudoku_df(index, 3);
-    IntegerVector x;
-    
-    for(int i=0; i < 81; i++) {
+    if(sudoku_df(i, 0) != NA_INTEGER) {
       
-      if(sudoku_df(i, 0) != NA_INTEGER) {
-        
-        if(sudoku_df(i, 2) == col) {
-          x.push_back(sudoku_df(i, 0));
-        } else if(sudoku_df(i, 3) == box) {
-          x.push_back(sudoku_df(i, 0));
-        } else if(sudoku_df(i, 1) == row) {
-          x.push_back(sudoku_df(i, 0));
-        }
-        
+      if(sudoku_df(i, 2) == sudoku_df(index, 2)) {
+        x = x[x != sudoku_df(i, 0)];
+      } else if(sudoku_df(i, 3) == sudoku_df(index, 3)) {
+        x = x[x != sudoku_df(i, 0)];
+      } else if(sudoku_df(i, 1) == sudoku_df(index, 1)) {
+        x = x[x != sudoku_df(i, 0)];
       }
     }
-    out = setdiff(nums, x);
   }
-  
-  else {
-    out = NA_INTEGER;
-  }
-  return out;
+  return x;
 }
 
 
@@ -43,22 +28,18 @@ IntegerVector can_bes_getter_index_c(IntegerMatrix sudoku_df, int index,
 List cant_bes_getter_c(IntegerMatrix sudoku_df) {
   
   List out;
-  int n = sudoku_df(_, 0).size();
   
-  for(int i = 0; i < n; i++) {
+  for(int i = 0; i < 81; i++) {
     if(sudoku_df(i, 0) == NA_INTEGER) {
       
       IntegerVector x;
-      int row = sudoku_df(i, 1);
-      int col = sudoku_df(i, 2);
-      int box = sudoku_df(i, 3);
       
-      for(int j = 0; j < n; j++) {
-        if(sudoku_df(j, 1) == row) {
+      for(int j = 0; j < 81; j++) {
+        if(sudoku_df(j, 1) == sudoku_df(i, 1)) {
           x.push_back(sudoku_df(j, 0));
-        } else if(sudoku_df(j, 2) == col) {
+        } else if(sudoku_df(j, 2) == sudoku_df(i, 2)) {
           x.push_back(sudoku_df(j, 0));
-        } else if(sudoku_df(j, 3) == box) {
+        } else if(sudoku_df(j, 3) == sudoku_df(i, 3)) {
           x.push_back(sudoku_df(j, 0));
         }
       }
@@ -79,9 +60,7 @@ List cant_bes_getter_c(IntegerMatrix sudoku_df) {
 IntegerMatrix cant_bes_lengths_c(IntegerMatrix sudoku_df, List cant_bes,
                                  IntegerVector nums) {
   
-  int n = sudoku_df.size();
-  
-  for(int i = 0; i < n; i++) {
+  for(int i = 0; i < sudoku_df.size(); i++) {
     if(sudoku_df(i, 0) == NA_INTEGER) {
       IntegerVector cb;
       cb = cant_bes[i];
@@ -244,8 +223,8 @@ IntegerMatrix logical_solver_c(IntegerMatrix sudoku_df, bool verbose,
 
 
 // [[Rcpp::export]]
-bool solve_backtracking_c(IntegerMatrix sudoku_df, IntegerVector empties, bool verbose,
-                          IntegerVector nums) {
+bool solve_backtracking_c(IntegerMatrix& sudoku_df, IntegerVector& empties, 
+                          bool& verbose, IntegerVector& nums) {
   
   if(empties.size() == 0) {
     return true;
