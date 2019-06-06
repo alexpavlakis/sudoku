@@ -6,7 +6,7 @@ Authors@R: c(
              )
 Description: Sudoku solves sudoku puzzles.  It first attempts to solve puzzles logically. 
              If that fails, it defaults to a backtracking algorithm.
-Depends: R (>= 3.4.1)
+Depends: R (>= 3.0.0)
 License: GPL (>= 2)
 Encoding: UTF-8
 LazyData: true
