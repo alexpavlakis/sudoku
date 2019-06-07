@@ -15,7 +15,7 @@ solve_sudoku(sudoku_matrix, verbose = FALSE)
 This function solves sudoku puzzles.
 }
 \examples{
-print(sudoku)
+print_sudoku(sudoku)
 solved_sudoku <- solve_sudoku(sudoku)
-print(solved_sudoku)
+print_sudoku(solved_sudoku)
 }
