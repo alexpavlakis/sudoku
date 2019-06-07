@@ -120,7 +120,7 @@ m <- microbenchmark(easy = solve_sudoku(sudoku),
 ``` r
 print(m, digits = 3)
 #> Unit: seconds
-#>  expr     min      lq    mean  median      uq    max neval cld
-#>  easy 0.00645 0.00667 0.00758 0.00686 0.00728 0.0131   100  a 
-#>  hard 0.11239 0.11651 0.12063 0.11875 0.12089 0.2454   100   b
+#>  expr     min      lq    mean  median      uq     max neval cld
+#>  easy 0.00338 0.00352 0.00396 0.00361 0.00376 0.00798   100  a 
+#>  hard 0.11662 0.11915 0.12285 0.12052 0.12322 0.24695   100   b
 ```

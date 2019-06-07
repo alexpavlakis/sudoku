@@ -18,18 +18,18 @@ solve_sudoku <- function(sudoku_matrix, verbose = FALSE) {
   }
   
   # Attempt to solve with logic
-  nums <- c(1L:9L)
   sudoku_df <- as_sudoku_df(sudoku_matrix = sudoku_matrix)
   sudoku_df <- logical_solver(sudoku_df = sudoku_df,
                               verbose   = verbose,
-                              nums      = nums)
+                              nums      = c(1L:9L))
   
   # If that doesn't work, try backtracking
   if(!check_integrity(sudoku_df)) {
     solve_backtracking(sudoku_df = sudoku_df, 
-                       empties   = which(is.na(sudoku_df[, 1]))-1, 
+                       empties   = which(is.na(sudoku_df[, 1])) - 1, 
                        verbose   = verbose, 
-                       nums      = nums)
+                       nums      = c(1L:9L),
+                       ind_list  = sudoku::ind_list)
   }
   
   if(!check_integrity(sudoku_df)) {
