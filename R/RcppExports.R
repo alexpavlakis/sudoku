@@ -25,15 +25,11 @@ num_empties <- function(sudoku_df) {
     .Call(`_sudoku_num_empties`, sudoku_df)
 }
 
-which_empties <- function(sudoku_df) {
-    .Call(`_sudoku_which_empties`, sudoku_df)
+logical_solver <- function(sudoku_df, verbose, nums) {
+    .Call(`_sudoku_logical_solver`, sudoku_df, verbose, nums)
 }
 
-logical_solver_c <- function(sudoku_df, verbose, nums) {
-    .Call(`_sudoku_logical_solver_c`, sudoku_df, verbose, nums)
-}
-
-solve_backtracking_c <- function(sudoku_df, empties, verbose, nums) {
-    .Call(`_sudoku_solve_backtracking_c`, sudoku_df, empties, verbose, nums)
+solve_backtracking <- function(sudoku_df, empties, verbose, nums) {
+    .Call(`_sudoku_solve_backtracking`, sudoku_df, empties, verbose, nums)
 }
 

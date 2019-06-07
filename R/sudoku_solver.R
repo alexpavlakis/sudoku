@@ -7,9 +7,9 @@
 #' @importFrom Rcpp sourceCpp
 #' @export
 #' @examples
-#' print(sudoku)
+#' print_sudoku(sudoku)
 #' solved_sudoku <- solve_sudoku(sudoku)
-#' print(solved_sudoku)
+#' print_sudoku(solved_sudoku)
 
 solve_sudoku <- function(sudoku_matrix, verbose = FALSE) {
   
@@ -20,16 +20,16 @@ solve_sudoku <- function(sudoku_matrix, verbose = FALSE) {
   # Attempt to solve with logic
   nums <- c(1L:9L)
   sudoku_df <- as_sudoku_df(sudoku_matrix = sudoku_matrix)
-  sudoku_df <- logical_solver_c(sudoku_df = sudoku_df,
-                                verbose   = verbose,
-                                nums      = nums)
+  sudoku_df <- logical_solver(sudoku_df = sudoku_df,
+                              verbose   = verbose,
+                              nums      = nums)
   
-  # IF that doesn't work, try backtracking
+  # If that doesn't work, try backtracking
   if(!check_integrity(sudoku_df)) {
-    solve_backtracking_c(sudoku_df = sudoku_df, 
-                         empties   = which(is.na(sudoku_df[, 1]))-1, 
-                         verbose   = verbose, 
-                         nums      = nums)
+    solve_backtracking(sudoku_df = sudoku_df, 
+                       empties   = which(is.na(sudoku_df[, 1]))-1, 
+                       verbose   = verbose, 
+                       nums      = nums)
   }
   
   if(!check_integrity(sudoku_df)) {

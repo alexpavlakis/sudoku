@@ -25,7 +25,7 @@ The workhorse function is `solve_sudoku`, which takes two arguments:
 
 `check_integrity` will tell you if a puzzle is completed correctly.
 
-solve sudoku first attempts to solve the sudoku with basic sudoku logic. If this does not work, it uses a backtracking algorithm to find a solution (if one exists). Core functions (such as backtracking) are written in C++ for speed.
+solve sudoku first attempts to solve the sudoku with basic sudoku logic. If this does not work, it uses a backtracking algorithm to find a solution (if one exists). Core functions are written in C++ for speed.
 
 ``` r
 # An unsolved puzzle
@@ -68,7 +68,7 @@ check_integrity(solved_puzzle)
 #> [1] TRUE
 ```
 
-`solve_sudoku` completes puzzles in the blink of an eye. The example below shows the time taken to solve an easy puzzle (49 empty cells) and a hard puzzle (59 empty cells). The easy puzzle is solved in &lt;20 milliseconds and the hard puzzle is solved in a fraction of a second on a MacBook Air.
+`solve_sudoku` completes puzzles in the blink of an eye. The example below shows the time taken to solve an easy puzzle (49 empty cells) and a hard puzzle (59 empty cells). The easy puzzle is solved in &lt;10 milliseconds and the hard puzzle is solved in a fraction of a second on a MacBook Air.
 
 ``` r
 # Easy puzzle - 49 empty cells
@@ -120,7 +120,7 @@ m <- microbenchmark(easy = solve_sudoku(sudoku),
 ``` r
 print(m, digits = 3)
 #> Unit: seconds
-#>  expr    min      lq    mean  median      uq    max neval cld
-#>  easy 0.0075 0.00782 0.00873 0.00808 0.00867 0.0156   100  a 
-#>  hard 0.1139 0.11828 0.12315 0.12008 0.12291 0.2407   100   b
+#>  expr    min     lq   mean  median      uq    max neval cld
+#>  easy 0.0064 0.0067 0.0072 0.00682 0.00711 0.0128   100  a 
+#>  hard 0.1126 0.1143 0.1182 0.11630 0.11911 0.2225   100   b
 ```
