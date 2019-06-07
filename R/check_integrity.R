@@ -10,7 +10,7 @@
 check_integrity <- function(sudoku_df) {
   
   if(nrow(sudoku_df) == 9) sudoku_df <- as_sudoku_df(sudoku_df)
-  if(any(is.na(sudoku_df[, 1]))) return(FALSE)
+  if(any(is.na(sudoku_df))) return(FALSE)
   
   check_integrity_c(sudoku_df, c(1L:9L))
 }
