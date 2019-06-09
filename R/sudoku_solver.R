@@ -25,8 +25,9 @@ solve_sudoku <- function(sudoku_matrix, verbose = FALSE) {
   
   # If that doesn't work, try backtracking
   if(!check_integrity(sudoku_df)) {
+    
     solve_backtracking(sudoku_df = sudoku_df, 
-                       empties   = which(is.na(sudoku_df[, 1])) - 1, 
+                       empties   = which(is.na(sudoku_df[, 1]))-1, 
                        verbose   = verbose, 
                        nums      = c(1L:9L),
                        ind_list  = sudoku::ind_list)

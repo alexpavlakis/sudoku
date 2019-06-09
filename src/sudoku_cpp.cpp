@@ -42,7 +42,6 @@ List cant_bes_getter_c(IntegerMatrix sudoku_df) {
     } else {
       out[i] = NA_INTEGER;
     }
-    
   }
   return out;
 }
