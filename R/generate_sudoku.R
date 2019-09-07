@@ -39,6 +39,6 @@ generate_puzzle <- function(empties = 56, seed = NULL, unique = FALSE) {
 
 
 
-puz <- generate_puzzle(59, unique = T)
-print_sudoku(puz)
-solve_sudoku(puz)
+#puz <- generate_puzzle(59, unique = T)
+#print_sudoku(puz)
+#solve_sudoku(puz)
