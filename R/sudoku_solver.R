@@ -3,6 +3,7 @@
 #' This function solves sudoku puzzles.
 #' @param sudoku_matrix an unsolved sudoku, in matrix form, with NA values for empty cells
 #' @param verbose set to TRUE if you want to print intermediate steps.  Default is FALSE. Note that setting to TRUE can increase the time it takes to solve a puzzle by an order of magnitude.
+#' @param shuffle set to TRUE to induce randomness in backtracking.  Default is TRUE because it tends to be a little faster on average and is useful for generating new puzzles.
 #' @useDynLib sudoku, .registration = TRUE
 #' @importFrom Rcpp sourceCpp
 #' @export
@@ -11,7 +12,7 @@
 #' solved_sudoku <- solve_sudoku(sudoku)
 #' print_sudoku(solved_sudoku)
 
-solve_sudoku <- function(sudoku_matrix, verbose = FALSE) {
+solve_sudoku <- function(sudoku_matrix, verbose = FALSE, shuffle = TRUE) {
   
   if(nrow(sudoku_matrix) != 9 & ncol(sudoku_matrix) != 9) {
     stop('sudoku_matrix must by a 9x9 numeric matrix with NAs for empty values')
@@ -27,10 +28,11 @@ solve_sudoku <- function(sudoku_matrix, verbose = FALSE) {
   if(!check_integrity(sudoku_df)) {
     
     solve_backtracking(sudoku_df = sudoku_df, 
-                       empties   = which(is.na(sudoku_df[, 1]))-1, 
+                       empties   = which(is.na(sudoku_df[, 1])) - 1, 
                        verbose   = verbose, 
                        nums      = c(1L:9L),
-                       ind_list  = sudoku::ind_list)
+                       ind_list  = sudoku::ind_list, 
+                       shuffle   = shuffle)
   }
   
   if(!check_integrity(sudoku_df)) {
