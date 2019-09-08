@@ -93,8 +93,8 @@ BEGIN_RCPP
 END_RCPP
 }
 // solve_backtracking
-bool solve_backtracking(IntegerMatrix& sudoku_df, IntegerVector& empties, bool& verbose, IntegerVector& nums, List ind_list);
-RcppExport SEXP _sudoku_solve_backtracking(SEXP sudoku_dfSEXP, SEXP emptiesSEXP, SEXP verboseSEXP, SEXP numsSEXP, SEXP ind_listSEXP) {
+bool solve_backtracking(IntegerMatrix& sudoku_df, IntegerVector& empties, bool& verbose, IntegerVector& nums, List ind_list, bool shuffle);
+RcppExport SEXP _sudoku_solve_backtracking(SEXP sudoku_dfSEXP, SEXP emptiesSEXP, SEXP verboseSEXP, SEXP numsSEXP, SEXP ind_listSEXP, SEXP shuffleSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -103,7 +103,8 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< bool& >::type verbose(verboseSEXP);
     Rcpp::traits::input_parameter< IntegerVector& >::type nums(numsSEXP);
     Rcpp::traits::input_parameter< List >::type ind_list(ind_listSEXP);
-    rcpp_result_gen = Rcpp::wrap(solve_backtracking(sudoku_df, empties, verbose, nums, ind_list));
+    Rcpp::traits::input_parameter< bool >::type shuffle(shuffleSEXP);
+    rcpp_result_gen = Rcpp::wrap(solve_backtracking(sudoku_df, empties, verbose, nums, ind_list, shuffle));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -116,7 +117,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_sudoku_element_checker_c", (DL_FUNC) &_sudoku_element_checker_c, 4},
     {"_sudoku_num_empties", (DL_FUNC) &_sudoku_num_empties, 1},
     {"_sudoku_logical_solver", (DL_FUNC) &_sudoku_logical_solver, 3},
-    {"_sudoku_solve_backtracking", (DL_FUNC) &_sudoku_solve_backtracking, 5},
+    {"_sudoku_solve_backtracking", (DL_FUNC) &_sudoku_solve_backtracking, 6},
     {NULL, NULL, 0}
 };
 

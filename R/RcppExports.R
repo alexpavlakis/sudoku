@@ -29,7 +29,7 @@ logical_solver <- function(sudoku_df, verbose, nums) {
     .Call(`_sudoku_logical_solver`, sudoku_df, verbose, nums)
 }
 
-solve_backtracking <- function(sudoku_df, empties, verbose, nums, ind_list) {
-    .Call(`_sudoku_solve_backtracking`, sudoku_df, empties, verbose, nums, ind_list)
+solve_backtracking <- function(sudoku_df, empties, verbose, nums, ind_list, shuffle) {
+    .Call(`_sudoku_solve_backtracking`, sudoku_df, empties, verbose, nums, ind_list, shuffle)
 }
 

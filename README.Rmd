@@ -70,3 +70,10 @@ m <- microbenchmark(easy = solve_sudoku(sudoku),
 ```{r showmb}
 print(m, digits = 3)
 ```
+
+`generate_sudoku` creates randomly generated complete sudoku puzzles.  The `seed` argument can be used to create reproducible random puzzles or left `NULL` (default).
+
+```{r gensudoku}
+new_puzzle <- generate_sudoku(seed = 56)
+print_sudoku(new_puzzle)
+```

@@ -10,5 +10,5 @@ end <- Sys.time()
 if(end - start > 5) {
   stop('solve_sudoku took longer than 5 seconds to solve data/hard_sudoku.rda')
 } else {
-  print(paste('solve_sudoku took', round(end-start, 1), 'seconds to solve data/hard_sudoku.rda'))
+  print(paste('solve_sudoku took', round(end-start, 2), 'seconds to solve data/hard_sudoku.rda'))
 }

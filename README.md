@@ -120,7 +120,28 @@ m <- microbenchmark(easy = solve_sudoku(sudoku),
 ``` r
 print(m, digits = 3)
 #> Unit: seconds
-#>  expr     min      lq    mean  median      uq     max neval cld
-#>  easy 0.00341 0.00348 0.00387 0.00354 0.00361 0.00927   100  a 
-#>  hard 0.08508 0.08938 0.09317 0.09168 0.09495 0.15694   100   b
+#>  expr     min      lq    mean  median      uq    max neval
+#>  easy 0.00438 0.00458 0.00559 0.00494 0.00587 0.0139   100
+#>  hard 0.02259 0.05154 0.07576 0.07241 0.09656 0.1513   100
+```
+
+`generate_sudoku` creates randomly generated complete sudoku puzzles. The `seed` argument can be used to create reproducible random puzzles or left `NULL` (default).
+
+``` r
+new_puzzle <- generate_sudoku(seed = 56)
+print_sudoku(new_puzzle)
+#>                           
+#>  + - - - + - - - + - - - +
+#>  | 7 1 2 | 4 3 8 | 6 5 9 |
+#>  | 4 6 9 | 1 5 7 | 2 8 3 |
+#>  | 5 8 3 | 6 9 2 | 4 1 7 |
+#>  + - - - + - - - + - - - +
+#>  | 3 4 1 | 8 6 9 | 7 2 5 |
+#>  | 2 7 8 | 5 4 1 | 3 9 6 |
+#>  | 6 9 5 | 7 2 3 | 1 4 8 |
+#>  + - - - + - - - + - - - +
+#>  | 9 2 4 | 3 8 6 | 5 7 1 |
+#>  | 8 3 7 | 2 1 5 | 9 6 4 |
+#>  | 1 5 6 | 9 7 4 | 8 3 2 |
+#>  + - - - + - - - + - - - +
 ```

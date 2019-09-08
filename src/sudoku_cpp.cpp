@@ -191,12 +191,13 @@ IntegerMatrix logical_solver(IntegerMatrix sudoku_df, bool verbose,
   return sudoku_df;
 }
 
+inline int randWrapper(const int n) { return floor(unif_rand()*n); }
 
 
 // [[Rcpp::export]]
 bool solve_backtracking(IntegerMatrix& sudoku_df, IntegerVector& empties, 
                         bool& verbose, IntegerVector& nums,
-                        List ind_list) {
+                        List ind_list, bool shuffle) {
   
   if(empties.size() == 0) {
     return true;
@@ -209,6 +210,10 @@ bool solve_backtracking(IntegerMatrix& sudoku_df, IntegerVector& empties,
   NumericVector can_be_here;
   can_be_here = can_bes_getter_index_c(sudoku_df, nums, ind_list[index]);
   
+  if(shuffle) {
+    std::random_shuffle(can_be_here.begin(), can_be_here.end(), randWrapper);
+  }
+  
   for(int i = 0; i < can_be_here.size(); i++) {
     
     sudoku_df(index, 0) = can_be_here[i];
@@ -219,7 +224,7 @@ bool solve_backtracking(IntegerMatrix& sudoku_df, IntegerVector& empties,
       print(smat);
     }
     
-    if(solve_backtracking(sudoku_df, empties2, verbose, nums, ind_list)) {
+    if(solve_backtracking(sudoku_df, empties2, verbose, nums, ind_list, shuffle)) {
       return true;
     }
     sudoku_df(index, 0) = NA_INTEGER;
