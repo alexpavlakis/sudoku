@@ -2,16 +2,22 @@
 #'
 #' This function generates sudoku puzzles
 #' @param seed integer used to create reproducible randomly generated puzzles.  defaults to NULL.
+#' @param difficulty difficulty level of the sudoku: 1-5 for easiest - hardest.  NULL returns a completed puzzle.  defaults to NULL.devtools::install_github
 #' @export
 #' @examples
 #' print_sudoku(sudoku)
 #' solved_sudoku <- solve_sudoku(sudoku)
 #' print_sudoku(solved_sudoku)
 
-generate_sudoku <- function(seed = NULL) {
+generate_sudoku <- function(seed = NULL, difficulty = NULL) {
   mat <- matrix(NA, nrow = 9, ncol = 9)
   if(!is.null(seed)) set.seed(seed)
-  solve_sudoku(mat, shuffle = TRUE)
+  mat <- solve_sudoku(mat, shuffle = TRUE)
+  if(is.null(difficulty)) {
+    return(mat)
+  } else {
+    stop('only NULL difficulty is allowed at this time')
+  }
 }
 
 
@@ -55,6 +61,7 @@ get_all_solutions <- function(sudoku_matrix, stop_early = TRUE, verbose = FALSE)
   # Concert to sudoku df
   sudoku_df <- as_sudoku_df(sudoku_matrix = sudoku_matrix)
   
+  out <- NULL
   tryCatch( {
     out <- check_unique_solutions(sudoku_df  = sudoku_df,
                                   empties    = which(is.na(sudoku_df[, 1]))-1,
@@ -66,7 +73,40 @@ get_all_solutions <- function(sudoku_matrix, stop_early = TRUE, verbose = FALSE)
                                   out        = list(),
                                   stop_early = stop_early)
   }, error = function(e) print('multiple solutions detected'))
-  out
+  if(is.null(out)) {
+    invisible()
+  } else {
+    out
+  }
 }
 
 
+
+check_unique <- function(sudoku_matrix, all_solutions = FALSE) {
+  if(nrow(sudoku_matrix) != 9 & ncol(sudoku_matrix) != 9) {
+    stop('sudoku_matrix must by a 9x9 numeric matrix with NAs for empty values')
+  }
+  # Concert to sudoku df
+  sudoku_df <- as_sudoku_df(sudoku_matrix = sudoku_matrix)
+  
+  out <- NULL
+  tryCatch({
+    out <- check_unique_solutions(sudoku_df  = sudoku_df,
+                                  empties    = which(is.na(sudoku_df[, 1]))-1,
+                                  verbose    = FALSE,
+                                  nums       = 1L:9L,
+                                  ind_list   = sudoku::ind_list,
+                                  shuffle    = FALSE,
+                                  counter    = 0,
+                                  out        = list(),
+                                  stop_early = !all_solutions)
+  }, error = function(e) e)
+  
+  if(all_solutions) {
+    return(out)
+  } else if(is.null(out)) {
+    return(FALSE)
+  } else {
+    return(TRUE)
+  }
+}
