@@ -108,9 +108,9 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// check_unique_solutions
-List check_unique_solutions(IntegerMatrix& sudoku_df, IntegerVector& empties, bool& verbose, IntegerVector& nums, List ind_list, bool shuffle, int& counter, List& out, bool stop_early);
-RcppExport SEXP _sudoku_check_unique_solutions(SEXP sudoku_dfSEXP, SEXP emptiesSEXP, SEXP verboseSEXP, SEXP numsSEXP, SEXP ind_listSEXP, SEXP shuffleSEXP, SEXP counterSEXP, SEXP outSEXP, SEXP stop_earlySEXP) {
+// solve_backtracking_all
+List solve_backtracking_all(IntegerMatrix& sudoku_df, IntegerVector& empties, bool& verbose, IntegerVector& nums, List ind_list, bool shuffle, int& counter, List& out, bool stop_early);
+RcppExport SEXP _sudoku_solve_backtracking_all(SEXP sudoku_dfSEXP, SEXP emptiesSEXP, SEXP verboseSEXP, SEXP numsSEXP, SEXP ind_listSEXP, SEXP shuffleSEXP, SEXP counterSEXP, SEXP outSEXP, SEXP stop_earlySEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -123,7 +123,7 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< int& >::type counter(counterSEXP);
     Rcpp::traits::input_parameter< List& >::type out(outSEXP);
     Rcpp::traits::input_parameter< bool >::type stop_early(stop_earlySEXP);
-    rcpp_result_gen = Rcpp::wrap(check_unique_solutions(sudoku_df, empties, verbose, nums, ind_list, shuffle, counter, out, stop_early));
+    rcpp_result_gen = Rcpp::wrap(solve_backtracking_all(sudoku_df, empties, verbose, nums, ind_list, shuffle, counter, out, stop_early));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -137,7 +137,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_sudoku_num_empties", (DL_FUNC) &_sudoku_num_empties, 1},
     {"_sudoku_logical_solver", (DL_FUNC) &_sudoku_logical_solver, 3},
     {"_sudoku_solve_backtracking", (DL_FUNC) &_sudoku_solve_backtracking, 6},
-    {"_sudoku_check_unique_solutions", (DL_FUNC) &_sudoku_check_unique_solutions, 9},
+    {"_sudoku_solve_backtracking_all", (DL_FUNC) &_sudoku_solve_backtracking_all, 9},
     {NULL, NULL, 0}
 };
 

@@ -234,7 +234,7 @@ bool solve_backtracking(IntegerMatrix& sudoku_df, IntegerVector& empties,
 
 
 // [[Rcpp::export]]
-List check_unique_solutions(IntegerMatrix& sudoku_df, 
+List solve_backtracking_all(IntegerMatrix& sudoku_df, 
                             IntegerVector& empties, 
                             bool& verbose, IntegerVector& nums,
                             List ind_list, bool shuffle, 
@@ -269,7 +269,7 @@ List check_unique_solutions(IntegerMatrix& sudoku_df,
         smat.attr("dim") = Dimension(9, 9);
         print(smat);
       }
-      check_unique_solutions(sudoku_df, empties2, verbose, nums, 
+      solve_backtracking_all(sudoku_df, empties2, verbose, nums, 
                              ind_list, shuffle, counter, out, stop_early);
       sudoku_df(index, 0) = NA_INTEGER;
     } 

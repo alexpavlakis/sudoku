@@ -1,7 +1,7 @@
 library(sudoku)
 
 # Test that the generator produces correct puzzles
-integrity <- check_integrity(generate_sudoku())
+integrity <- is_legal(generate_sudoku())
 
 if(!integrity) {
   stop('generate_sudoku() created a bad puzzle.')
