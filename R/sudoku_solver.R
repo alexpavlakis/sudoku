@@ -80,7 +80,8 @@ get_all_solutions <- function(sudoku_matrix, stop_early = FALSE, ...) {
     if(is.null(out)) {
       invisible()
     } else {
-      message('only one solution detected, set stop_early = FALSE to see it (or call solve_sudoku)')
+      message('only one solution detected')
+      return(out)
     }
   } else {
     return(out)
