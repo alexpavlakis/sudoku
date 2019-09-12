@@ -12,9 +12,9 @@ knitr::opts_chunk$set(
   out.width = "100%"
 )
 ```
-# sudoku
+# sudokuplyr
 
-The goal of sudoku is to provide simple functions for solving, creating, and analyzing sudoku puzzles in R. Key functions include:
+The goal of sudokuplyr is to provide simple functions for solving, creating, and analyzing sudoku puzzles in R. Key functions include:
 
 * `solve_sudoku`
 * `is_unique`

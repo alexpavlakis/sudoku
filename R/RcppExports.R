@@ -2,38 +2,38 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 can_bes_getter_index_c <- function(sudoku_df, nums, ind_list) {
-    .Call(`_sudoku_can_bes_getter_index_c`, sudoku_df, nums, ind_list)
+    .Call(`_sudokuplyr_can_bes_getter_index_c`, sudoku_df, nums, ind_list)
 }
 
 cant_bes_getter_c <- function(sudoku_df) {
-    .Call(`_sudoku_cant_bes_getter_c`, sudoku_df)
+    .Call(`_sudokuplyr_cant_bes_getter_c`, sudoku_df)
 }
 
 cant_bes_lengths_c <- function(sudoku_df, cant_bes, nums) {
-    .Call(`_sudoku_cant_bes_lengths_c`, sudoku_df, cant_bes, nums)
+    .Call(`_sudokuplyr_cant_bes_lengths_c`, sudoku_df, cant_bes, nums)
 }
 
 check_integrity_c <- function(sudoku_df, nums) {
-    .Call(`_sudoku_check_integrity_c`, sudoku_df, nums)
+    .Call(`_sudokuplyr_check_integrity_c`, sudoku_df, nums)
 }
 
 element_checker_c <- function(sudoku_df, cant_bes, nums, dimension) {
-    .Call(`_sudoku_element_checker_c`, sudoku_df, cant_bes, nums, dimension)
+    .Call(`_sudokuplyr_element_checker_c`, sudoku_df, cant_bes, nums, dimension)
 }
 
 num_empties <- function(sudoku_df) {
-    .Call(`_sudoku_num_empties`, sudoku_df)
+    .Call(`_sudokuplyr_num_empties`, sudoku_df)
 }
 
 logical_solver <- function(sudoku_df, verbose, nums) {
-    .Call(`_sudoku_logical_solver`, sudoku_df, verbose, nums)
+    .Call(`_sudokuplyr_logical_solver`, sudoku_df, verbose, nums)
 }
 
 solve_backtracking <- function(sudoku_df, empties, verbose, nums, ind_list, shuffle) {
-    .Call(`_sudoku_solve_backtracking`, sudoku_df, empties, verbose, nums, ind_list, shuffle)
+    .Call(`_sudokuplyr_solve_backtracking`, sudoku_df, empties, verbose, nums, ind_list, shuffle)
 }
 
 solve_backtracking_all <- function(sudoku_df, empties, verbose, nums, ind_list, shuffle, counter, out, stop_early) {
-    .Call(`_sudoku_solve_backtracking_all`, sudoku_df, empties, verbose, nums, ind_list, shuffle, counter, out, stop_early)
+    .Call(`_sudokuplyr_solve_backtracking_all`, sudoku_df, empties, verbose, nums, ind_list, shuffle, counter, out, stop_early)
 }
 

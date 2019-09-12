@@ -2,7 +2,7 @@
 #'
 #' This function allows you to check whether a sudoku solution is good
 #' @param sudoku_df a sudoku matrix
-#' @useDynLib sudoku, .registration = TRUE
+#' @useDynLib sudokuplyr, .registration = TRUE
 #' @importFrom Rcpp sourceCpp
 #' @export
 #' @examples

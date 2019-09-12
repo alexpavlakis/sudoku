@@ -1,9 +1,9 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-sudoku
-======
+sudokuplyr
+==========
 
-The goal of sudoku is to provide simple functions for solving, creating, and analyzing sudoku puzzles in R. Key functions include:
+The goal of sudokuplyr is to provide simple functions for solving, creating, and analyzing sudoku puzzles in R. Key functions include:
 
 -   `solve_sudoku`
 -   `is_unique`
@@ -115,8 +115,8 @@ m <- microbenchmark(easy = solve_sudoku(sudoku),
 print(m, digits = 3)
 #> Unit: seconds
 #>  expr     min      lq    mean  median      uq    max neval cld
-#>  easy 0.00338 0.00353 0.00416 0.00368 0.00413 0.0125   100  a 
-#>  hard 0.00788 0.04314 0.05747 0.05772 0.07158 0.1003   100   b
+#>  easy 0.00335 0.00349 0.00475 0.00369 0.00402 0.0674   100  a 
+#>  hard 0.01034 0.03722 0.05666 0.05499 0.07495 0.1138   100   b
 ```
 
 `generate_sudoku` creates randomly generated complete sudoku puzzles. The `seed` argument can be used to create reproducible random puzzles or left `NULL` (default). `generate_puzzle` creates randomly generated incomplete sudoku puzzles with a specified number of clues.

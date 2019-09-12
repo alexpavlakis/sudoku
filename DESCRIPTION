@@ -1,11 +1,11 @@
-Package: sudoku
-Title: Simple Functions for Solving Sudoku Puzzles
+Package: sudokuplyr
+Title: Simple Functions for Working With Sudoku Puzzles
 Version: 0.1.0
 Authors@R: c(
-             person("Alex", "Pavlakis", email = "alexpavlakis@gmail.com", role = c("aut", "cre", "cph"))
+             person("Alex", "Pavlakis", email = "alexpavlakis@gmail.com",
+             role = c("aut", "cre", "cph"))
              )
-Description: Sudoku solves sudoku puzzles.  It first attempts to solve puzzles logically. 
-             If that fails, it defaults to a backtracking algorithm.
+Description: sudokuplyr provides functions for solving, generating, and analyzing sudoku puzzles.
 Depends: R (>= 3.0.0)
 License: GPL (>= 2)
 Encoding: UTF-8

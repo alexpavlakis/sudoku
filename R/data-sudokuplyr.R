@@ -10,19 +10,19 @@
 #' 
 #' `ind_list` is a list of indices of elements associated with each element in a sudoku_df (for use by internal functions).
 #' 
-#' @rdname sudoku
+#' @rdname sudokuplyr
 "ind_list"
 
-#' @rdname sudoku
+#' @rdname sudokuplyr
 "sudoku"
 
-#' @rdname sudoku
+#' @rdname sudokuplyr
 "sudoku2"
 
-#' @rdname sudoku
+#' @rdname sudokuplyr
 "hard_sudoku"
 
-#' @rdname sudoku
+#' @rdname sudokuplyr
 "evil_sudoku"
 
 

@@ -7,7 +7,7 @@ using namespace Rcpp;
 
 // can_bes_getter_index_c
 IntegerVector can_bes_getter_index_c(IntegerMatrix& sudoku_df, IntegerVector& nums, IntegerVector ind_list);
-RcppExport SEXP _sudoku_can_bes_getter_index_c(SEXP sudoku_dfSEXP, SEXP numsSEXP, SEXP ind_listSEXP) {
+RcppExport SEXP _sudokuplyr_can_bes_getter_index_c(SEXP sudoku_dfSEXP, SEXP numsSEXP, SEXP ind_listSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -20,7 +20,7 @@ END_RCPP
 }
 // cant_bes_getter_c
 List cant_bes_getter_c(IntegerMatrix sudoku_df);
-RcppExport SEXP _sudoku_cant_bes_getter_c(SEXP sudoku_dfSEXP) {
+RcppExport SEXP _sudokuplyr_cant_bes_getter_c(SEXP sudoku_dfSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -31,7 +31,7 @@ END_RCPP
 }
 // cant_bes_lengths_c
 IntegerMatrix cant_bes_lengths_c(IntegerMatrix sudoku_df, List cant_bes, IntegerVector nums);
-RcppExport SEXP _sudoku_cant_bes_lengths_c(SEXP sudoku_dfSEXP, SEXP cant_besSEXP, SEXP numsSEXP) {
+RcppExport SEXP _sudokuplyr_cant_bes_lengths_c(SEXP sudoku_dfSEXP, SEXP cant_besSEXP, SEXP numsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -44,7 +44,7 @@ END_RCPP
 }
 // check_integrity_c
 bool check_integrity_c(IntegerMatrix sudoku_df, IntegerVector nums);
-RcppExport SEXP _sudoku_check_integrity_c(SEXP sudoku_dfSEXP, SEXP numsSEXP) {
+RcppExport SEXP _sudokuplyr_check_integrity_c(SEXP sudoku_dfSEXP, SEXP numsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -56,7 +56,7 @@ END_RCPP
 }
 // element_checker_c
 IntegerMatrix element_checker_c(IntegerMatrix sudoku_df, List cant_bes, IntegerVector nums, int dimension);
-RcppExport SEXP _sudoku_element_checker_c(SEXP sudoku_dfSEXP, SEXP cant_besSEXP, SEXP numsSEXP, SEXP dimensionSEXP) {
+RcppExport SEXP _sudokuplyr_element_checker_c(SEXP sudoku_dfSEXP, SEXP cant_besSEXP, SEXP numsSEXP, SEXP dimensionSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -70,7 +70,7 @@ END_RCPP
 }
 // num_empties
 int num_empties(IntegerMatrix sudoku_df);
-RcppExport SEXP _sudoku_num_empties(SEXP sudoku_dfSEXP) {
+RcppExport SEXP _sudokuplyr_num_empties(SEXP sudoku_dfSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -81,7 +81,7 @@ END_RCPP
 }
 // logical_solver
 IntegerMatrix logical_solver(IntegerMatrix sudoku_df, bool verbose, IntegerVector nums);
-RcppExport SEXP _sudoku_logical_solver(SEXP sudoku_dfSEXP, SEXP verboseSEXP, SEXP numsSEXP) {
+RcppExport SEXP _sudokuplyr_logical_solver(SEXP sudoku_dfSEXP, SEXP verboseSEXP, SEXP numsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -94,7 +94,7 @@ END_RCPP
 }
 // solve_backtracking
 bool solve_backtracking(IntegerMatrix& sudoku_df, IntegerVector& empties, bool& verbose, IntegerVector& nums, List ind_list, bool shuffle);
-RcppExport SEXP _sudoku_solve_backtracking(SEXP sudoku_dfSEXP, SEXP emptiesSEXP, SEXP verboseSEXP, SEXP numsSEXP, SEXP ind_listSEXP, SEXP shuffleSEXP) {
+RcppExport SEXP _sudokuplyr_solve_backtracking(SEXP sudoku_dfSEXP, SEXP emptiesSEXP, SEXP verboseSEXP, SEXP numsSEXP, SEXP ind_listSEXP, SEXP shuffleSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -110,7 +110,7 @@ END_RCPP
 }
 // solve_backtracking_all
 List solve_backtracking_all(IntegerMatrix& sudoku_df, IntegerVector& empties, bool& verbose, IntegerVector& nums, List ind_list, bool shuffle, int& counter, List& out, bool stop_early);
-RcppExport SEXP _sudoku_solve_backtracking_all(SEXP sudoku_dfSEXP, SEXP emptiesSEXP, SEXP verboseSEXP, SEXP numsSEXP, SEXP ind_listSEXP, SEXP shuffleSEXP, SEXP counterSEXP, SEXP outSEXP, SEXP stop_earlySEXP) {
+RcppExport SEXP _sudokuplyr_solve_backtracking_all(SEXP sudoku_dfSEXP, SEXP emptiesSEXP, SEXP verboseSEXP, SEXP numsSEXP, SEXP ind_listSEXP, SEXP shuffleSEXP, SEXP counterSEXP, SEXP outSEXP, SEXP stop_earlySEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -129,19 +129,19 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_sudoku_can_bes_getter_index_c", (DL_FUNC) &_sudoku_can_bes_getter_index_c, 3},
-    {"_sudoku_cant_bes_getter_c", (DL_FUNC) &_sudoku_cant_bes_getter_c, 1},
-    {"_sudoku_cant_bes_lengths_c", (DL_FUNC) &_sudoku_cant_bes_lengths_c, 3},
-    {"_sudoku_check_integrity_c", (DL_FUNC) &_sudoku_check_integrity_c, 2},
-    {"_sudoku_element_checker_c", (DL_FUNC) &_sudoku_element_checker_c, 4},
-    {"_sudoku_num_empties", (DL_FUNC) &_sudoku_num_empties, 1},
-    {"_sudoku_logical_solver", (DL_FUNC) &_sudoku_logical_solver, 3},
-    {"_sudoku_solve_backtracking", (DL_FUNC) &_sudoku_solve_backtracking, 6},
-    {"_sudoku_solve_backtracking_all", (DL_FUNC) &_sudoku_solve_backtracking_all, 9},
+    {"_sudokuplyr_can_bes_getter_index_c", (DL_FUNC) &_sudokuplyr_can_bes_getter_index_c, 3},
+    {"_sudokuplyr_cant_bes_getter_c", (DL_FUNC) &_sudokuplyr_cant_bes_getter_c, 1},
+    {"_sudokuplyr_cant_bes_lengths_c", (DL_FUNC) &_sudokuplyr_cant_bes_lengths_c, 3},
+    {"_sudokuplyr_check_integrity_c", (DL_FUNC) &_sudokuplyr_check_integrity_c, 2},
+    {"_sudokuplyr_element_checker_c", (DL_FUNC) &_sudokuplyr_element_checker_c, 4},
+    {"_sudokuplyr_num_empties", (DL_FUNC) &_sudokuplyr_num_empties, 1},
+    {"_sudokuplyr_logical_solver", (DL_FUNC) &_sudokuplyr_logical_solver, 3},
+    {"_sudokuplyr_solve_backtracking", (DL_FUNC) &_sudokuplyr_solve_backtracking, 6},
+    {"_sudokuplyr_solve_backtracking_all", (DL_FUNC) &_sudokuplyr_solve_backtracking_all, 9},
     {NULL, NULL, 0}
 };
 
-RcppExport void R_init_sudoku(DllInfo *dll) {
+RcppExport void R_init_sudokuplyr(DllInfo *dll) {
     R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
     R_useDynamicSymbols(dll, FALSE);
 }

@@ -1,4 +1,4 @@
-library(sudoku)
+library(sudokuplyr)
 
 # Test that the generator produces correct puzzles
 integrity <- is_legal(generate_sudoku())

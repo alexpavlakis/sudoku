@@ -1,4 +1,4 @@
-library(sudoku)
+library(sudokuplyr)
 
 # Create a sudoku with 15 solutions
 puzzle <- matrix(c(4L, NA, 6L, NA, NA, NA, NA, 9L, 2L,

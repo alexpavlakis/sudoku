@@ -1,4 +1,4 @@
-library(sudoku)
+library(sudokuplyr)
 
 # Make sure the time taken to solve hard_sudoku (which requires backtracking) is reasonable.
 # It should be < 0.5 seconds and definitely not more than 5 seconds...

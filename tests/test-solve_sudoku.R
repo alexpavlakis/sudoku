@@ -1,4 +1,4 @@
-library(sudoku)
+library(sudokuplyr)
 
 # Solution to sudoku
 solved_sudoku <- matrix(c(2L, 1L, 3L, 8L, 4L, 7L, 9L, 6L, 5L,

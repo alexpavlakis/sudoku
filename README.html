@@ -26,8 +26,8 @@ body {
 <body>
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-<h1 id="sudoku">sudoku</h1>
-<p>The goal of sudoku is to provide simple functions for solving, creating, and analyzing sudoku puzzles in R. Key functions include:</p>
+<h1 id="sudokuplyr">sudokuplyr</h1>
+<p>The goal of sudokuplyr is to provide simple functions for solving, creating, and analyzing sudoku puzzles in R. Key functions include:</p>
 <ul>
 <li><code>solve_sudoku</code></li>
 <li><code>is_unique</code></li>
@@ -118,8 +118,8 @@ m &lt;-<span class="st"> </span><span class="kw">microbenchmark</span>(<span cla
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(m, <span class="dt">digits =</span> <span class="dv">3</span>)
 <span class="co">#&gt; Unit: seconds</span>
 <span class="co">#&gt;  expr     min      lq    mean  median      uq    max neval cld</span>
-<span class="co">#&gt;  easy 0.00338 0.00353 0.00416 0.00368 0.00413 0.0125   100  a </span>
-<span class="co">#&gt;  hard 0.00788 0.04314 0.05747 0.05772 0.07158 0.1003   100   b</span></code></pre></div>
+<span class="co">#&gt;  easy 0.00335 0.00349 0.00475 0.00369 0.00402 0.0674   100  a </span>
+<span class="co">#&gt;  hard 0.01034 0.03722 0.05666 0.05499 0.07495 0.1138   100   b</span></code></pre></div>
 <p><code>generate_sudoku</code> creates randomly generated complete sudoku puzzles. The <code>seed</code> argument can be used to create reproducible random puzzles or left <code>NULL</code> (default). <code>generate_puzzle</code> creates randomly generated incomplete sudoku puzzles with a specified number of clues.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">new_puzzle &lt;-<span class="st"> </span><span class="kw">generate_puzzle</span>(<span class="dt">clues =</span> <span class="dv">32</span>, <span class="dt">unique =</span> <span class="ot">TRUE</span>, <span class="dt">seed =</span> <span class="dv">56</span>)
 <span class="kw">print_sudoku</span>(new_puzzle)

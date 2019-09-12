@@ -4,7 +4,7 @@
 #' @param sudoku_matrix an unsolved sudoku, in matrix form, with NA values for empty cells
 #' @param verbose set to TRUE if you want to print intermediate steps.  Default is FALSE. Note that setting to TRUE can increase the time it takes to solve a puzzle by an order of magnitude.
 #' @param shuffle set to TRUE to induce randomness in backtracking.  Default is TRUE because it tends to be a little faster on average and is useful for generating new puzzles.
-#' @useDynLib sudoku, .registration = TRUE
+#' @useDynLib sudokuplyr, .registration = TRUE
 #' @importFrom Rcpp sourceCpp
 #' @export
 #' @examples
@@ -31,7 +31,7 @@ solve_sudoku <- function(sudoku_matrix, verbose = FALSE, shuffle = TRUE) {
                        empties   = which(is.na(sudoku_df[, 1])) - 1, 
                        verbose   = verbose, 
                        nums      = c(1L:9L),
-                       ind_list  = sudoku::ind_list, 
+                       ind_list  = sudokuplyr::ind_list, 
                        shuffle   = shuffle)
   }
   
@@ -69,7 +69,7 @@ get_all_solutions <- function(sudoku_matrix, stop_early = FALSE, ...) {
                                   empties    = which(is.na(sudoku_df[, 1]))-1,
                                   verbose    = FALSE,
                                   nums       = 1L:9L,
-                                  ind_list   = sudoku::ind_list,
+                                  ind_list   = sudokuplyr::ind_list,
                                   shuffle    = FALSE,
                                   counter    = 0,
                                   out        = list(),
