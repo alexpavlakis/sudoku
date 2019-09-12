@@ -114,29 +114,29 @@ m <- microbenchmark(easy = solve_sudoku(sudoku),
 ``` r
 print(m, digits = 3)
 #> Unit: seconds
-#>  expr     min      lq    mean  median      uq     max neval cld
-#>  easy 0.00339 0.00349 0.00408 0.00359 0.00376 0.00968   100  a 
-#>  hard 0.00869 0.03300 0.05236 0.05527 0.06980 0.10677   100   b
+#>  expr    min      lq    mean  median      uq    max neval cld
+#>  easy 0.0034 0.00356 0.00404 0.00367 0.00385 0.0110   100  a 
+#>  hard 0.0101 0.03287 0.05245 0.05600 0.07136 0.0981   100   b
 ```
 
 `generate_sudoku` creates randomly generated complete sudoku puzzles. The `seed` argument can be used to create reproducible random puzzles or left `NULL` (default). `generate_puzzle` creates randomly generated incomplete sudoku puzzles with a specified number of clues.
 
 ``` r
-new_puzzle <- generate_sudoku(seed = 56)
+new_puzzle <- generate_puzzle(clues = 32, unique = TRUE, seed = 56)
 print_sudoku(new_puzzle)
 #>                           
 #>  + - - - + - - - + - - - +
-#>  | 4 8 6 | 7 1 5 | 3 9 2 |
-#>  | 7 9 1 | 3 4 2 | 5 6 8 |
-#>  | 5 3 2 | 6 9 8 | 4 1 7 |
+#>  |       |     5 |   9 2 |
+#>  |   9 1 |     2 | 5     |
+#>  |   3 2 |   9   | 4     |
 #>  + - - - + - - - + - - - +
-#>  | 3 5 8 | 1 7 6 | 9 2 4 |
-#>  | 1 2 7 | 4 8 9 | 6 3 5 |
-#>  | 6 4 9 | 5 2 3 | 7 8 1 |
+#>  |       | 1     |   2   |
+#>  |     7 |     9 |       |
+#>  | 6 4   |   2   |     1 |
 #>  + - - - + - - - + - - - +
-#>  | 8 6 5 | 2 3 4 | 1 7 9 |
-#>  | 2 1 3 | 9 5 7 | 8 4 6 |
-#>  | 9 7 4 | 8 6 1 | 2 5 3 |
+#>  |   6 5 |       |   7   |
+#>  | 2     | 9     | 8   6 |
+#>  | 9     |     1 |   5 3 |
 #>  + - - - + - - - + - - - +
 ```
 
@@ -147,5 +147,5 @@ print_sudoku(new_puzzle)
 puzzle <- generate_puzzle(clues = 30, seed = 56)
 all_solutions <- get_all_solutions(puzzle)
 length(all_solutions)
-#> [1] 15
+#> [1] 1
 ```

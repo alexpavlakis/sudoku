@@ -84,7 +84,7 @@ print(m, digits = 3)
 `generate_sudoku` creates randomly generated complete sudoku puzzles.  The `seed` argument can be used to create reproducible random puzzles or left `NULL` (default).  `generate_puzzle` creates randomly generated incomplete sudoku puzzles with a specified number of clues.
 
 ```{r gensudoku}
-new_puzzle <- generate_sudoku(seed = 56)
+new_puzzle <- generate_puzzle(clues = 32, unique = TRUE, seed = 56)
 print_sudoku(new_puzzle)
 ```
 
