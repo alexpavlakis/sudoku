@@ -32,7 +32,6 @@ generate_puzzle <- function(clues = 56, unique = TRUE, seed = NULL) {
     tmp <- s
     tmp[coord[1], coord[2]] <- NA
     tmp[coord[2], coord[1]] <- NA
-    
     if(unique) {
       if(is_unique(tmp)) {
         s <- tmp

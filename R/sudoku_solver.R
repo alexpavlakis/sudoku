@@ -26,7 +26,6 @@ solve_sudoku <- function(sudoku_matrix, verbose = FALSE, shuffle = TRUE) {
   
   # If that doesn't work, try backtracking
   if(!is_legal(sudoku_df)) {
-    
     solve_backtracking(sudoku_df = sudoku_df, 
                        empties   = which(is.na(sudoku_df[, 1])) - 1, 
                        verbose   = verbose, 
