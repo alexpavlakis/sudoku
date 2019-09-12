@@ -10,10 +10,9 @@ generate_sudoku(seed = NULL)
 \item{seed}{integer used to create reproducible randomly generated puzzles.  defaults to NULL.}
 }
 \description{
-This function generates sudoku puzzles
+This function generates completed sudoku puzzles
 }
 \examples{
-print_sudoku(sudoku)
-solved_sudoku <- solve_sudoku(sudoku)
-print_sudoku(solved_sudoku)
+random_puzzle <- generate_sudoku(seed = 56)
+print_sudoku(random_puzzle)
 }

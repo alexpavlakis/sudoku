@@ -1,8 +1,8 @@
 Package: sudoku
 Title: Simple Functions for Solving Sudoku Puzzles
-Version: 0.0.0.9000
+Version: 0.1.0
 Authors@R: c(
-             person("Alex", "Pavlakis", email = "alexpavlakist@gmail.com", role = c("aut", "cre", "cph"))
+             person("Alex", "Pavlakis", email = "alexpavlakis@gmail.com", role = c("aut", "cre", "cph"))
              )
 Description: Sudoku solves sudoku puzzles.  It first attempts to solve puzzles logically. 
              If that fails, it defaults to a backtracking algorithm.

@@ -232,3 +232,49 @@ bool solve_backtracking(IntegerMatrix& sudoku_df, IntegerVector& empties,
   return false;
 }
 
+
+// [[Rcpp::export]]
+List solve_backtracking_all(IntegerMatrix& sudoku_df, 
+                            IntegerVector& empties, 
+                            bool& verbose, IntegerVector& nums,
+                            List ind_list, bool shuffle, 
+                            int &counter, List &out,
+                            bool stop_early) {
+  if(empties.size() == 0) {
+    IntegerVector smat = sudoku_df(_, 0);
+    smat.attr("dim") = Dimension(9, 9);
+    counter += 1;
+    if(stop_early && counter > 1) {
+      stop("multiple solutions detected");
+    }
+    out.push_back(smat);
+  } else {
+    int index = empties[0]; 
+    IntegerVector empties2 = empties;
+    empties2.erase(0);
+    
+    NumericVector can_be_here;
+    can_be_here = can_bes_getter_index_c(sudoku_df, nums, ind_list[index]);
+    
+    if(shuffle) {
+      std::random_shuffle(can_be_here.begin(), can_be_here.end(), randWrapper);
+    }
+    
+    for(int i = 0; i < can_be_here.size(); i++) {
+      
+      sudoku_df(index, 0) = can_be_here[i];
+      
+      if(verbose) {
+        IntegerVector smat = sudoku_df(_, 0);
+        smat.attr("dim") = Dimension(9, 9);
+        print(smat);
+      }
+      solve_backtracking_all(sudoku_df, empties2, verbose, nums, 
+                             ind_list, shuffle, counter, out, stop_early);
+      sudoku_df(index, 0) = NA_INTEGER;
+    } 
+  }
+  return out;
+}
+
+

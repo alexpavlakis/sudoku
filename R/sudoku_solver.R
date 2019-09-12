@@ -25,7 +25,7 @@ solve_sudoku <- function(sudoku_matrix, verbose = FALSE, shuffle = TRUE) {
                               nums      = c(1L:9L))
   
   # If that doesn't work, try backtracking
-  if(!check_integrity(sudoku_df)) {
+  if(!is_legal(sudoku_df)) {
     
     solve_backtracking(sudoku_df = sudoku_df, 
                        empties   = which(is.na(sudoku_df[, 1])) - 1, 
@@ -35,9 +35,55 @@ solve_sudoku <- function(sudoku_matrix, verbose = FALSE, shuffle = TRUE) {
                        shuffle   = shuffle)
   }
   
-  if(!check_integrity(sudoku_df)) {
+  if(!is_legal(sudoku_df)) {
     print('no solution was found')
   } else {
     return(matrix(sudoku_df[, 1], nrow = 9, ncol = 9))
+  }
+}
+
+
+#' Sudoku solver - all solutions
+#'
+#' This function can return all legal solutions to an unsolved puzzle
+#' @param sudoku_matrix an unsolved sudoku, in matrix form, with NA values for empty cells
+#' @param stop_early set to TRUE if you want to stop once you've found one solution, false if you want to return all solutions.  Defaults to TRUE  For puzzles with few clues (fewer than 25), attempting to return all solutions can take a long time.
+#' @param ... additional arguments to pass to solver.
+#' @export
+#' @examples
+#' random_puzzle <- generate_puzzle(seed = 56, clues = 30)
+#' all_solutions <- get_all_solutions(random_puzzle)
+#' length(all_solutions)
+get_all_solutions <- function(sudoku_matrix, stop_early = FALSE, ...) {
+  
+  if(nrow(sudoku_matrix) != 9 & ncol(sudoku_matrix) != 9) {
+    stop('sudoku_matrix must by a 9x9 numeric matrix with NAs for empty values')
+  }
+  
+  # Concert to sudoku df
+  sudoku_df <- as_sudoku_df(sudoku_matrix = sudoku_matrix)
+  
+  out <- NULL
+  tryCatch( {
+    out <- solve_backtracking_all(sudoku_df  = sudoku_df,
+                                  empties    = which(is.na(sudoku_df[, 1]))-1,
+                                  verbose    = FALSE,
+                                  nums       = 1L:9L,
+                                  ind_list   = sudoku::ind_list,
+                                  shuffle    = FALSE,
+                                  counter    = 0,
+                                  out        = list(),
+                                  stop_early = stop_early)
+  }, error = function(e) 
+    message('multiple solutions detected, set stop_early = FALSE to generate them all'))
+  if(stop_early) {
+    if(is.null(out)) {
+      invisible()
+    } else {
+      message('only one solution detected')
+      return(out)
+    }
+  } else {
+    return(out)
   }
 }

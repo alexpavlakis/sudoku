@@ -1,12 +1,12 @@
 library(sudoku)
 
 # Test that the generator produces correct puzzles
-integrity <- check_integrity(generate_sudoku())
+integrity <- is_legal(generate_sudoku())
 
 if(!integrity) {
-  stop('generate_sudoku() created a bad puzzle.')
+  stop('generate_sudoku created a bad puzzle.')
 } else {
-  print('generate_sudoku() created good puzzle.')
+  print('generate_sudoku created a good puzzle.')
 }
 
 # Test that the seed produces identical puzzles

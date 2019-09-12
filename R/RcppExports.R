@@ -33,3 +33,7 @@ solve_backtracking <- function(sudoku_df, empties, verbose, nums, ind_list, shuf
     .Call(`_sudoku_solve_backtracking`, sudoku_df, empties, verbose, nums, ind_list, shuffle)
 }
 
+solve_backtracking_all <- function(sudoku_df, empties, verbose, nums, ind_list, shuffle, counter, out, stop_early) {
+    .Call(`_sudoku_solve_backtracking_all`, sudoku_df, empties, verbose, nums, ind_list, shuffle, counter, out, stop_early)
+}
+
