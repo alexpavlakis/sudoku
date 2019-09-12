@@ -92,8 +92,8 @@ print_sudoku(new_puzzle)
 `get_all_solutions` generates all possible solutions for a given puzzle.  Puzzles with fewer than 20-25 clues (depending on the puzzle, of course), can have _a lot_ of solutions, and this function can take a while to find them all.  Beware.  Most puzzles that appear in newspapers and magazines have only one solution.
 
 ```{r generate_all}
-# This puzzle has 15 possible solutions
-puzzle <- generate_puzzle(clues = 30, seed = 56)
+# This puzzle has a lot of solutions
+puzzle <- generate_puzzle(clues = 30, unique = FALSE, seed = 56)
 all_solutions <- get_all_solutions(puzzle)
 length(all_solutions)
 ```

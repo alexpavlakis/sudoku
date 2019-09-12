@@ -114,9 +114,9 @@ m <- microbenchmark(easy = solve_sudoku(sudoku),
 ``` r
 print(m, digits = 3)
 #> Unit: seconds
-#>  expr    min      lq    mean  median      uq    max neval cld
-#>  easy 0.0034 0.00356 0.00404 0.00367 0.00385 0.0110   100  a 
-#>  hard 0.0101 0.03287 0.05245 0.05600 0.07136 0.0981   100   b
+#>  expr     min      lq    mean  median      uq    max neval cld
+#>  easy 0.00338 0.00353 0.00416 0.00368 0.00413 0.0125   100  a 
+#>  hard 0.00788 0.04314 0.05747 0.05772 0.07158 0.1003   100   b
 ```
 
 `generate_sudoku` creates randomly generated complete sudoku puzzles. The `seed` argument can be used to create reproducible random puzzles or left `NULL` (default). `generate_puzzle` creates randomly generated incomplete sudoku puzzles with a specified number of clues.
@@ -143,9 +143,9 @@ print_sudoku(new_puzzle)
 `get_all_solutions` generates all possible solutions for a given puzzle. Puzzles with fewer than 20-25 clues (depending on the puzzle, of course), can have *a lot* of solutions, and this function can take a while to find them all. Beware. Most puzzles that appear in newspapers and magazines have only one solution.
 
 ``` r
-# This puzzle has 15 possible solutions
-puzzle <- generate_puzzle(clues = 30, seed = 56)
+# This puzzle has a lot of solutions
+puzzle <- generate_puzzle(clues = 30, unique = FALSE, seed = 56)
 all_solutions <- get_all_solutions(puzzle)
 length(all_solutions)
-#> [1] 1
+#> [1] 2183
 ```
