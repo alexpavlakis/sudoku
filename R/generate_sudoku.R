@@ -18,28 +18,30 @@ generate_sudoku <- function(seed = NULL) {
 #'
 #' This function generates sudoku puzzles with a specified number of clues.
 #' @param clues number of non empty cells in the puzzle (must be <= 81 and >= 0).
+#' @param unique add the requirement that the puzzle must have a unique solution. defaults to TRUE.
 #' @param seed integer used to create reproducible randomly generated puzzles.  defaults to NULL.
 #' @export
 #' @examples
-#' random_puzzle <- generate_puzzle(clues = 45, seed = 56)
+#' random_puzzle <- generate_puzzle(clues = 32, unique = TRUE, seed = 56)
 #' print_sudoku(random_puzzle)
-generate_puzzle <- function(clues = 56, seed = NULL) {
-  
-  full_puzzle <- generate_sudoku(seed = seed)
-  
-  # Random pattern symmetrical
-  fill <- c(rep(NA, (81-clues)), rep(0, clues))
-  fill <- fill[sample(1:81)]
-  om <- matrix(fill, nrow = 9)
-  om[lower.tri(om)] <- t(om)[lower.tri(om)]
-  
-  for(i in 1:9) {
-    for(j in 1:9) {
-      if(is.na(om[i, j]))
-        full_puzzle[i, j] <- NA
+
+generate_puzzle <- function(clues = 56, unique = TRUE, seed = NULL) {
+  s <- generate_sudoku(seed = seed)
+  while(sum(is.na(s)) <= (81 - clues)) {
+    coord <- sample(1:9, size = 2, replace = T)
+    tmp <- s
+    tmp[coord[1], coord[2]] <- NA
+    tmp[coord[2], coord[1]] <- NA
+    
+    if(unique) {
+      if(is_unique(tmp)) {
+        s <- tmp
+      }
+    } else {
+      s <- tmp
     }
   }
-  full_puzzle
+  return(s)
 }
 
 
