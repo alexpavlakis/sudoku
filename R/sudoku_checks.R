@@ -12,7 +12,7 @@
 is_legal <- function(sudoku_df) {
   if(nrow(sudoku_df) == 9) sudoku_df <- as_sudoku_df(sudoku_df)
   if(any(is.na(sudoku_df))) return(FALSE)
-  check_integrity_c(sudoku_df, c(1L:9L))
+  check_integrity(sudoku_df, c(1L:9L))
 }
 
 

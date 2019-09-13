@@ -1,9 +1,10 @@
 #include <Rcpp.h>
 using namespace Rcpp;
 
+// return all numbers 1-9 that are options for a given cell.
 // [[Rcpp::export]]
-IntegerVector can_bes_getter_index_c(IntegerMatrix& sudoku_df, 
-                                     IntegerVector& nums, IntegerVector ind_list) {
+IntegerVector can_bes_getter_index(IntegerMatrix& sudoku_df, 
+                                   IntegerVector& nums, IntegerVector ind_list) {
   
   IntegerVector alreadies(20);
   for(int i = 0; i < 20; i++) {
@@ -15,9 +16,10 @@ IntegerVector can_bes_getter_index_c(IntegerMatrix& sudoku_df,
 }
 
 
-
+// return a list of length 81 containing everything that every cell
+// cannot be (NA for already filled cells)
 // [[Rcpp::export]]
-List cant_bes_getter_c(IntegerMatrix sudoku_df) {
+List cant_bes_getter(IntegerMatrix sudoku_df) {
   
   List out(81);
   
@@ -49,9 +51,9 @@ List cant_bes_getter_c(IntegerMatrix sudoku_df) {
 
 
 
-
+// If there is a cell that can only be one number, fill in that number.
 //[[Rcpp::export]]
-IntegerMatrix cant_bes_lengths_c(IntegerMatrix sudoku_df, List cant_bes,
+IntegerMatrix cant_bes_lengths(IntegerMatrix sudoku_df, List cant_bes,
                                  IntegerVector nums) {
   
   for(int i = 0; i < 81; i++) {
@@ -66,9 +68,9 @@ IntegerMatrix cant_bes_lengths_c(IntegerMatrix sudoku_df, List cant_bes,
   return sudoku_df;
 }
 
-
+// check that each row, column, and box has 1:9 exclusively
 // [[Rcpp::export]]
-bool check_integrity_c(IntegerMatrix sudoku_df, IntegerVector nums) {
+bool check_integrity(IntegerMatrix sudoku_df, IntegerVector nums) {
   
   for(int j = 1; j < 4; j++) {
     for(int i = 1; i < 10; i++) {
@@ -87,8 +89,10 @@ bool check_integrity_c(IntegerMatrix sudoku_df, IntegerVector nums) {
 }
 
 
+// For a given dimension (row, col, box), fill in all cells in the puzzle
+// that can only be one value based on others in that dimension.
 // [[Rcpp::export]]
-IntegerMatrix element_checker_c(IntegerMatrix sudoku_df, List cant_bes, 
+IntegerMatrix element_checker(IntegerMatrix sudoku_df, List cant_bes, 
                                 IntegerVector nums, int dimension) {
   
   // Loop over the df and fill in values
@@ -139,7 +143,7 @@ IntegerMatrix element_checker_c(IntegerMatrix sudoku_df, List cant_bes,
         IntegerVector a = setdiff(which_in, in_already);
         if(a.size() == 1) {
           sudoku_df(p, 0) = a[0];
-          cant_bes = cant_bes_getter_c(sudoku_df);
+          cant_bes = cant_bes_getter(sudoku_df);
         }
       }
       
@@ -148,7 +152,7 @@ IntegerMatrix element_checker_c(IntegerMatrix sudoku_df, List cant_bes,
   return sudoku_df;
 }
 
-
+// Return the number of empty cells in a sudoku puzzle
 // [[Rcpp::export]]
 int num_empties(IntegerMatrix sudoku_df) {
   int empties = 0;
@@ -161,24 +165,26 @@ int num_empties(IntegerMatrix sudoku_df) {
 } 
 
 
+// Attempt to solve a puzzle with logic only, using cant_bes_lengths and 
+// element_checker
 // [[Rcpp::export]]
 IntegerMatrix logical_solver(IntegerMatrix sudoku_df, bool verbose, 
                              IntegerVector nums) {
   int empty_start  = 2;
   int empty_finish = 1;
   
-  while(empty_start != empty_finish & empty_finish > 0) {
+  while(empty_start != empty_finish && empty_finish > 0) {
     
     empty_start = num_empties(sudoku_df);
     // If there's only one option, it's that
-    sudoku_df = cant_bes_lengths_c(sudoku_df, cant_bes_getter_c(sudoku_df), nums);
+    sudoku_df = cant_bes_lengths(sudoku_df, cant_bes_getter(sudoku_df), nums);
     // Can't be in box
-    sudoku_df = element_checker_c(sudoku_df, cant_bes_getter_c(sudoku_df), nums, 3);
+    sudoku_df = element_checker(sudoku_df, cant_bes_getter(sudoku_df), nums, 3);
     // Cant' be in row
-    sudoku_df = element_checker_c(sudoku_df, cant_bes_getter_c(sudoku_df), nums, 1);
+    sudoku_df = element_checker(sudoku_df, cant_bes_getter(sudoku_df), nums, 1);
     // Can't be in col
-    sudoku_df = element_checker_c(sudoku_df, cant_bes_getter_c(sudoku_df), nums, 2);
-    sudoku_df = cant_bes_lengths_c(sudoku_df, cant_bes_getter_c(sudoku_df), nums);
+    sudoku_df = element_checker(sudoku_df, cant_bes_getter(sudoku_df), nums, 2);
+    sudoku_df = cant_bes_lengths(sudoku_df, cant_bes_getter(sudoku_df), nums);
     empty_finish = num_empties(sudoku_df);
     
     // Convert to matrix and show
@@ -194,6 +200,7 @@ IntegerMatrix logical_solver(IntegerMatrix sudoku_df, bool verbose,
 inline int randWrapper(const int n) { return floor(unif_rand()*n); }
 
 
+// Return one solution with backtracking algorithm
 // [[Rcpp::export]]
 bool solve_backtracking(IntegerMatrix& sudoku_df, IntegerVector& empties, 
                         bool& verbose, IntegerVector& nums,
@@ -208,7 +215,7 @@ bool solve_backtracking(IntegerMatrix& sudoku_df, IntegerVector& empties,
   empties2.erase(0);
   
   NumericVector can_be_here;
-  can_be_here = can_bes_getter_index_c(sudoku_df, nums, ind_list[index]);
+  can_be_here = can_bes_getter_index(sudoku_df, nums, ind_list[index]);
   
   if(shuffle) {
     std::random_shuffle(can_be_here.begin(), can_be_here.end(), randWrapper);
@@ -233,6 +240,7 @@ bool solve_backtracking(IntegerMatrix& sudoku_df, IntegerVector& empties,
 }
 
 
+// Return all solutions with backtracking algorithm (or stop once you've found 2)
 // [[Rcpp::export]]
 List solve_backtracking_all(IntegerMatrix& sudoku_df, 
                             IntegerVector& empties, 
@@ -254,7 +262,7 @@ List solve_backtracking_all(IntegerMatrix& sudoku_df,
     empties2.erase(0);
     
     NumericVector can_be_here;
-    can_be_here = can_bes_getter_index_c(sudoku_df, nums, ind_list[index]);
+    can_be_here = can_bes_getter_index(sudoku_df, nums, ind_list[index]);
     
     if(shuffle) {
       std::random_shuffle(can_be_here.begin(), can_be_here.end(), randWrapper);

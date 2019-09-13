@@ -1,5 +1,5 @@
 Package: sudokuplyr
-Title: Simple Functions for Working With Sudoku Puzzles
+Title: Simple Functions for Working with Sudoku Puzzles
 Version: 0.1.0
 Authors@R: c(
              person("Alex", "Pavlakis", email = "alexpavlakis@gmail.com",

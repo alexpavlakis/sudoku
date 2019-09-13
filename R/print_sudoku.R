@@ -10,7 +10,7 @@
 
 print_sudoku <- function(sudoku_matrix) {
   
-  if(!class(sudoku_matrix) == 'matrix' || !dim(sudoku_matrix) == c(9, 9)) {
+  if(!all(dim(sudoku_matrix) == c(9, 9))) {
     stop('sudoku_matrix must be a 9x9 matrix')
   }
   
