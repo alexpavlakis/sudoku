@@ -2,7 +2,9 @@
 output: github_document
 ---
 
-<!-- README.md is generated from README.Rmd. Please edit that file -->
+  <!-- badges: start -->
+  [![Travis build status](https://travis-ci.org/alexpavlakis/sudokuplyr.svg?branch=master)](https://travis-ci.org/alexpavlakis/sudokuplyr)
+  <!-- badges: end -->
 
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(
@@ -48,6 +50,8 @@ The workhorse function is `solve_sudoku`, which takes three main arguments:
 `solve_sudoku` first attempts to solve the sudoku with basic sudoku logic.  If this does not work, it uses a backtracking algorithm to find a solution (if one exists).  Core functions are written in C++ for speed.
 
 ```{r, puzzle}
+library(sudokuplyr)
+
 # An unsolved puzzle
 print_sudoku(sudoku)
 

@@ -41,3 +41,15 @@ is_unique <- function(sudoku_matrix, return_all_solutions = FALSE, ...) {
   }
 }
 
+#' Check that a sudoku is a numeric 9x9 matrix. 
+#' @param sudoku_matrix a sudoku matrix.
+#' @export
+check_sudoku <- function(sudoku_matrix) {
+  if(!all(sudoku_matrix %in% c(1:9, NA))) {
+    FALSE
+  } else if(!identical(dim(sudoku_matrix), c(9L, 9L))) {
+    FALSE
+  } else if(!class(sudoku_matrix) == 'matrix') {
+    FALSE
+  } else TRUE
+}

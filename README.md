@@ -1,5 +1,6 @@
 
-<!-- README.md is generated from README.Rmd. Please edit that file -->
+<!-- badges: start --> [![Travis build status](https://travis-ci.org/alexpavlakis/sudokuplyr.svg?branch=master)](https://travis-ci.org/alexpavlakis/sudokuplyr) <!-- badges: end -->
+
 sudokuplyr
 ==========
 
@@ -37,6 +38,8 @@ The workhorse function is `solve_sudoku`, which takes three main arguments:
 `solve_sudoku` first attempts to solve the sudoku with basic sudoku logic. If this does not work, it uses a backtracking algorithm to find a solution (if one exists). Core functions are written in C++ for speed.
 
 ``` r
+library(sudokuplyr)
+
 # An unsolved puzzle
 print_sudoku(sudoku)
 #>                           
@@ -114,9 +117,9 @@ m <- microbenchmark(easy = solve_sudoku(sudoku),
 ``` r
 print(m, digits = 3)
 #> Unit: seconds
-#>  expr     min      lq    mean  median      uq    max neval cld
-#>  easy 0.00335 0.00349 0.00475 0.00369 0.00402 0.0674   100  a 
-#>  hard 0.01034 0.03722 0.05666 0.05499 0.07495 0.1138   100   b
+#>  expr     min      lq    mean  median      uq    max neval
+#>  easy 0.00435 0.00468 0.00668 0.00533 0.00729 0.0413   100
+#>  hard 0.01380 0.04515 0.07786 0.07622 0.10010 0.2363   100
 ```
 
 `generate_sudoku` creates randomly generated complete sudoku puzzles. The `seed` argument can be used to create reproducible random puzzles or left `NULL` (default). `generate_puzzle` creates randomly generated incomplete sudoku puzzles with a specified number of clues.
@@ -126,17 +129,17 @@ new_puzzle <- generate_puzzle(clues = 32, unique = TRUE, seed = 56)
 print_sudoku(new_puzzle)
 #>                           
 #>  + - - - + - - - + - - - +
-#>  |       |     5 |   9 2 |
-#>  |   9 1 |     2 | 5     |
-#>  |   3 2 |   9   | 4     |
+#>  | 4   6 | 7     | 3 9   |
+#>  |       |       |   6 8 |
+#>  | 5     |   9   |     7 |
 #>  + - - - + - - - + - - - +
-#>  |       | 1     |   2   |
-#>  |     7 |     9 |       |
-#>  | 6 4   |   2   |     1 |
+#>  | 3     |     6 | 9     |
+#>  |     7 |   8   | 6     |
+#>  |       | 5     |   8   |
 #>  + - - - + - - - + - - - +
-#>  |   6 5 |       |   7   |
-#>  | 2     | 9     | 8   6 |
-#>  | 9     |     1 |   5 3 |
+#>  | 8     | 2 3   | 1   9 |
+#>  | 2 1   |     7 |   4   |
+#>  |   7 4 |       | 2   3 |
 #>  + - - - + - - - + - - - +
 ```
 
@@ -147,5 +150,5 @@ print_sudoku(new_puzzle)
 puzzle <- generate_puzzle(clues = 30, unique = FALSE, seed = 56)
 all_solutions <- get_all_solutions(puzzle)
 length(all_solutions)
-#> [1] 2183
+#> [1] 96
 ```

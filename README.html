@@ -25,7 +25,8 @@ body {
 
 <body>
 
-<!-- README.md is generated from README.Rmd. Please edit that file -->
+<!-- badges: start -->
+<p><a href="https://travis-ci.org/alexpavlakis/sudokuplyr"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI5OCIgaGVpZ2h0PSIyMCI+PGxpbmVhckdyYWRpZW50IGlkPSJhIiB4Mj0iMCIgeTI9IjEwMCUiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iI2JiYiIgc3RvcC1vcGFjaXR5PSIuMSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1vcGFjaXR5PSIuMSIvPjwvbGluZWFyR3JhZGllbnQ+PHJlY3Qgcng9IjMiIHdpZHRoPSI5OCIgaGVpZ2h0PSIyMCIgZmlsbD0iIzU1NSIvPjxyZWN0IHJ4PSIzIiB4PSIzNyIgd2lkdGg9IjYxIiBoZWlnaHQ9IjIwIiBmaWxsPSIjOWY5ZjlmIi8+PHBhdGggZmlsbD0iIzlmOWY5ZiIgZD0iTTM3IDBoNHYyMGgtNHoiLz48cmVjdCByeD0iMyIgd2lkdGg9Ijk4IiBoZWlnaHQ9IjIwIiBmaWxsPSJ1cmwoI2EpIi8+PGcgZmlsbD0iI2ZmZiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IkRlamFWdSBTYW5zLFZlcmRhbmEsR2VuZXZhLHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTEiPjx0ZXh0IHg9IjE5LjUiIHk9IjE1IiBmaWxsPSIjMDEwMTAxIiBmaWxsLW9wYWNpdHk9Ii4zIj5idWlsZDwvdGV4dD48dGV4dCB4PSIxOS41IiB5PSIxNCI+YnVpbGQ8L3RleHQ+PHRleHQgeD0iNjYuNSIgeT0iMTUiIGZpbGw9IiMwMTAxMDEiIGZpbGwtb3BhY2l0eT0iLjMiPnVua25vd248L3RleHQ+PHRleHQgeD0iNjYuNSIgeT0iMTQiPnVua25vd248L3RleHQ+PC9nPjwvc3ZnPg==" alt="Travis build status" /></a> <!-- badges: end --></p>
 <h1 id="sudokuplyr">sudokuplyr</h1>
 <p>The goal of sudokuplyr is to provide simple functions for solving, creating, and analyzing sudoku puzzles in R. Key functions include:</p>
 <ul>
@@ -50,7 +51,9 @@ devtools<span class="op">::</span><span class="kw">install_github</span>(<span c
 </ul>
 <p><code>is_legal</code> will tell you if a puzzle is completed correctly. <code>is_unique</code> will tell you if an unsolved puzzle has a unique solution.</p>
 <p><code>solve_sudoku</code> first attempts to solve the sudoku with basic sudoku logic. If this does not work, it uses a backtracking algorithm to find a solution (if one exists). Core functions are written in C++ for speed.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># An unsolved puzzle</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(sudokuplyr)
+
+<span class="co"># An unsolved puzzle</span>
 <span class="kw">print_sudoku</span>(sudoku)
 <span class="co">#&gt;                           </span>
 <span class="co">#&gt;  + - - - + - - - + - - - +</span>
@@ -117,32 +120,32 @@ m &lt;-<span class="st"> </span><span class="kw">microbenchmark</span>(<span cla
                     <span class="dt">times =</span> <span class="dv">100</span>, <span class="dt">unit =</span> <span class="st">'s'</span>)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(m, <span class="dt">digits =</span> <span class="dv">3</span>)
 <span class="co">#&gt; Unit: seconds</span>
-<span class="co">#&gt;  expr     min      lq    mean  median      uq    max neval cld</span>
-<span class="co">#&gt;  easy 0.00335 0.00349 0.00475 0.00369 0.00402 0.0674   100  a </span>
-<span class="co">#&gt;  hard 0.01034 0.03722 0.05666 0.05499 0.07495 0.1138   100   b</span></code></pre></div>
+<span class="co">#&gt;  expr     min      lq    mean  median      uq    max neval</span>
+<span class="co">#&gt;  easy 0.00435 0.00468 0.00668 0.00533 0.00729 0.0413   100</span>
+<span class="co">#&gt;  hard 0.01380 0.04515 0.07786 0.07622 0.10010 0.2363   100</span></code></pre></div>
 <p><code>generate_sudoku</code> creates randomly generated complete sudoku puzzles. The <code>seed</code> argument can be used to create reproducible random puzzles or left <code>NULL</code> (default). <code>generate_puzzle</code> creates randomly generated incomplete sudoku puzzles with a specified number of clues.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">new_puzzle &lt;-<span class="st"> </span><span class="kw">generate_puzzle</span>(<span class="dt">clues =</span> <span class="dv">32</span>, <span class="dt">unique =</span> <span class="ot">TRUE</span>, <span class="dt">seed =</span> <span class="dv">56</span>)
 <span class="kw">print_sudoku</span>(new_puzzle)
 <span class="co">#&gt;                           </span>
 <span class="co">#&gt;  + - - - + - - - + - - - +</span>
-<span class="co">#&gt;  |       |     5 |   9 2 |</span>
-<span class="co">#&gt;  |   9 1 |     2 | 5     |</span>
-<span class="co">#&gt;  |   3 2 |   9   | 4     |</span>
+<span class="co">#&gt;  | 4   6 | 7     | 3 9   |</span>
+<span class="co">#&gt;  |       |       |   6 8 |</span>
+<span class="co">#&gt;  | 5     |   9   |     7 |</span>
 <span class="co">#&gt;  + - - - + - - - + - - - +</span>
-<span class="co">#&gt;  |       | 1     |   2   |</span>
-<span class="co">#&gt;  |     7 |     9 |       |</span>
-<span class="co">#&gt;  | 6 4   |   2   |     1 |</span>
+<span class="co">#&gt;  | 3     |     6 | 9     |</span>
+<span class="co">#&gt;  |     7 |   8   | 6     |</span>
+<span class="co">#&gt;  |       | 5     |   8   |</span>
 <span class="co">#&gt;  + - - - + - - - + - - - +</span>
-<span class="co">#&gt;  |   6 5 |       |   7   |</span>
-<span class="co">#&gt;  | 2     | 9     | 8   6 |</span>
-<span class="co">#&gt;  | 9     |     1 |   5 3 |</span>
+<span class="co">#&gt;  | 8     | 2 3   | 1   9 |</span>
+<span class="co">#&gt;  | 2 1   |     7 |   4   |</span>
+<span class="co">#&gt;  |   7 4 |       | 2   3 |</span>
 <span class="co">#&gt;  + - - - + - - - + - - - +</span></code></pre></div>
 <p><code>get_all_solutions</code> generates all possible solutions for a given puzzle. Puzzles with fewer than 20-25 clues (depending on the puzzle, of course), can have <em>a lot</em> of solutions, and this function can take a while to find them all. Beware. Most puzzles that appear in newspapers and magazines have only one solution.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># This puzzle has a lot of solutions</span>
 puzzle &lt;-<span class="st"> </span><span class="kw">generate_puzzle</span>(<span class="dt">clues =</span> <span class="dv">30</span>, <span class="dt">unique =</span> <span class="ot">FALSE</span>, <span class="dt">seed =</span> <span class="dv">56</span>)
 all_solutions &lt;-<span class="st"> </span><span class="kw">get_all_solutions</span>(puzzle)
 <span class="kw">length</span>(all_solutions)
-<span class="co">#&gt; [1] 2183</span></code></pre></div>
+<span class="co">#&gt; [1] 96</span></code></pre></div>
 
 </body>
 </html>

@@ -13,12 +13,16 @@ cant_bes_lengths <- function(sudoku_df, cant_bes, nums) {
     .Call(`_sudokuplyr_cant_bes_lengths`, sudoku_df, cant_bes, nums)
 }
 
+count_naked_singles <- function(sudoku_df, cant_bes) {
+    .Call(`_sudokuplyr_count_naked_singles`, sudoku_df, cant_bes)
+}
+
 check_integrity <- function(sudoku_df, nums) {
     .Call(`_sudokuplyr_check_integrity`, sudoku_df, nums)
 }
 
-element_checker <- function(sudoku_df, cant_bes, nums, dimension) {
-    .Call(`_sudokuplyr_element_checker`, sudoku_df, cant_bes, nums, dimension)
+element_checker <- function(sudoku_df, cant_bes, dimension) {
+    .Call(`_sudokuplyr_element_checker`, sudoku_df, cant_bes, dimension)
 }
 
 num_empties <- function(sudoku_df) {
@@ -27,6 +31,10 @@ num_empties <- function(sudoku_df) {
 
 logical_solver <- function(sudoku_df, verbose, nums) {
     .Call(`_sudokuplyr_logical_solver`, sudoku_df, verbose, nums)
+}
+
+count_hidden_singles <- function(sudoku_df) {
+    .Call(`_sudokuplyr_count_hidden_singles`, sudoku_df)
 }
 
 solve_backtracking <- function(sudoku_df, empties, verbose, nums, ind_list, shuffle) {
