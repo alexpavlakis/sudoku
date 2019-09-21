@@ -120,9 +120,9 @@ m &lt;-<span class="st"> </span><span class="kw">microbenchmark</span>(<span cla
                     <span class="dt">times =</span> <span class="dv">100</span>, <span class="dt">unit =</span> <span class="st">'s'</span>)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(m, <span class="dt">digits =</span> <span class="dv">3</span>)
 <span class="co">#&gt; Unit: seconds</span>
-<span class="co">#&gt;  expr     min      lq    mean  median      uq    max neval</span>
-<span class="co">#&gt;  easy 0.00435 0.00468 0.00668 0.00533 0.00729 0.0413   100</span>
-<span class="co">#&gt;  hard 0.01380 0.04515 0.07786 0.07622 0.10010 0.2363   100</span></code></pre></div>
+<span class="co">#&gt;  expr     min     lq    mean  median      uq    max neval</span>
+<span class="co">#&gt;  easy 0.00455 0.0048 0.00608 0.00509 0.00597 0.0233   100</span>
+<span class="co">#&gt;  hard 0.01483 0.0467 0.07179 0.07030 0.09617 0.1379   100</span></code></pre></div>
 <p><code>generate_sudoku</code> creates randomly generated complete sudoku puzzles. The <code>seed</code> argument can be used to create reproducible random puzzles or left <code>NULL</code> (default). <code>generate_puzzle</code> creates randomly generated incomplete sudoku puzzles with a specified number of clues.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">new_puzzle &lt;-<span class="st"> </span><span class="kw">generate_puzzle</span>(<span class="dt">clues =</span> <span class="dv">32</span>, <span class="dt">unique =</span> <span class="ot">TRUE</span>, <span class="dt">seed =</span> <span class="dv">56</span>)
 <span class="kw">print_sudoku</span>(new_puzzle)

@@ -2,9 +2,6 @@
 output: github_document
 ---
 
-  <!-- badges: start -->
-  [![Travis build status](https://travis-ci.org/alexpavlakis/sudokuplyr.svg?branch=master)](https://travis-ci.org/alexpavlakis/sudokuplyr)
-  <!-- badges: end -->
 
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(
@@ -14,6 +11,11 @@ knitr::opts_chunk$set(
   out.width = "100%"
 )
 ```
+
+<!-- badges: start -->
+[![Travis build status](https://travis-ci.org/alexpavlakis/sudokuplyr.svg?branch=master)](https://travis-ci.org/alexpavlakis/sudokuplyr)
+<!-- badges: end -->
+
 # sudokuplyr
 
 The goal of sudokuplyr is to provide simple functions for solving, creating, and analyzing sudoku puzzles in R. Key functions include:

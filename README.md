@@ -1,5 +1,6 @@
 
-<!-- badges: start --> [![Travis build status](https://travis-ci.org/alexpavlakis/sudokuplyr.svg?branch=master)](https://travis-ci.org/alexpavlakis/sudokuplyr) <!-- badges: end -->
+<!-- badges: start -->
+[![Travis build status](https://travis-ci.org/alexpavlakis/sudokuplyr.svg?branch=master)](https://travis-ci.org/alexpavlakis/sudokuplyr) <!-- badges: end -->
 
 sudokuplyr
 ==========
@@ -117,9 +118,9 @@ m <- microbenchmark(easy = solve_sudoku(sudoku),
 ``` r
 print(m, digits = 3)
 #> Unit: seconds
-#>  expr     min      lq    mean  median      uq    max neval
-#>  easy 0.00435 0.00468 0.00668 0.00533 0.00729 0.0413   100
-#>  hard 0.01380 0.04515 0.07786 0.07622 0.10010 0.2363   100
+#>  expr     min     lq    mean  median      uq    max neval
+#>  easy 0.00455 0.0048 0.00608 0.00509 0.00597 0.0233   100
+#>  hard 0.01483 0.0467 0.07179 0.07030 0.09617 0.1379   100
 ```
 
 `generate_sudoku` creates randomly generated complete sudoku puzzles. The `seed` argument can be used to create reproducible random puzzles or left `NULL` (default). `generate_puzzle` creates randomly generated incomplete sudoku puzzles with a specified number of clues.
