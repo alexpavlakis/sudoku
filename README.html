@@ -37,6 +37,7 @@ body {
 <li><code>generate_sudoku</code></li>
 <li><code>generate_puzzle</code></li>
 <li><code>get_all_solutions</code></li>
+<li><code>analyze_sudoku</code></li>
 </ul>
 <h2 id="installation">Installation</h2>
 <p>You can install sudoku from github with:</p>
@@ -120,9 +121,9 @@ m &lt;-<span class="st"> </span><span class="kw">microbenchmark</span>(<span cla
                     <span class="dt">times =</span> <span class="dv">100</span>, <span class="dt">unit =</span> <span class="st">'s'</span>)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(m, <span class="dt">digits =</span> <span class="dv">3</span>)
 <span class="co">#&gt; Unit: seconds</span>
-<span class="co">#&gt;  expr     min      lq    mean  median      uq    max neval</span>
-<span class="co">#&gt;  easy 0.00445 0.00467 0.00573 0.00492 0.00565 0.0123   100</span>
-<span class="co">#&gt;  hard 0.01908 0.04743 0.07274 0.07426 0.09446 0.1490   100</span></code></pre></div>
+<span class="co">#&gt;  expr     min      lq    mean median      uq    max neval</span>
+<span class="co">#&gt;  easy 0.00441 0.00463 0.00568 0.0049 0.00574 0.0108   100</span>
+<span class="co">#&gt;  hard 0.01637 0.04751 0.06709 0.0661 0.08642 0.1384   100</span></code></pre></div>
 <p><code>generate_sudoku</code> creates randomly generated complete sudoku puzzles. The <code>seed</code> argument can be used to create reproducible random puzzles or left <code>NULL</code> (default). <code>generate_puzzle</code> creates randomly generated incomplete sudoku puzzles with a specified number of clues.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">new_puzzle &lt;-<span class="st"> </span><span class="kw">generate_puzzle</span>(<span class="dt">clues =</span> <span class="dv">32</span>, <span class="dt">unique =</span> <span class="ot">TRUE</span>, <span class="dt">seed =</span> <span class="dv">56</span>)
 <span class="kw">print_sudoku</span>(new_puzzle)
@@ -142,10 +143,53 @@ m &lt;-<span class="st"> </span><span class="kw">microbenchmark</span>(<span cla
 <span class="co">#&gt;  + - - - + - - - + - - - +</span></code></pre></div>
 <p><code>get_all_solutions</code> generates all possible solutions for a given puzzle. Puzzles with fewer than 20-25 clues (depending on the puzzle, of course), can have <em>a lot</em> of solutions, and this function can take a while to find them all. Beware. Most puzzles that appear in newspapers and magazines have only one solution.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># This puzzle has a lot of solutions</span>
-puzzle &lt;-<span class="st"> </span><span class="kw">generate_puzzle</span>(<span class="dt">clues =</span> <span class="dv">30</span>, <span class="dt">unique =</span> <span class="ot">FALSE</span>, <span class="dt">seed =</span> <span class="dv">56</span>)
+puzzle &lt;-<span class="st"> </span><span class="kw">generate_puzzle</span>(<span class="dt">clues =</span> <span class="dv">28</span>, <span class="dt">unique =</span> <span class="ot">FALSE</span>, <span class="dt">seed =</span> <span class="dv">56</span>)
 all_solutions &lt;-<span class="st"> </span><span class="kw">get_all_solutions</span>(puzzle)
 <span class="kw">length</span>(all_solutions)
-<span class="co">#&gt; [1] 96</span></code></pre></div>
+<span class="co">#&gt; [1] 898</span></code></pre></div>
+<p><code>analyze_sudoku</code> returns some helpful information about sudoku puzzles.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Compare the easy and hard sudokus that come with the package</span>
+<span class="kw">analyze_sudoku</span>(sudoku)
+<span class="co">#&gt;                           </span>
+<span class="co">#&gt;  + - - - + - - - + - - - +</span>
+<span class="co">#&gt;  | 2 1   |       |       |</span>
+<span class="co">#&gt;  | 4   8 |     1 |   2   |</span>
+<span class="co">#&gt;  |   6 5 |   2   |     4 |</span>
+<span class="co">#&gt;  + - - - + - - - + - - - +</span>
+<span class="co">#&gt;  |     2 | 5   3 |   9   |</span>
+<span class="co">#&gt;  | 8   7 |       | 5   2 |</span>
+<span class="co">#&gt;  |   5   | 2   4 | 7     |</span>
+<span class="co">#&gt;  + - - - + - - - + - - - +</span>
+<span class="co">#&gt;  | 5     |   1   | 4 7   |</span>
+<span class="co">#&gt;  |   2   | 7     | 6   1 |</span>
+<span class="co">#&gt;  |       |       |   8 9 |</span>
+<span class="co">#&gt;  + - - - + - - - + - - - +</span>
+<span class="co">#&gt;  clues:           32 </span>
+<span class="co">#&gt;  naked singles:   2 </span>
+<span class="co">#&gt;  hidden singles:  18 </span>
+<span class="co">#&gt;  legal solution:  TRUE </span>
+<span class="co">#&gt;  unique solution: TRUE</span>
+<span class="kw">analyze_sudoku</span>(hard_sudoku)
+<span class="co">#&gt;                           </span>
+<span class="co">#&gt;  + - - - + - - - + - - - +</span>
+<span class="co">#&gt;  | 8 7   | 5     |     3 |</span>
+<span class="co">#&gt;  |       |     8 |     7 |</span>
+<span class="co">#&gt;  |       |   4   |       |</span>
+<span class="co">#&gt;  + - - - + - - - + - - - +</span>
+<span class="co">#&gt;  |     9 |       |       |</span>
+<span class="co">#&gt;  |   8   | 7     |   1 6 |</span>
+<span class="co">#&gt;  |     2 |   8 6 |       |</span>
+<span class="co">#&gt;  + - - - + - - - + - - - +</span>
+<span class="co">#&gt;  | 2     |       |       |</span>
+<span class="co">#&gt;  |   5   | 1     | 2 3   |</span>
+<span class="co">#&gt;  |   9 6 |       |       |</span>
+<span class="co">#&gt;  + - - - + - - - + - - - +</span>
+<span class="co">#&gt;  clues:           22 </span>
+<span class="co">#&gt;  naked singles:   0 </span>
+<span class="co">#&gt;  hidden singles:  3 </span>
+<span class="co">#&gt;  legal solution:  TRUE </span>
+<span class="co">#&gt;  unique solution: TRUE</span></code></pre></div>
+<p>Both have legal, unique solutions. But the easy sudoku has more clues available, and &quot;hidden&quot; and &quot;naked&quot; singles (unknown cells that can be populated with simple logic).</p>
 
 </body>
 </html>

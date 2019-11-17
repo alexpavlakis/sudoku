@@ -27,6 +27,7 @@ The goal of sudokuplyr is to provide simple functions for solving, creating, and
 * `generate_sudoku`
 * `generate_puzzle`
 * `get_all_solutions`
+* `analyze_sudoku`
 
 ## Installation
 
@@ -99,7 +100,18 @@ print_sudoku(new_puzzle)
 
 ```{r generate_all}
 # This puzzle has a lot of solutions
-puzzle <- generate_puzzle(clues = 30, unique = FALSE, seed = 56)
+puzzle <- generate_puzzle(clues = 28, unique = FALSE, seed = 56)
 all_solutions <- get_all_solutions(puzzle)
 length(all_solutions)
 ```
+
+
+`analyze_sudoku` returns some helpful information about sudoku puzzles.
+
+```{r as}
+# Compare the easy and hard sudokus that come with the package
+analyze_sudoku(sudoku)
+analyze_sudoku(hard_sudoku)
+```
+
+Both have legal, unique solutions.  But the easy sudoku has more clues available, and "hidden" and "naked" singles (unknown cells that can be populated with simple logic).

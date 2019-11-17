@@ -14,6 +14,7 @@ The goal of sudokuplyr is to provide simple functions for solving, creating, and
 -   `generate_sudoku`
 -   `generate_puzzle`
 -   `get_all_solutions`
+-   `analyze_sudoku`
 
 Installation
 ------------
@@ -118,9 +119,9 @@ m <- microbenchmark(easy = solve_sudoku(sudoku),
 ``` r
 print(m, digits = 3)
 #> Unit: seconds
-#>  expr     min      lq    mean  median      uq    max neval
-#>  easy 0.00445 0.00467 0.00573 0.00492 0.00565 0.0123   100
-#>  hard 0.01908 0.04743 0.07274 0.07426 0.09446 0.1490   100
+#>  expr     min      lq    mean median      uq    max neval
+#>  easy 0.00441 0.00463 0.00568 0.0049 0.00574 0.0108   100
+#>  hard 0.01637 0.04751 0.06709 0.0661 0.08642 0.1384   100
 ```
 
 `generate_sudoku` creates randomly generated complete sudoku puzzles. The `seed` argument can be used to create reproducible random puzzles or left `NULL` (default). `generate_puzzle` creates randomly generated incomplete sudoku puzzles with a specified number of clues.
@@ -148,8 +149,56 @@ print_sudoku(new_puzzle)
 
 ``` r
 # This puzzle has a lot of solutions
-puzzle <- generate_puzzle(clues = 30, unique = FALSE, seed = 56)
+puzzle <- generate_puzzle(clues = 28, unique = FALSE, seed = 56)
 all_solutions <- get_all_solutions(puzzle)
 length(all_solutions)
-#> [1] 96
+#> [1] 898
 ```
+
+`analyze_sudoku` returns some helpful information about sudoku puzzles.
+
+``` r
+# Compare the easy and hard sudokus that come with the package
+analyze_sudoku(sudoku)
+#>                           
+#>  + - - - + - - - + - - - +
+#>  | 2 1   |       |       |
+#>  | 4   8 |     1 |   2   |
+#>  |   6 5 |   2   |     4 |
+#>  + - - - + - - - + - - - +
+#>  |     2 | 5   3 |   9   |
+#>  | 8   7 |       | 5   2 |
+#>  |   5   | 2   4 | 7     |
+#>  + - - - + - - - + - - - +
+#>  | 5     |   1   | 4 7   |
+#>  |   2   | 7     | 6   1 |
+#>  |       |       |   8 9 |
+#>  + - - - + - - - + - - - +
+#>  clues:           32 
+#>  naked singles:   2 
+#>  hidden singles:  18 
+#>  legal solution:  TRUE 
+#>  unique solution: TRUE
+analyze_sudoku(hard_sudoku)
+#>                           
+#>  + - - - + - - - + - - - +
+#>  | 8 7   | 5     |     3 |
+#>  |       |     8 |     7 |
+#>  |       |   4   |       |
+#>  + - - - + - - - + - - - +
+#>  |     9 |       |       |
+#>  |   8   | 7     |   1 6 |
+#>  |     2 |   8 6 |       |
+#>  + - - - + - - - + - - - +
+#>  | 2     |       |       |
+#>  |   5   | 1     | 2 3   |
+#>  |   9 6 |       |       |
+#>  + - - - + - - - + - - - +
+#>  clues:           22 
+#>  naked singles:   0 
+#>  hidden singles:  3 
+#>  legal solution:  TRUE 
+#>  unique solution: TRUE
+```
+
+Both have legal, unique solutions. But the easy sudoku has more clues available, and "hidden" and "naked" singles (unknown cells that can be populated with simple logic).
