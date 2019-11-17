@@ -52,7 +52,7 @@ List cant_bes_getter(IntegerMatrix sudoku_df) {
 
 
 // If there is a cell that can only be one number, fill in that number.
-//[[Rcpp::export]]
+// [[Rcpp::export]]
 IntegerMatrix cant_bes_lengths(IntegerMatrix sudoku_df, List cant_bes,
                                  IntegerVector nums) {
   
@@ -66,6 +66,23 @@ IntegerMatrix cant_bes_lengths(IntegerMatrix sudoku_df, List cant_bes,
     }
   }
   return sudoku_df;
+}
+
+// Count naked singles
+// [[Rcpp::export]]
+int count_naked_singles(IntegerMatrix sudoku_df, List cant_bes) {
+  
+  int counter = 0;
+  for(int i = 0; i < 81; i++) {
+    if(sudoku_df(i, 0) == NA_INTEGER) {
+      IntegerVector cb;
+      cb = cant_bes[i];
+      if(cb.size() == 8) {
+        counter += 1;
+      }  
+    }
+  }
+  return counter;
 }
 
 // check that each row, column, and box has 1:9 exclusively
@@ -92,8 +109,7 @@ bool check_integrity(IntegerMatrix sudoku_df, IntegerVector nums) {
 // For a given dimension (row, col, box), fill in all cells in the puzzle
 // that can only be one value based on others in that dimension.
 // [[Rcpp::export]]
-IntegerMatrix element_checker(IntegerMatrix sudoku_df, List cant_bes, 
-                                IntegerVector nums, int dimension) {
+IntegerMatrix element_checker(IntegerMatrix sudoku_df, List cant_bes, int dimension) {
   
   // Loop over the df and fill in values
   for(int p = 0; p < 81; p++) {
@@ -179,11 +195,11 @@ IntegerMatrix logical_solver(IntegerMatrix sudoku_df, bool verbose,
     // If there's only one option, it's that
     sudoku_df = cant_bes_lengths(sudoku_df, cant_bes_getter(sudoku_df), nums);
     // Can't be in box
-    sudoku_df = element_checker(sudoku_df, cant_bes_getter(sudoku_df), nums, 3);
+    sudoku_df = element_checker(sudoku_df, cant_bes_getter(sudoku_df), 3);
     // Cant' be in row
-    sudoku_df = element_checker(sudoku_df, cant_bes_getter(sudoku_df), nums, 1);
+    sudoku_df = element_checker(sudoku_df, cant_bes_getter(sudoku_df), 1);
     // Can't be in col
-    sudoku_df = element_checker(sudoku_df, cant_bes_getter(sudoku_df), nums, 2);
+    sudoku_df = element_checker(sudoku_df, cant_bes_getter(sudoku_df), 2);
     sudoku_df = cant_bes_lengths(sudoku_df, cant_bes_getter(sudoku_df), nums);
     empty_finish = num_empties(sudoku_df);
     
@@ -195,6 +211,25 @@ IntegerMatrix logical_solver(IntegerMatrix sudoku_df, bool verbose,
     }
   }
   return sudoku_df;
+}
+
+
+// [[Rcpp::export]]
+int count_hidden_singles(IntegerMatrix& sudoku_df) {
+  int counter = 0;
+  List cant_bes = cant_bes_getter(sudoku_df);
+  IntegerMatrix sdf;
+  // Can't be in box
+  sdf = element_checker(clone(sudoku_df), cant_bes, 3);
+  counter += num_empties(sudoku_df) - num_empties(sdf);
+  // Cant' be in row
+  sdf = element_checker(clone(sudoku_df), cant_bes, 1);
+  counter += num_empties(sudoku_df) - num_empties(sdf);
+  // Can't be in col
+  sdf = element_checker(clone(sudoku_df), cant_bes, 2);
+  counter += num_empties(sudoku_df) - num_empties(sdf);
+  
+  return counter;
 }
 
 inline int randWrapper(const int n) { return floor(unif_rand()*n); }

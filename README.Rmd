@@ -2,7 +2,6 @@
 output: github_document
 ---
 
-<!-- README.md is generated from README.Rmd. Please edit that file -->
 
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(
@@ -12,6 +11,11 @@ knitr::opts_chunk$set(
   out.width = "100%"
 )
 ```
+
+<!-- badges: start -->
+[![Travis build status](https://travis-ci.org/alexpavlakis/sudokuplyr.svg?branch=master)](https://travis-ci.org/alexpavlakis/sudokuplyr)
+<!-- badges: end -->
+
 # sudokuplyr
 
 The goal of sudokuplyr is to provide simple functions for solving, creating, and analyzing sudoku puzzles in R. Key functions include:
@@ -23,6 +27,7 @@ The goal of sudokuplyr is to provide simple functions for solving, creating, and
 * `generate_sudoku`
 * `generate_puzzle`
 * `get_all_solutions`
+* `analyze_sudoku`
 
 ## Installation
 
@@ -48,6 +53,8 @@ The workhorse function is `solve_sudoku`, which takes three main arguments:
 `solve_sudoku` first attempts to solve the sudoku with basic sudoku logic.  If this does not work, it uses a backtracking algorithm to find a solution (if one exists).  Core functions are written in C++ for speed.
 
 ```{r, puzzle}
+library(sudokuplyr)
+
 # An unsolved puzzle
 print_sudoku(sudoku)
 
@@ -93,7 +100,18 @@ print_sudoku(new_puzzle)
 
 ```{r generate_all}
 # This puzzle has a lot of solutions
-puzzle <- generate_puzzle(clues = 30, unique = FALSE, seed = 56)
+puzzle <- generate_puzzle(clues = 28, unique = FALSE, seed = 56)
 all_solutions <- get_all_solutions(puzzle)
 length(all_solutions)
 ```
+
+
+`analyze_sudoku` returns some helpful information about sudoku puzzles.
+
+```{r as}
+# Compare the easy and hard sudokus that come with the package
+analyze_sudoku(sudoku)
+analyze_sudoku(hard_sudoku)
+```
+
+Both have legal, unique solutions.  But the easy sudoku has more clues available, and "hidden" and "naked" singles (unknown cells that can be populated with simple logic).

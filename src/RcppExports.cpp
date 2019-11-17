@@ -42,6 +42,18 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// count_naked_singles
+int count_naked_singles(IntegerMatrix sudoku_df, List cant_bes);
+RcppExport SEXP _sudokuplyr_count_naked_singles(SEXP sudoku_dfSEXP, SEXP cant_besSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerMatrix >::type sudoku_df(sudoku_dfSEXP);
+    Rcpp::traits::input_parameter< List >::type cant_bes(cant_besSEXP);
+    rcpp_result_gen = Rcpp::wrap(count_naked_singles(sudoku_df, cant_bes));
+    return rcpp_result_gen;
+END_RCPP
+}
 // check_integrity
 bool check_integrity(IntegerMatrix sudoku_df, IntegerVector nums);
 RcppExport SEXP _sudokuplyr_check_integrity(SEXP sudoku_dfSEXP, SEXP numsSEXP) {
@@ -55,16 +67,15 @@ BEGIN_RCPP
 END_RCPP
 }
 // element_checker
-IntegerMatrix element_checker(IntegerMatrix sudoku_df, List cant_bes, IntegerVector nums, int dimension);
-RcppExport SEXP _sudokuplyr_element_checker(SEXP sudoku_dfSEXP, SEXP cant_besSEXP, SEXP numsSEXP, SEXP dimensionSEXP) {
+IntegerMatrix element_checker(IntegerMatrix sudoku_df, List cant_bes, int dimension);
+RcppExport SEXP _sudokuplyr_element_checker(SEXP sudoku_dfSEXP, SEXP cant_besSEXP, SEXP dimensionSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< IntegerMatrix >::type sudoku_df(sudoku_dfSEXP);
     Rcpp::traits::input_parameter< List >::type cant_bes(cant_besSEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type nums(numsSEXP);
     Rcpp::traits::input_parameter< int >::type dimension(dimensionSEXP);
-    rcpp_result_gen = Rcpp::wrap(element_checker(sudoku_df, cant_bes, nums, dimension));
+    rcpp_result_gen = Rcpp::wrap(element_checker(sudoku_df, cant_bes, dimension));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -89,6 +100,17 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< bool >::type verbose(verboseSEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type nums(numsSEXP);
     rcpp_result_gen = Rcpp::wrap(logical_solver(sudoku_df, verbose, nums));
+    return rcpp_result_gen;
+END_RCPP
+}
+// count_hidden_singles
+int count_hidden_singles(IntegerMatrix& sudoku_df);
+RcppExport SEXP _sudokuplyr_count_hidden_singles(SEXP sudoku_dfSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerMatrix& >::type sudoku_df(sudoku_dfSEXP);
+    rcpp_result_gen = Rcpp::wrap(count_hidden_singles(sudoku_df));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -132,10 +154,12 @@ static const R_CallMethodDef CallEntries[] = {
     {"_sudokuplyr_can_bes_getter_index", (DL_FUNC) &_sudokuplyr_can_bes_getter_index, 3},
     {"_sudokuplyr_cant_bes_getter", (DL_FUNC) &_sudokuplyr_cant_bes_getter, 1},
     {"_sudokuplyr_cant_bes_lengths", (DL_FUNC) &_sudokuplyr_cant_bes_lengths, 3},
+    {"_sudokuplyr_count_naked_singles", (DL_FUNC) &_sudokuplyr_count_naked_singles, 2},
     {"_sudokuplyr_check_integrity", (DL_FUNC) &_sudokuplyr_check_integrity, 2},
-    {"_sudokuplyr_element_checker", (DL_FUNC) &_sudokuplyr_element_checker, 4},
+    {"_sudokuplyr_element_checker", (DL_FUNC) &_sudokuplyr_element_checker, 3},
     {"_sudokuplyr_num_empties", (DL_FUNC) &_sudokuplyr_num_empties, 1},
     {"_sudokuplyr_logical_solver", (DL_FUNC) &_sudokuplyr_logical_solver, 3},
+    {"_sudokuplyr_count_hidden_singles", (DL_FUNC) &_sudokuplyr_count_hidden_singles, 1},
     {"_sudokuplyr_solve_backtracking", (DL_FUNC) &_sudokuplyr_solve_backtracking, 6},
     {"_sudokuplyr_solve_backtracking_all", (DL_FUNC) &_sudokuplyr_solve_backtracking_all, 9},
     {NULL, NULL, 0}
