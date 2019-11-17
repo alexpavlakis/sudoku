@@ -118,9 +118,9 @@ m <- microbenchmark(easy = solve_sudoku(sudoku),
 ``` r
 print(m, digits = 3)
 #> Unit: seconds
-#>  expr     min     lq    mean  median      uq    max neval
-#>  easy 0.00455 0.0048 0.00608 0.00509 0.00597 0.0233   100
-#>  hard 0.01483 0.0467 0.07179 0.07030 0.09617 0.1379   100
+#>  expr     min      lq    mean  median      uq    max neval
+#>  easy 0.00445 0.00467 0.00573 0.00492 0.00565 0.0123   100
+#>  hard 0.01908 0.04743 0.07274 0.07426 0.09446 0.1490   100
 ```
 
 `generate_sudoku` creates randomly generated complete sudoku puzzles. The `seed` argument can be used to create reproducible random puzzles or left `NULL` (default). `generate_puzzle` creates randomly generated incomplete sudoku puzzles with a specified number of clues.
