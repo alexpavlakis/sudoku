@@ -11,7 +11,6 @@
 #' print_sudoku(sudoku)
 #' solved_sudoku <- solve_sudoku(sudoku)
 #' print_sudoku(solved_sudoku)
-
 solve_sudoku <- function(sudoku_matrix, verbose = FALSE, shuffle = TRUE) {
   
   if(!check_sudoku(sudoku_matrix)) {
@@ -37,7 +36,8 @@ solve_sudoku <- function(sudoku_matrix, verbose = FALSE, shuffle = TRUE) {
   if(!is_legal(sudoku_df)) {
     print('no solution was found')
   } else {
-    return(matrix(sudoku_df[, 1], nrow = 9, ncol = 9))
+    out <- matrix(sudoku_df[, 1], nrow = 9, ncol = 9)
+    return(as.sudoku(out))
   }
 }
 

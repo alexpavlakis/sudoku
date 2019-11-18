@@ -43,7 +43,8 @@ The workhorse function is `solve_sudoku`, which takes three main arguments:
 library(sudokuplyr)
 
 # An unsolved puzzle
-print_sudoku(sudoku)
+s <- as.sudoku(sudoku)
+s
 #>                           
 #>  + - - - + - - - + - - - +
 #>  | 2 1   |       |       |
@@ -60,8 +61,8 @@ print_sudoku(sudoku)
 #>  + - - - + - - - + - - - +
 
 # Solve
-solved_puzzle <- solve_sudoku(sudoku)
-print_sudoku(solved_puzzle)
+solved_puzzle <- solve_sudoku(s)
+solved_puzzle
 #>                           
 #>  + - - - + - - - + - - - +
 #>  | 2 1 3 | 8 4 7 | 9 6 5 |
@@ -90,9 +91,7 @@ sum(is.na(sudoku))
 #> [1] 49
 
 # Hard Puzzle - 59 empty cells
-sum(is.na(hard_sudoku))
-#> [1] 59
-print_sudoku(hard_sudoku)
+summary(as.sudoku(hard_sudoku))
 #>                           
 #>  + - - - + - - - + - - - +
 #>  | 8 7   | 5     |     3 |
@@ -107,6 +106,11 @@ print_sudoku(hard_sudoku)
 #>  |   5   | 1     | 2 3   |
 #>  |   9 6 |       |       |
 #>  + - - - + - - - + - - - +
+#>  clues:           22 
+#>  naked singles:   0 
+#>  hidden singles:  3 
+#>  legal solution:  TRUE 
+#>  unique solution: TRUE
 ```
 
 ``` r
@@ -119,16 +123,16 @@ m <- microbenchmark(easy = solve_sudoku(sudoku),
 ``` r
 print(m, digits = 3)
 #> Unit: seconds
-#>  expr     min      lq    mean median      uq    max neval
-#>  easy 0.00441 0.00463 0.00568 0.0049 0.00574 0.0108   100
-#>  hard 0.01637 0.04751 0.06709 0.0661 0.08642 0.1384   100
+#>  expr     min      lq    mean  median      uq    max neval
+#>  easy 0.00458 0.00482 0.00582 0.00507 0.00555 0.0184   100
+#>  hard 0.01096 0.04971 0.07086 0.07044 0.08888 0.1713   100
 ```
 
 `generate_sudoku` creates randomly generated complete sudoku puzzles. The `seed` argument can be used to create reproducible random puzzles or left `NULL` (default). `generate_puzzle` creates randomly generated incomplete sudoku puzzles with a specified number of clues.
 
 ``` r
 new_puzzle <- generate_puzzle(clues = 32, unique = TRUE, seed = 56)
-print_sudoku(new_puzzle)
+print(new_puzzle)
 #>                           
 #>  + - - - + - - - + - - - +
 #>  | 4   6 | 7     | 3 9   |
@@ -155,7 +159,7 @@ length(all_solutions)
 #> [1] 898
 ```
 
-`analyze_sudoku` returns some helpful information about sudoku puzzles.
+`analyze_sudoku` returns some helpful information about sudoku puzzles. Both the easy and hard sudokus that come with the package have legal, unique solutions; but the easy sudoku has more clues, "hidden singles", and "naked singles" (unknown cells that can be populated with simple logic).
 
 ``` r
 # Compare the easy and hard sudokus that come with the package
@@ -201,4 +205,10 @@ analyze_sudoku(hard_sudoku)
 #>  unique solution: TRUE
 ```
 
-Both have legal, unique solutions. But the easy sudoku has more clues available, and "hidden" and "naked" singles (unknown cells that can be populated with simple logic).
+The `plot` method displays a sudoku in R's graphical interface.
+
+``` r
+plot(as.sudoku(sudoku))
+```
+
+<img src="man/figures/README-plotme-1.png" width="100%" />

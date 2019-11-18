@@ -56,11 +56,12 @@ The workhorse function is `solve_sudoku`, which takes three main arguments:
 library(sudokuplyr)
 
 # An unsolved puzzle
-print_sudoku(sudoku)
+s <- as.sudoku(sudoku)
+s
 
 # Solve
-solved_puzzle <- solve_sudoku(sudoku)
-print_sudoku(solved_puzzle)
+solved_puzzle <- solve_sudoku(s)
+solved_puzzle
 
 # Check that it is correct
 is_legal(solved_puzzle)
@@ -74,8 +75,7 @@ is_legal(solved_puzzle)
 sum(is.na(sudoku))
 
 # Hard Puzzle - 59 empty cells
-sum(is.na(hard_sudoku))
-print_sudoku(hard_sudoku)
+summary(as.sudoku(hard_sudoku))
 
 ```
 ```{r rmb, warning=F, message=F, results=F}
@@ -92,7 +92,7 @@ print(m, digits = 3)
 
 ```{r gensudoku}
 new_puzzle <- generate_puzzle(clues = 32, unique = TRUE, seed = 56)
-print_sudoku(new_puzzle)
+print(new_puzzle)
 ```
 
 
@@ -106,7 +106,8 @@ length(all_solutions)
 ```
 
 
-`analyze_sudoku` returns some helpful information about sudoku puzzles.
+`analyze_sudoku` returns some helpful information about sudoku puzzles.  Both the easy and hard sudokus that come with the package have legal, unique solutions; but the easy sudoku has more clues, "hidden singles", and "naked singles" (unknown cells that can be populated with simple logic).
+
 
 ```{r as}
 # Compare the easy and hard sudokus that come with the package
@@ -114,4 +115,9 @@ analyze_sudoku(sudoku)
 analyze_sudoku(hard_sudoku)
 ```
 
-Both have legal, unique solutions.  But the easy sudoku has more clues available, and "hidden" and "naked" singles (unknown cells that can be populated with simple logic).
+
+The `plot` method displays a sudoku in R's graphical interface.
+
+```{r plotme}
+plot(as.sudoku(sudoku))
+```
