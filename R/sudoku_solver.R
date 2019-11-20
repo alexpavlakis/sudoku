@@ -17,8 +17,10 @@ solve_sudoku <- function(sudoku_matrix, verbose = FALSE, shuffle = TRUE) {
     stop('sudoku_matrix must by a 9x9 numeric matrix with NAs for empty values')
   }
   
-  # Attempt to solve with logic
-  sudoku_df <- as_sudoku_df(sudoku_matrix = sudoku_matrix)
+  # Convert 9x9 puzzle to 81x4 df where first row is values and others are row, col, box indices.
+  sudoku_df <- as_sdf(sudoku_matrix)
+  
+  # Attempt to solve with logic 
   sudoku_df <- logical_solver(sudoku_df = sudoku_df,
                               verbose   = verbose,
                               nums      = c(1L:9L))
@@ -60,7 +62,7 @@ get_all_solutions <- function(sudoku_matrix, stop_early = FALSE, ...) {
   }
   
   # Concert to sudoku df
-  sudoku_df <- as_sudoku_df(sudoku_matrix = sudoku_matrix)
+  sudoku_df <- as_sdf(sudoku_matrix)
   out <- NULL
   tryCatch( {
     out <- solve_backtracking_all(sudoku_df  = sudoku_df,
@@ -84,4 +86,13 @@ get_all_solutions <- function(sudoku_matrix, stop_early = FALSE, ...) {
   } else {
     return(out)
   }
+}
+
+# Convert 9x9 puzzle to 81x4 df where first row is values and others are row, col, box indices.
+as_sdf <- function(suduoku_matrix) {
+  as_sudoku_df(values = c(suduoku_matrix), 
+               row = rep(c(1:9), times = 9),  col = rep(c(1:9), each = 9),
+               box = c(rep(rep(c(1, 4, 7), each = 3), 3),
+                       rep(rep(c(2, 5, 8), each = 3), 3),
+                       rep(rep(c(3, 6, 9), each = 3), 3)))
 }

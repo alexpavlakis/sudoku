@@ -2,7 +2,7 @@
 % Please edit documentation in R/methods.R
 \name{as.sudoku}
 \alias{as.sudoku}
-\title{Convert matrix to sudoku}
+\title{Convert a matrix to sudoku}
 \usage{
 as.sudoku(x, ...)
 }
@@ -12,5 +12,5 @@ as.sudoku(x, ...)
 \item{...}{additional arguments.}
 }
 \description{
-Convert matrix to sudoku
+Convert a matrix to sudoku
 }

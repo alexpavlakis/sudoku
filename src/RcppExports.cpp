@@ -5,6 +5,20 @@
 
 using namespace Rcpp;
 
+// as_sudoku_df
+IntegerMatrix as_sudoku_df(IntegerVector values, IntegerVector row, IntegerVector col, IntegerVector box);
+RcppExport SEXP _sudokuplyr_as_sudoku_df(SEXP valuesSEXP, SEXP rowSEXP, SEXP colSEXP, SEXP boxSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerVector >::type values(valuesSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type row(rowSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type col(colSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type box(boxSEXP);
+    rcpp_result_gen = Rcpp::wrap(as_sudoku_df(values, row, col, box));
+    return rcpp_result_gen;
+END_RCPP
+}
 // can_bes_getter_index
 IntegerVector can_bes_getter_index(IntegerMatrix& sudoku_df, IntegerVector& nums, IntegerVector ind_list);
 RcppExport SEXP _sudokuplyr_can_bes_getter_index(SEXP sudoku_dfSEXP, SEXP numsSEXP, SEXP ind_listSEXP) {
@@ -151,6 +165,7 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
+    {"_sudokuplyr_as_sudoku_df", (DL_FUNC) &_sudokuplyr_as_sudoku_df, 4},
     {"_sudokuplyr_can_bes_getter_index", (DL_FUNC) &_sudokuplyr_can_bes_getter_index, 3},
     {"_sudokuplyr_cant_bes_getter", (DL_FUNC) &_sudokuplyr_cant_bes_getter, 1},
     {"_sudokuplyr_cant_bes_lengths", (DL_FUNC) &_sudokuplyr_cant_bes_lengths, 3},
