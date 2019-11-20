@@ -18,39 +18,7 @@ knitr::opts_chunk$set(
 
 # sudokuplyr
 
-The goal of sudokuplyr is to provide simple functions for solving, creating, and analyzing sudoku puzzles in R.  The following functions operate on 9x9 numeric matrices, with `NA` for empty values:
-
-* `solve_sudoku`
-* `print_sudoku`
-* `is_unique`
-* `is_legal`
-* `analyze_sudoku`
-* `generate_sudoku`
-* `generate_puzzle`
-* `get_all_solutions`
-
-```{r example1}
-library(sudokuplyr)
-
-# Show matrix
-sudoku
-
-# Solve and show
-solved_puzzle <- solve_sudoku(sudoku)
-print_sudoku(solved_puzzle)
-```
-
-`solve`, `print`, `plot`, and `summary` methods are also available for objects of class `sudoku`.
-
-```{r showmethods}
-# Convert to object of class sudoku
-s <- as.sudoku(sudoku)
-
-print(s)
-plot(s)
-solve(s)
-summary(s)
-```
+The goal of sudokuplyr is to provide simple functions for solving, creating, and analyzing sudoku puzzles in R.
 
 
 
@@ -63,30 +31,49 @@ You can install sudoku from github with:
 devtools::install_github("alexpavlakis/sudoku")
 ```
 
-
 ## Examples
 
-The workhorse function is `solve_sudoku`, which takes two main arguments:
+The following methods are available for objects of class `sudoku`:
 
-* `sudoku_matrix`: an unsolved sudoku puzzle in matrix form, with `NA` in unknown cells;
-* `verbose`: `TRUE` if you want the function to print intermediate steps (defaults to `FALSE`).
+* `print`
+* `plot`
+* `solve`
+* `summary`
 
+For example, we can convert a 9x9 matrix, with `NA` for unknown cells, convert it into a `sudoku`, and print, plot, solve, and summarise it.
 
-`solve_sudoku` first attempts to solve the sudoku with basic sudoku logic.  If this doesn't work, a backtracking algorithm takes over to find a solution (if one exists).  Core functions are written in C++ for speed.  `solve_sudoku` completes puzzles in the blink of an eye.  The example below shows the time taken to solve an easy puzzle (49 empty cells) and a hard puzzle (59 empty cells).  The easy puzzle is solved in <10 milliseconds and the hard puzzle is solved in a fraction of a second on a MacBook Air.
+```{r example, fig.height=4, fig.width=4}
+# Sudoku puzzle in matrix form, with NA for unknown values
+sudoku
 
-```{r showpuzzles}
-# Hard Puzzle - 59 empty cells
-summary(as.sudoku(hard_sudoku))
+# Convert to sudoku
+s <- as.sudoku(sudoku)
 
+# Print
+print(s)
+
+# Solve
+solve(s)
+
+# Plot
+plot(s)
+
+# Summarize
+summary(s)
 ```
+
+
+
+`solve_sudoku` can operate directly on the matrix.  `solve_sudoku` first attempts to solve the sudoku with basic sudoku logic.  If this doesn't work, a backtracking algorithm takes over to find a solution (if one exists).  Core functions are written in C++ for speed.  `solve_sudoku` completes puzzles in the blink of an eye.  The example below shows the time taken to solve an easy puzzle (49 empty cells) and a hard puzzle (59 empty cells).  The easy puzzle is solved in <10 milliseconds and the hard puzzle is solved in a fraction of a second on a MacBook Air.
+
 ```{r rmb, warning=F, message=F, results=F}
 library(microbenchmark)
 m <- microbenchmark(easy = solve_sudoku(sudoku),
                     hard = solve_sudoku(hard_sudoku), 
-                    times = 100, unit = 's')
+times = 100, unit = 's')
 ```
 ```{r showmb}
-print(m, digits = 3)
+print(m, digits = 2)
 ```
 
 `generate_sudoku` creates randomly generated complete sudoku puzzles.  The `seed` argument can be used to create reproducible random puzzles or left `NULL` (default).  `generate_puzzle` creates randomly generated incomplete sudoku puzzles with a specified number of clues.

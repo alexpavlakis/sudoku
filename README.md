@@ -5,58 +5,48 @@
 sudokuplyr
 ==========
 
-The goal of sudokuplyr is to provide simple functions for solving, creating, and analyzing sudoku puzzles in R. The following functions operate on 9x9 numeric matrices, with `NA` for empty values:
+The goal of sudokuplyr is to provide simple functions for solving, creating, and analyzing sudoku puzzles in R.
 
--   `solve_sudoku`
--   `print_sudoku`
--   `is_unique`
--   `is_legal`
--   `analyze_sudoku`
--   `generate_sudoku`
--   `generate_puzzle`
--   `get_all_solutions`
+Installation
+------------
+
+You can install sudoku from github with:
 
 ``` r
-library(sudokuplyr)
-
-# Show matrix
-sudoku
-#>       V1 V2 V3 V4 V5 V6 V7 V8 V9
-#>  [1,]  2  1 NA NA NA NA NA NA NA
-#>  [2,]  4 NA  8 NA NA  1 NA  2 NA
-#>  [3,] NA  6  5 NA  2 NA NA NA  4
-#>  [4,] NA NA  2  5 NA  3 NA  9 NA
-#>  [5,]  8 NA  7 NA NA NA  5 NA  2
-#>  [6,] NA  5 NA  2 NA  4  7 NA NA
-#>  [7,]  5 NA NA NA  1 NA  4  7 NA
-#>  [8,] NA  2 NA  7 NA NA  6 NA  1
-#>  [9,] NA NA NA NA NA NA NA  8  9
-
-# Solve and show
-solved_puzzle <- solve_sudoku(sudoku)
-print_sudoku(solved_puzzle)
-#>                           
-#>  + - - - + - - - + - - - +
-#>  | 2 1 3 | 8 4 7 | 9 6 5 |
-#>  | 4 9 8 | 6 5 1 | 3 2 7 |
-#>  | 7 6 5 | 3 2 9 | 8 1 4 |
-#>  + - - - + - - - + - - - +
-#>  | 6 4 2 | 5 7 3 | 1 9 8 |
-#>  | 8 3 7 | 1 9 6 | 5 4 2 |
-#>  | 1 5 9 | 2 8 4 | 7 3 6 |
-#>  + - - - + - - - + - - - +
-#>  | 5 8 6 | 9 1 2 | 4 7 3 |
-#>  | 9 2 4 | 7 3 8 | 6 5 1 |
-#>  | 3 7 1 | 4 6 5 | 2 8 9 |
-#>  + - - - + - - - + - - - +
+# install.packages("devtools")
+devtools::install_github("alexpavlakis/sudoku")
 ```
 
-`solve`, `print`, `plot`, and `summary` methods are also available for objects of class `sudoku`.
+Examples
+--------
+
+The following methods are available for objects of class `sudoku`:
+
+-   `print`
+-   `plot`
+-   `solve`
+-   `summary`
+
+For example, we can convert a 9x9 matrix, with `NA` for unknown cells, convert it into a `sudoku`, and print, plot, solve, and summarise it.
 
 ``` r
-# Convert to object of class sudoku
+# Sudoku puzzle in matrix form, with NA for unknown values
+sudoku
+#>       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9]
+#>  [1,]    2    1   NA   NA   NA   NA   NA   NA   NA
+#>  [2,]    4   NA    8   NA   NA    1   NA    2   NA
+#>  [3,]   NA    6    5   NA    2   NA   NA   NA    4
+#>  [4,]   NA   NA    2    5   NA    3   NA    9   NA
+#>  [5,]    8   NA    7   NA   NA   NA    5   NA    2
+#>  [6,]   NA    5   NA    2   NA    4    7   NA   NA
+#>  [7,]    5   NA   NA   NA    1   NA    4    7   NA
+#>  [8,]   NA    2   NA    7   NA   NA    6   NA    1
+#>  [9,]   NA   NA   NA   NA   NA   NA   NA    8    9
+
+# Convert to sudoku
 s <- as.sudoku(sudoku)
 
+# Print
 print(s)
 #>                           
 #>  + - - - + - - - + - - - +
@@ -72,12 +62,8 @@ print(s)
 #>  |   2   | 7     | 6   1 |
 #>  |       |       |   8 9 |
 #>  + - - - + - - - + - - - +
-plot(s)
-```
 
-<img src="man/figures/README-showmethods-1.png" width="100%" />
-
-``` r
+# Solve
 solve(s)
 #>                           
 #>  + - - - + - - - + - - - +
@@ -93,6 +79,16 @@ solve(s)
 #>  | 9 2 4 | 7 3 8 | 6 5 1 |
 #>  | 3 7 1 | 4 6 5 | 2 8 9 |
 #>  + - - - + - - - + - - - +
+
+# Plot
+plot(s)
+```
+
+<img src="man/figures/README-example-1.png" width="100%" />
+
+``` r
+
+# Summarize
 summary(s)
 #>                           
 #>  + - - - + - - - + - - - +
@@ -115,63 +111,21 @@ summary(s)
 #>  unique solution: TRUE
 ```
 
-Installation
-------------
-
-You can install sudoku from github with:
-
-``` r
-# install.packages("devtools")
-devtools::install_github("alexpavlakis/sudoku")
-```
-
-Examples
---------
-
-The workhorse function is `solve_sudoku`, which takes two main arguments:
-
--   `sudoku_matrix`: an unsolved sudoku puzzle in matrix form, with `NA` in unknown cells;
--   `verbose`: `TRUE` if you want the function to print intermediate steps (defaults to `FALSE`).
-
-`solve_sudoku` first attempts to solve the sudoku with basic sudoku logic. If this doesn't work, a backtracking algorithm takes over to find a solution (if one exists). Core functions are written in C++ for speed. `solve_sudoku` completes puzzles in the blink of an eye. The example below shows the time taken to solve an easy puzzle (49 empty cells) and a hard puzzle (59 empty cells). The easy puzzle is solved in &lt;10 milliseconds and the hard puzzle is solved in a fraction of a second on a MacBook Air.
-
-``` r
-# Hard Puzzle - 59 empty cells
-summary(as.sudoku(hard_sudoku))
-#>                           
-#>  + - - - + - - - + - - - +
-#>  | 8 7   | 5     |     3 |
-#>  |       |     8 |     7 |
-#>  |       |   4   |       |
-#>  + - - - + - - - + - - - +
-#>  |     9 |       |       |
-#>  |   8   | 7     |   1 6 |
-#>  |     2 |   8 6 |       |
-#>  + - - - + - - - + - - - +
-#>  | 2     |       |       |
-#>  |   5   | 1     | 2 3   |
-#>  |   9 6 |       |       |
-#>  + - - - + - - - + - - - +
-#>  clues:           22 
-#>  naked singles:   0 
-#>  hidden singles:  3 
-#>  legal solution:  TRUE 
-#>  unique solution: TRUE
-```
+`solve_sudoku` can operate directly on the matrix. `solve_sudoku` first attempts to solve the sudoku with basic sudoku logic. If this doesn't work, a backtracking algorithm takes over to find a solution (if one exists). Core functions are written in C++ for speed. `solve_sudoku` completes puzzles in the blink of an eye. The example below shows the time taken to solve an easy puzzle (49 empty cells) and a hard puzzle (59 empty cells). The easy puzzle is solved in &lt;10 milliseconds and the hard puzzle is solved in a fraction of a second on a MacBook Air.
 
 ``` r
 library(microbenchmark)
 m <- microbenchmark(easy = solve_sudoku(sudoku),
                     hard = solve_sudoku(hard_sudoku), 
-                    times = 100, unit = 's')
+times = 100, unit = 's')
 ```
 
 ``` r
-print(m, digits = 3)
+print(m, digits = 2)
 #> Unit: seconds
-#>  expr     min      lq    mean  median      uq    max neval
-#>  easy 0.00448 0.00461 0.00566 0.00477 0.00526 0.0129   100
-#>  hard 0.01062 0.04530 0.06629 0.06733 0.09233 0.1293   100
+#>  expr    min     lq   mean median     uq  max neval
+#>  easy 0.0045 0.0049 0.0065 0.0055 0.0066 0.02   100
+#>  hard 0.0079 0.0462 0.0714 0.0722 0.0967 0.15   100
 ```
 
 `generate_sudoku` creates randomly generated complete sudoku puzzles. The `seed` argument can be used to create reproducible random puzzles or left `NULL` (default). `generate_puzzle` creates randomly generated incomplete sudoku puzzles with a specified number of clues.
