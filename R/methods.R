@@ -50,10 +50,11 @@ plot.sudoku <- function(x, ...) {
   locations <- data.frame(xcoord = rep(seq(0.5, 8.5, 1), 9),
                           ycoord = rep(seq(8.5, 0.5, -1), each = 9),
                           answer = c(x))
-  par(mar = c(0, 0, 0, 0))
+  #par(mar = c(0, 0, 0, 0))
+  par(mar = c(2, 2, 2, 2))
   plot(0:9, 0:9, col = 'white', xaxt = 'n', yaxt = 'n', yaxs = 'i', xaxs = 'i')
   abline(h = 0:9, v = 0:9, col = 'grey')
   abline(h = c(0, 3, 6, 9), v = c(0, 3, 6, 9), lwd = 2)
-  text(locations$xcoord, locations$ycoord, locations$answer, cex = 2.5)
+  text(locations$xcoord, locations$ycoord, locations$answer, cex = 2)
+  par(mar = c(5.1, 4.1, 4.1, 2.1))
 }
-

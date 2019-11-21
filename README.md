@@ -27,7 +27,7 @@ The following methods are available for objects of class `sudoku`:
 -   `solve`
 -   `summary`
 
-For example, we can convert a 9x9 matrix, with `NA` for unknown cells, convert it into a `sudoku`, and print, plot, solve, and summarise it.
+For example, we can convert a 9x9 matrix to an object of class `sudoku` and print, plot, solve, and summarise it.
 
 ``` r
 # Sudoku puzzle in matrix form, with NA for unknown values
@@ -84,7 +84,7 @@ solve(s)
 plot(s)
 ```
 
-<img src="man/figures/README-example-1.png" width="100%" />
+<img src="man/figures/README-example-1.png" width="100%" style="display: block; margin: auto;" />
 
 ``` r
 
@@ -111,21 +111,20 @@ summary(s)
 #>  unique solution: TRUE
 ```
 
-`solve_sudoku` can operate directly on the matrix. `solve_sudoku` first attempts to solve the sudoku with basic sudoku logic. If this doesn't work, a backtracking algorithm takes over to find a solution (if one exists). Core functions are written in C++ for speed. `solve_sudoku` completes puzzles in the blink of an eye. The example below shows the time taken to solve an easy puzzle (49 empty cells) and a hard puzzle (59 empty cells). The easy puzzle is solved in &lt;10 milliseconds and the hard puzzle is solved in a fraction of a second on a MacBook Air.
+S3 methods have versions that operate on matrices as well (e.g., the `solve` method wraps `solve_sudoku`. `solve_sudoku` first attempts to solve the sudoku with basic sudoku logic. If this doesn't work, a backtracking algorithm takes over to find a solution (if one exists), with core functions written in C++ for speed. `solve_sudoku` completes puzzles in the blink of an eye. The example below shows the time taken to solve an easy puzzle (49 empty cells) and a hard puzzle (59 empty cells). The easy puzzle is solved in &lt;10 milliseconds and the hard puzzle is solved in a fraction of a second on a MacBook Air.
 
 ``` r
-library(microbenchmark)
+
 m <- microbenchmark(easy = solve_sudoku(sudoku),
-                    hard = solve_sudoku(hard_sudoku), 
-times = 100, unit = 's')
+                    hard = solve_sudoku(hard_sudoku), times = 100, unit = 's')
 ```
 
 ``` r
 print(m, digits = 2)
 #> Unit: seconds
-#>  expr    min     lq   mean median     uq  max neval
-#>  easy 0.0045 0.0049 0.0065 0.0055 0.0066 0.02   100
-#>  hard 0.0079 0.0462 0.0714 0.0722 0.0967 0.15   100
+#>  expr    min     lq  mean median     uq   max neval
+#>  easy 0.0045 0.0049 0.006 0.0053 0.0066 0.013   100
+#>  hard 0.0131 0.0518 0.086 0.0857 0.1157 0.264   100
 ```
 
 `generate_sudoku` creates randomly generated complete sudoku puzzles. The `seed` argument can be used to create reproducible random puzzles or left `NULL` (default). `generate_puzzle` creates randomly generated incomplete sudoku puzzles with a specified number of clues.
