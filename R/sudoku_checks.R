@@ -8,9 +8,8 @@
 #' @examples
 #' solved_puzzle <- solve_sudoku(sudoku)
 #' is_legal(solved_puzzle)
-
 is_legal <- function(sudoku_df) {
-  if(nrow(sudoku_df) == 9) sudoku_df <- as_sudoku_df(sudoku_df)
+  if(nrow(sudoku_df) == 9) sudoku_df <- as_sdf(sudoku_df)
   if(any(is.na(sudoku_df))) return(FALSE)
   check_integrity(sudoku_df, c(1L:9L))
 }
@@ -26,12 +25,9 @@ is_legal <- function(sudoku_df) {
 #' @examples
 #' random_puzzle <- generate_puzzle(clues = 30, unique = TRUE, seed = 56)
 #' is_unique(random_puzzle)
-
 is_unique <- function(sudoku_matrix, return_all_solutions = FALSE, ...) {
   out <- NULL
-  suppressMessages(
-    out <- get_all_solutions(sudoku_matrix, stop_early = !return_all_solutions)
-  )
+  suppressMessages(out <- get_all_solutions(sudoku_matrix, stop_early = !return_all_solutions))
   if(return_all_solutions) {
     return(out)
   } else if(is.null(out)) {
@@ -49,7 +45,7 @@ check_sudoku <- function(sudoku_matrix) {
     FALSE
   } else if(!identical(dim(sudoku_matrix), c(9L, 9L))) {
     FALSE
-  } else if(!class(sudoku_matrix) == 'matrix') {
+  } else if(!any(class(sudoku_matrix) %in% c('matrix', 'sudoku'))) {
     FALSE
   } else TRUE
 }

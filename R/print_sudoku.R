@@ -15,12 +15,9 @@ print_sudoku <- function(sudoku_matrix) {
   }
   
   # Spread out the letters and fill in
-  sdf <- cbind(sudoku_matrix,
-               cbind(matrix(rep(rep(NA, 9), 4), ncol = 4)))[,c(10,1:3,11,4:6,12,7:9,13)]
-  sdf <- rbind(sdf, 
-               rbind(matrix(rep(rep(NA, 13), 4), nrow = 4)))[c(10,1:3,11,4:6,12,7:9,13),]
+  sdf <- cbind(sudoku_matrix, cbind(matrix(rep(rep(NA, 9), 4), ncol = 4)))[,c(10,1:3,11,4:6,12,7:9,13)]
+  sdf <- rbind(sdf, rbind(matrix(rep(rep(NA, 13), 4), nrow = 4)))[c(10,1:3,11,4:6,12,7:9,13),]
   sdf <- apply(sdf, 2, function(x) ifelse(is.na(x), '', x))
-  
   out <- matrix('', 13, 13)
   for(i in 1:13) {
     for(j in 1:13) {

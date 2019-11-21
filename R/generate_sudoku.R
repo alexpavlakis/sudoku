@@ -40,7 +40,7 @@ generate_puzzle <- function(clues = 56, unique = TRUE, seed = NULL) {
       s <- tmp
     }
   }
-  return(s)
+  return(as.sudoku(s))
 }
 
 

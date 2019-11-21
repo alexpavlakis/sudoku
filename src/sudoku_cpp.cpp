@@ -1,6 +1,23 @@
 #include <Rcpp.h>
 using namespace Rcpp;
 
+// Convert a 9x9 sudoku puzzle into a 81x4 matrix where:
+// - the first column is the value in the cell;
+// - the second column is the row index;
+// - the third column is the column index;
+// - the fourth column is the box index.
+// [[Rcpp::export]]
+IntegerMatrix as_sudoku_df(IntegerVector values, IntegerVector row, IntegerVector col, IntegerVector box) {
+  IntegerMatrix out(81, 4);
+  for(int i = 0; i < 81; i++) {
+    out(i, 0) = values[i];
+    out(i, 1) = row[i];
+    out(i, 2) = col[i];
+    out(i, 3) = box[i];
+  }
+  return out;
+}
+
 // return all numbers 1-9 that are options for a given cell.
 // [[Rcpp::export]]
 IntegerVector can_bes_getter_index(IntegerMatrix& sudoku_df, 
