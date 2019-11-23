@@ -18,21 +18,21 @@ as.matrix.sudoku <- function(x, ...) matrix(x, nrow = 9)
 #' @param x an object of class sudoku.
 #' @param ... additional arguments.
 #' @export
-print.sudoku <- function(x, ...) print_sudoku(x)
+print.sudoku <- function(x, ...) print_sudoku(x, ...)
 
 #' Summarize a sudoku puzzle
 #' 
 #' @param object an object of class sudoku.
 #' @param ... additional arguments.
 #' @export
-summary.sudoku <- function(object, ...) analyze_sudoku(object)
+summary.sudoku <- function(object, ...) analyze_sudoku(object, ...)
 
 #' Solve a sudoku.
 #' 
 #' @param a an object of class sudoku.
 #' @param ... additional arguments.
 #' @export
-solve.sudoku <- function(a, ...) solve_sudoku(a)
+solve.sudoku <- function(a, ...) solve_sudoku(a, ...)
 
 #' Verify that a sudoku is a sudoku.
 #' 
