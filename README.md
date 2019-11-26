@@ -10,11 +10,11 @@ The goal of sudokuplyr is to provide simple functions for solving, creating, and
 Installation
 ------------
 
-You can install sudoku from github with:
+You can install sudokuplyr from github with:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("alexpavlakis/sudoku")
+devtools::install_github("alexpavlakis/sudokuplyr")
 ```
 
 Examples
@@ -106,12 +106,14 @@ summary(s)
 #>  + - - - + - - - + - - - +
 #>  clues:           32 
 #>  naked singles:   2 
-#>  hidden singles:  18 
+#>  hidden singles:  17 
 #>  legal solution:  TRUE 
 #>  unique solution: TRUE
 ```
 
-S3 methods have versions that operate on matrices as well (e.g., the `solve` method wraps `solve_sudoku`. `solve_sudoku` first attempts to solve the sudoku with basic sudoku logic. If this doesn't work, a backtracking algorithm takes over to find a solution (if one exists), with core functions written in C++ for speed. `solve_sudoku` completes puzzles in the blink of an eye. The example below shows the time taken to solve an easy puzzle (49 empty cells) and a hard puzzle (59 empty cells). The easy puzzle is solved in &lt;10 milliseconds and the hard puzzle is solved in a fraction of a second on a MacBook Air.
+Alternatively, we can work with the matrix directly with `solve_sudoku`, `print_sudoku`, `analyze_sudoku`, and `plot_sudoku`.
+
+`solve_sudoku` first attempts to solve the sudoku with basic sudoku logic. If this doesn't work, a backtracking algorithm takes over to find a solution (if one exists), with core functions written in C++ for speed. `solve_sudoku` completes puzzles in the blink of an eye. The example below shows the time taken to solve an easy puzzle (49 empty cells) and a hard puzzle (59 empty cells). The easy puzzle is solved in &lt;10 milliseconds and the hard puzzle is solved in a fraction of a second on a MacBook Air.
 
 ``` r
 
@@ -122,9 +124,9 @@ m <- microbenchmark(easy = solve_sudoku(sudoku),
 ``` r
 print(m, digits = 2)
 #> Unit: seconds
-#>  expr    min     lq  mean median     uq   max neval
-#>  easy 0.0045 0.0049 0.006 0.0053 0.0066 0.013   100
-#>  hard 0.0131 0.0518 0.086 0.0857 0.1157 0.264   100
+#>  expr    min     lq   mean median     uq   max neval
+#>  easy 0.0044 0.0047 0.0058  0.005 0.0056 0.013   100
+#>  hard 0.0185 0.0488 0.0778  0.075 0.1035 0.210   100
 ```
 
 `generate_sudoku` creates randomly generated complete sudoku puzzles. The `seed` argument can be used to create reproducible random puzzles or left `NULL` (default). `generate_puzzle` creates randomly generated incomplete sudoku puzzles with a specified number of clues.
@@ -158,48 +160,4 @@ length(all_solutions)
 #> [1] 898
 ```
 
-`analyze_sudoku` (or the `summary` method for objects of class `sudoku`) returns some helpful information about sudoku puzzles. Both the easy and hard sudokus that come with the package have legal, unique solutions; but the easy sudoku has more clues, "hidden singles", and "naked singles" (unknown cells that can be populated with simple logic).
-
-``` r
-# Compare the easy and hard sudokus that come with the package
-analyze_sudoku(sudoku)
-#>                           
-#>  + - - - + - - - + - - - +
-#>  | 2 1   |       |       |
-#>  | 4   8 |     1 |   2   |
-#>  |   6 5 |   2   |     4 |
-#>  + - - - + - - - + - - - +
-#>  |     2 | 5   3 |   9   |
-#>  | 8   7 |       | 5   2 |
-#>  |   5   | 2   4 | 7     |
-#>  + - - - + - - - + - - - +
-#>  | 5     |   1   | 4 7   |
-#>  |   2   | 7     | 6   1 |
-#>  |       |       |   8 9 |
-#>  + - - - + - - - + - - - +
-#>  clues:           32 
-#>  naked singles:   2 
-#>  hidden singles:  18 
-#>  legal solution:  TRUE 
-#>  unique solution: TRUE
-analyze_sudoku(hard_sudoku)
-#>                           
-#>  + - - - + - - - + - - - +
-#>  | 8 7   | 5     |     3 |
-#>  |       |     8 |     7 |
-#>  |       |   4   |       |
-#>  + - - - + - - - + - - - +
-#>  |     9 |       |       |
-#>  |   8   | 7     |   1 6 |
-#>  |     2 |   8 6 |       |
-#>  + - - - + - - - + - - - +
-#>  | 2     |       |       |
-#>  |   5   | 1     | 2 3   |
-#>  |   9 6 |       |       |
-#>  + - - - + - - - + - - - +
-#>  clues:           22 
-#>  naked singles:   0 
-#>  hidden singles:  3 
-#>  legal solution:  TRUE 
-#>  unique solution: TRUE
-```
+\`
