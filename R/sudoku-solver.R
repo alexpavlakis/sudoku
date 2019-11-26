@@ -21,9 +21,9 @@ solve_sudoku <- function(sudoku_matrix, verbose = FALSE, shuffle = TRUE) {
   sudoku_df <- as_sdf(sudoku_matrix)
   
   # Attempt to solve with logic 
-  sudoku_df <- logical_solver(sudoku_df = sudoku_df,
-                              verbose   = verbose,
-                              nums      = c(1L:9L))
+  logical_solver(sudoku_df = sudoku_df,
+                 verbose   = verbose,
+                 nums      = c(1L:9L))
   
   # If that doesn't work, try backtracking
   if(!is_legal(sudoku_df)) {
