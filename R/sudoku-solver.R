@@ -84,7 +84,7 @@ get_all_solutions <- function(sudoku_matrix, stop_early = FALSE, ...) {
       return(out)
     }
   } else {
-    return(out)
+    return(lapply(out, as.sudoku))
   }
 }
 

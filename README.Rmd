@@ -24,11 +24,11 @@ The goal of sudokuplyr is to provide simple functions for solving, creating, and
 
 ## Installation
 
-You can install sudoku from github with:
+You can install sudokuplyr from github with:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("alexpavlakis/sudoku")
+devtools::install_github("alexpavlakis/sudokuplyr")
 ```
 
 ## Examples
@@ -62,9 +62,9 @@ plot(s)
 summary(s)
 ```
 
+Alternatively, we can work with the matrix directly with `solve_sudoku`, `print_sudoku`, `analyze_sudoku`, and `plot_sudoku`.
 
-
-S3 methods have versions that operate on matrices as well (e.g., the `solve` method wraps `solve_sudoku`.  `solve_sudoku` first attempts to solve the sudoku with basic sudoku logic.  If this doesn't work, a backtracking algorithm takes over to find a solution (if one exists), with core functions written in C++ for speed.  `solve_sudoku` completes puzzles in the blink of an eye.  The example below shows the time taken to solve an easy puzzle (49 empty cells) and a hard puzzle (59 empty cells).  The easy puzzle is solved in <10 milliseconds and the hard puzzle is solved in a fraction of a second on a MacBook Air.
+`solve_sudoku` first attempts to solve the sudoku with basic sudoku logic.  If this doesn't work, a backtracking algorithm takes over to find a solution (if one exists), with core functions written in C++ for speed.  `solve_sudoku` completes puzzles in the blink of an eye.  The example below shows the time taken to solve an easy puzzle (49 empty cells) and a hard puzzle (59 empty cells).  The easy puzzle is solved in <10 milliseconds and the hard puzzle is solved in a fraction of a second on a MacBook Air.
 
 ```{r rmb, warning=F, message=F, results=F}
 
@@ -92,12 +92,4 @@ all_solutions <- get_all_solutions(puzzle)
 length(all_solutions)
 ```
 
-
-`analyze_sudoku` (or the `summary` method for objects of class `sudoku`) returns some helpful information about sudoku puzzles.  Both the easy and hard sudokus that come with the package have legal, unique solutions; but the easy sudoku has more clues, "hidden singles", and "naked singles" (unknown cells that can be populated with simple logic).
-
-
-```{r as}
-# Compare the easy and hard sudokus that come with the package
-analyze_sudoku(sudoku)
-analyze_sudoku(hard_sudoku)
-```
+`

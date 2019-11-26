@@ -234,17 +234,18 @@ IntegerMatrix logical_solver(IntegerMatrix sudoku_df, bool verbose,
 // [[Rcpp::export]]
 int count_hidden_singles(IntegerMatrix& sudoku_df) {
   int counter = 0;
-  List cant_bes = cant_bes_getter(sudoku_df);
-  IntegerMatrix sdf;
+  IntegerMatrix sdf1;
+  IntegerMatrix sdf2;
+  IntegerMatrix sdf3;
   // Can't be in box
-  sdf = element_checker(clone(sudoku_df), cant_bes, 3);
-  counter += num_empties(sudoku_df) - num_empties(sdf);
+  sdf1 = element_checker(clone(sudoku_df), cant_bes_getter(sudoku_df), 3);
+  counter += (num_empties(sudoku_df) - num_empties(sdf1));
   // Cant' be in row
-  sdf = element_checker(clone(sudoku_df), cant_bes, 1);
-  counter += num_empties(sudoku_df) - num_empties(sdf);
+  sdf2 = element_checker(clone(sdf1), cant_bes_getter(sdf1), 1);
+  counter += (num_empties(sdf1) - num_empties(sdf2));
   // Can't be in col
-  sdf = element_checker(clone(sudoku_df), cant_bes, 2);
-  counter += num_empties(sudoku_df) - num_empties(sdf);
+  sdf3 = element_checker(clone(sdf2), cant_bes_getter(sdf2), 2);
+  counter += (num_empties(sdf2) - num_empties(sdf3));
   
   return counter;
 }
