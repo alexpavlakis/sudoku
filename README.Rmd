@@ -31,7 +31,7 @@ You can install sudokuplyr from github with:
 devtools::install_github("alexpavlakis/sudokuplyr")
 ```
 
-## Examples
+## Usage
 
 The following methods are available for objects of class `sudoku`:
 
@@ -40,29 +40,33 @@ The following methods are available for objects of class `sudoku`:
 * `solve`
 * `summary`
 
+`as.sudoku` will convert sudoku puzzles represented as matrices, vectors, or strings into objects of class sudoku.
+
 
 ```{r example, fig.height=6, fig.width=6, fig.align='center'}
-# Object of class sudoku
-class(sudoku)
+# A sudoku in string format, with periods for unknown cells
+raw_sudoku <- "1.......2.9.4...5...6...7...5.9.3.......7.......85..4.7.....6...3...9.8...2.....1"
+s <- as.sudoku(raw_sudoku)
 
 # Print
-print(sudoku)
+print(s)
 
 # Solve
-solve(sudoku)
+solve(s)
 
 # Plot
-plot(sudoku)
+plot(s)
 
 # Summarize
-summary(sudoku)
+summary(s)
 ```
 
-`solve_sudoku`, `print_sudoku`, `analyze_sudoku`, and `plot_sudoku` operate on matrices directly.
+`solve_sudoku`, `print_sudoku`, `analyze_sudoku`, and `plot_sudoku` operate on 9x9 matrices directly.
 
-`solve_sudoku` completes puzzles in the blink of an eye.  The example below shows the time taken to solve an easy puzzle (49 empty cells) and a hard puzzle (59 empty cells).  Both are solved in a fraction of a millisecond on a MacBook Air.
+`solve_sudoku` completes puzzles in the blink of an eye.  The example below shows the time taken to solve an easy puzzle (49 empty cells) and a hard puzzle (59 empty cells) that come with `sudokuplyr`.  Both are solved in a fraction of a millisecond on a MacBook Air.
 
 ```{r rmb, warning=F, message=F, results=F}
+library(microbenchmark)
 
 m <- microbenchmark(easy = solve(sudoku),
                     hard = solve(hard_sudoku), times = 100, unit = 'ms')

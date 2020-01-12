@@ -17,8 +17,8 @@ You can install sudokuplyr from github with:
 devtools::install_github("alexpavlakis/sudokuplyr")
 ```
 
-Examples
---------
+Usage
+-----
 
 The following methods are available for objects of class `sudoku`:
 
@@ -27,47 +27,49 @@ The following methods are available for objects of class `sudoku`:
 -   `solve`
 -   `summary`
 
+`as.sudoku` will convert sudoku puzzles represented as matrices, vectors, or strings into objects of class sudoku.
+
 ``` r
-# Object of class sudoku
-class(sudoku)
-#> [1] "sudoku" "matrix"
+# A sudoku in string format, with periods for unknown cells
+raw_sudoku <- "1.......2.9.4...5...6...7...5.9.3.......7.......85..4.7.....6...3...9.8...2.....1"
+s <- as.sudoku(raw_sudoku)
 
 # Print
-print(sudoku)
+print(s)
 #>                           
 #>  + - - - + - - - + - - - +
-#>  | 2 1   |       |       |
-#>  | 4   8 |     1 |   2   |
-#>  |   6 5 |   2   |     4 |
+#>  | 1     |       | 7     |
+#>  |   9   | 5     |   3   |
+#>  |     6 |       |     2 |
 #>  + - - - + - - - + - - - +
-#>  |     2 | 5   3 |   9   |
-#>  | 8   7 |       | 5   2 |
-#>  |   5   | 2   4 | 7     |
+#>  |   4   | 9   8 |       |
+#>  |       |   7 5 |       |
+#>  |       | 3     |   9   |
 #>  + - - - + - - - + - - - +
-#>  | 5     |   1   | 4 7   |
-#>  |   2   | 7     | 6   1 |
-#>  |       |       |   8 9 |
+#>  |     7 |       | 6     |
+#>  |   5   |     4 |   8   |
+#>  | 2     |       |     1 |
 #>  + - - - + - - - + - - - +
 
 # Solve
-solve(sudoku)
+solve(s)
 #>                           
 #>  + - - - + - - - + - - - +
-#>  | 2 1 3 | 8 4 7 | 9 6 5 |
-#>  | 4 9 8 | 6 5 1 | 3 2 7 |
-#>  | 7 6 5 | 3 2 9 | 8 1 4 |
+#>  | 1 2 5 | 4 9 3 | 7 6 8 |
+#>  | 7 9 8 | 5 2 6 | 1 3 4 |
+#>  | 4 3 6 | 1 8 7 | 9 5 2 |
 #>  + - - - + - - - + - - - +
-#>  | 6 4 2 | 5 7 3 | 1 9 8 |
-#>  | 8 3 7 | 1 9 6 | 5 4 2 |
-#>  | 1 5 9 | 2 8 4 | 7 3 6 |
+#>  | 3 4 1 | 9 6 8 | 5 2 7 |
+#>  | 8 6 9 | 2 7 5 | 4 1 3 |
+#>  | 5 7 2 | 3 4 1 | 8 9 6 |
 #>  + - - - + - - - + - - - +
-#>  | 5 8 6 | 9 1 2 | 4 7 3 |
-#>  | 9 2 4 | 7 3 8 | 6 5 1 |
-#>  | 3 7 1 | 4 6 5 | 2 8 9 |
+#>  | 9 1 7 | 8 3 2 | 6 4 5 |
+#>  | 6 5 3 | 7 1 4 | 2 8 9 |
+#>  | 2 8 4 | 6 5 9 | 3 7 1 |
 #>  + - - - + - - - + - - - +
 
 # Plot
-plot(sudoku)
+plot(s)
 ```
 
 <img src="man/figures/README-example-1.png" width="100%" style="display: block; margin: auto;" />
@@ -75,33 +77,34 @@ plot(sudoku)
 ``` r
 
 # Summarize
-summary(sudoku)
+summary(s)
 #>                           
 #>  + - - - + - - - + - - - +
-#>  | 2 1   |       |       |
-#>  | 4   8 |     1 |   2   |
-#>  |   6 5 |   2   |     4 |
+#>  | 1     |       | 7     |
+#>  |   9   | 5     |   3   |
+#>  |     6 |       |     2 |
 #>  + - - - + - - - + - - - +
-#>  |     2 | 5   3 |   9   |
-#>  | 8   7 |       | 5   2 |
-#>  |   5   | 2   4 | 7     |
+#>  |   4   | 9   8 |       |
+#>  |       |   7 5 |       |
+#>  |       | 3     |   9   |
 #>  + - - - + - - - + - - - +
-#>  | 5     |   1   | 4 7   |
-#>  |   2   | 7     | 6   1 |
-#>  |       |       |   8 9 |
+#>  |     7 |       | 6     |
+#>  |   5   |     4 |   8   |
+#>  | 2     |       |     1 |
 #>  + - - - + - - - + - - - +
-#>  clues:           32 
-#>  naked singles:   2 
-#>  hidden singles:  17 
+#>  clues:           21 
+#>  naked singles:   0 
+#>  hidden singles:  0 
 #>  legal solution:  TRUE 
 #>  unique solution: TRUE
 ```
 
-Alternatively, we can work with the matrix directly with `solve_sudoku`, `print_sudoku`, `analyze_sudoku`, and `plot_sudoku`.
+`solve_sudoku`, `print_sudoku`, `analyze_sudoku`, and `plot_sudoku` operate on 9x9 matrices directly.
 
-`solve_sudoku` completes puzzles in the blink of an eye. The example below shows the time taken to solve an easy puzzle (49 empty cells) and a hard puzzle (59 empty cells). Both are solved in a fraction of a millisecond on a MacBook Air.
+`solve_sudoku` completes puzzles in the blink of an eye. The example below shows the time taken to solve an easy puzzle (49 empty cells) and a hard puzzle (59 empty cells) that come with `sudokuplyr`. Both are solved in a fraction of a millisecond on a MacBook Air.
 
 ``` r
+library(microbenchmark)
 
 m <- microbenchmark(easy = solve(sudoku),
                     hard = solve(hard_sudoku), times = 100, unit = 'ms')
@@ -111,8 +114,8 @@ m <- microbenchmark(easy = solve(sudoku),
 print(m, digits = 2)
 #> Unit: milliseconds
 #>  expr  min   lq mean median   uq  max neval
-#>  easy 0.37 0.38 0.48   0.43 0.55 0.99   100
-#>  hard 0.64 0.65 0.75   0.67 0.82 1.42   100
+#>  easy 0.34 0.36 0.39   0.39 0.40 0.55   100
+#>  hard 0.60 0.63 0.69   0.65 0.67 1.31   100
 ```
 
 `generate_sudoku` creates randomly generated complete sudoku puzzles. The `seed` argument can be used to create reproducible random puzzles or left `NULL` (default). `generate_puzzle` creates randomly generated incomplete sudoku puzzles with a specified number of clues.
