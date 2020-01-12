@@ -4,14 +4,12 @@
 \alias{solve_sudoku}
 \title{Sudoko solver}
 \usage{
-solve_sudoku(sudoku_matrix, verbose = FALSE, shuffle = TRUE)
+solve_sudoku(s, ...)
 }
 \arguments{
-\item{sudoku_matrix}{an unsolved sudoku, in matrix form, with NA values for empty cells}
+\item{s}{an unsolved sudoku, in matrix form, with NA values for empty cells.}
 
-\item{verbose}{set to TRUE if you want to print intermediate steps.  Default is FALSE. Note that setting to TRUE can increase the time it takes to solve a puzzle by an order of magnitude.}
-
-\item{shuffle}{set to TRUE to induce randomness in backtracking.  Default is TRUE because it tends to be a little faster on average and is useful for generating new puzzles.}
+\item{...}{additional argumenets.}
 }
 \description{
 This function solves sudoku puzzles.

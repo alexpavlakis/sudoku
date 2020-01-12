@@ -4,11 +4,11 @@ library(sudokuplyr)
 # It should be < 0.5 seconds and definitely not more than 5 seconds...
 
 start <- Sys.time()
-res <- solve_sudoku(hard_sudoku)
+res <- solve(hard_sudoku)
 end <- Sys.time()
 
 if(end - start > 5) {
   stop('solve_sudoku took longer than 5 seconds to solve data/hard_sudoku.rda')
 } else {
-  print(paste('solve_sudoku took', round(end-start, 2), 'seconds to solve data/hard_sudoku.rda'))
+  print(paste('solve_sudoku took', round(end-start, 4), 'seconds to solve data/hard_sudoku.rda'))
 }

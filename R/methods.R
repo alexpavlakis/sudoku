@@ -1,16 +1,40 @@
-#' Convert a matrix to sudoku
+#' Convert a matrix, vector, or string to a sudoku.  Strings should be in the form "2..4.." etc, and have 81 characters
 #' 
-#' @param x a 9x9 numeric matrix.
+#' @param x object to be converted to a sudoku
 #' @param ... additional arguments.
 #' @export
-as.sudoku <- function(x, ...) structure(x, class = c('sudoku', 'matrix'))
+as.sudoku <- function(x, ...) UseMethod("as.sudoku")
 
-#' Convert a sudoku to a matrix
-#' 
-#' @param x an object of class sudoku
-#' @param ... additional arguments.
 #' @export
-as.matrix.sudoku <- function(x, ...) matrix(x, nrow = 9)
+as.sudoku.matrix <- function(x, ...) {
+  if(nrow(x) != 9 | ncol(x) != 9) stop('matrix must be 9x9 to convert to sudoku')
+  structure(x, class = c('sudoku', 'matrix'))
+}
+
+
+as_sudoku_chr <- function(x, ...) {
+  s <- strsplit(x, "")[[1]]
+  s[s == "."] <- NA
+  s[s == 0] <- NA
+  s <- as.integer(s)
+  if(length(s) != 81) stop('sudoku must contain 81 elements')
+  as.sudoku(matrix(s, nrow = 9))
+}
+
+
+#' @export
+as.sudoku.default <- function(x, ...) {
+  tryCatch({
+    if(is.vector(x)) {
+      if(is.character(x)) {
+        as_sudoku_chr(x)
+      } else if(is.numeric(x)) {
+        as.sudoku(matrix(x, nrow = 9))
+      }
+    }
+  }, error = function(e) print(e))
+}
+
 
 
 #' Print a sudoku puzzle

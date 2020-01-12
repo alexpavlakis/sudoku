@@ -27,27 +27,13 @@ The following methods are available for objects of class `sudoku`:
 -   `solve`
 -   `summary`
 
-For example, we can convert a 9x9 matrix to an object of class `sudoku` and print, plot, solve, and summarise it.
-
 ``` r
-# Sudoku puzzle in matrix form, with NA for unknown values
-sudoku
-#>       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9]
-#>  [1,]    2    1   NA   NA   NA   NA   NA   NA   NA
-#>  [2,]    4   NA    8   NA   NA    1   NA    2   NA
-#>  [3,]   NA    6    5   NA    2   NA   NA   NA    4
-#>  [4,]   NA   NA    2    5   NA    3   NA    9   NA
-#>  [5,]    8   NA    7   NA   NA   NA    5   NA    2
-#>  [6,]   NA    5   NA    2   NA    4    7   NA   NA
-#>  [7,]    5   NA   NA   NA    1   NA    4    7   NA
-#>  [8,]   NA    2   NA    7   NA   NA    6   NA    1
-#>  [9,]   NA   NA   NA   NA   NA   NA   NA    8    9
-
-# Convert to sudoku
-s <- as.sudoku(sudoku)
+# Object of class sudoku
+class(sudoku)
+#> [1] "sudoku" "matrix"
 
 # Print
-print(s)
+print(sudoku)
 #>                           
 #>  + - - - + - - - + - - - +
 #>  | 2 1   |       |       |
@@ -64,7 +50,7 @@ print(s)
 #>  + - - - + - - - + - - - +
 
 # Solve
-solve(s)
+solve(sudoku)
 #>                           
 #>  + - - - + - - - + - - - +
 #>  | 2 1 3 | 8 4 7 | 9 6 5 |
@@ -81,7 +67,7 @@ solve(s)
 #>  + - - - + - - - + - - - +
 
 # Plot
-plot(s)
+plot(sudoku)
 ```
 
 <img src="man/figures/README-example-1.png" width="100%" style="display: block; margin: auto;" />
@@ -89,7 +75,7 @@ plot(s)
 ``` r
 
 # Summarize
-summary(s)
+summary(sudoku)
 #>                           
 #>  + - - - + - - - + - - - +
 #>  | 2 1   |       |       |
@@ -113,20 +99,20 @@ summary(s)
 
 Alternatively, we can work with the matrix directly with `solve_sudoku`, `print_sudoku`, `analyze_sudoku`, and `plot_sudoku`.
 
-`solve_sudoku` first attempts to solve the sudoku with basic sudoku logic. If this doesn't work, a backtracking algorithm takes over to find a solution (if one exists), with core functions written in C++ for speed. `solve_sudoku` completes puzzles in the blink of an eye. The example below shows the time taken to solve an easy puzzle (49 empty cells) and a hard puzzle (59 empty cells). The easy puzzle is solved in &lt;10 milliseconds and the hard puzzle is solved in a fraction of a second on a MacBook Air.
+`solve_sudoku` completes puzzles in the blink of an eye. The example below shows the time taken to solve an easy puzzle (49 empty cells) and a hard puzzle (59 empty cells). Both are solved in a fraction of a millisecond on a MacBook Air.
 
 ``` r
 
-m <- microbenchmark(easy = solve_sudoku(sudoku),
-                    hard = solve_sudoku(hard_sudoku), times = 100, unit = 's')
+m <- microbenchmark(easy = solve(sudoku),
+                    hard = solve(hard_sudoku), times = 100, unit = 'ms')
 ```
 
 ``` r
 print(m, digits = 2)
-#> Unit: seconds
-#>  expr    min     lq   mean median     uq   max neval
-#>  easy 0.0044 0.0047 0.0058  0.005 0.0056 0.013   100
-#>  hard 0.0185 0.0488 0.0778  0.075 0.1035 0.210   100
+#> Unit: milliseconds
+#>  expr  min   lq mean median   uq  max neval
+#>  easy 0.37 0.38 0.48   0.43 0.55 0.99   100
+#>  hard 0.64 0.65 0.75   0.67 0.82 1.42   100
 ```
 
 `generate_sudoku` creates randomly generated complete sudoku puzzles. The `seed` argument can be used to create reproducible random puzzles or left `NULL` (default). `generate_puzzle` creates randomly generated incomplete sudoku puzzles with a specified number of clues.
@@ -155,7 +141,7 @@ print(new_puzzle)
 ``` r
 # This puzzle has a lot of solutions
 puzzle <- generate_puzzle(clues = 28, unique = FALSE, seed = 56)
-all_solutions <- get_all_solutions(puzzle)
+all_solutions <- get_all_solutions(puzzle, stop_early = FALSE)
 length(all_solutions)
 #> [1] 898
 ```

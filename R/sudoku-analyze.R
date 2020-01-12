@@ -16,9 +16,9 @@ analyze_sudoku <- function(sudoku_matrix) {
   
   sudoku_df <- as_sdf(sudoku_matrix)
   # Attempt to solve with logic 
-  nns <- count_naked_singles(sudoku_df = sudoku_df,
-                             cant_bes  = cant_bes_getter(sudoku_df))
-  nhs <- count_hidden_singles(sudoku_df = sudoku_df)
+  nns <- count_naked_singles_(sudoku_df = sudoku_df,
+                              cant_bes  = cant_bes_getter(sudoku_df))
+  nhs <- count_hidden_singles_(sudoku_df = sudoku_df)
   out <- list(clues          = 81 - sum(is.na(sudoku_matrix)), 
               naked_singles  = nns,
               hidden_singles = nhs,

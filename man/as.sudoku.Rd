@@ -2,15 +2,15 @@
 % Please edit documentation in R/methods.R
 \name{as.sudoku}
 \alias{as.sudoku}
-\title{Convert a matrix to sudoku}
+\title{Convert a matrix, vector, or string to a sudoku.  Strings should be in the form "2..4.." etc, and have 81 characters}
 \usage{
 as.sudoku(x, ...)
 }
 \arguments{
-\item{x}{a 9x9 numeric matrix.}
+\item{x}{object to be converted to a sudoku}
 
 \item{...}{additional arguments.}
 }
 \description{
-Convert a matrix to sudoku
+Convert a matrix, vector, or string to a sudoku.  Strings should be in the form "2..4.." etc, and have 81 characters
 }
