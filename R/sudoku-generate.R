@@ -10,7 +10,9 @@
 generate_sudoku <- function(seed = NULL) {
   mat <- matrix(NA, nrow = 9, ncol = 9)
   if(!is.null(seed)) set.seed(seed)
-  solve_sudoku(mat, shuffle = TRUE)
+  sdf <- as_sdf(mat)
+  solve_backtracking_(sdf, which(is.na(sdf[, 1])) - 1, F, sudokuplyr::ind_list, T)
+  return(as.sudoku(matrix(sdf[, 1], nrow = 9)))
 }
 
 
