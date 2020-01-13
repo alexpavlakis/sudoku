@@ -255,20 +255,11 @@ bool solveBacktrack(std::vector<int>& sudoku, std::vector< std::vector<int> >& c
 
 // Full solver
 // [[Rcpp::export]]
-std::vector<int> solve_sudoku_(std::vector<int> sudoku, std::vector<int> nums) {
+std::vector<int> solve_sudoku_(std::vector<int>& sudoku, std::vector<int>& nums) {
   
   // Get candidates
   std::vector< std::vector<int> > candidates;
   candidates = getCandidates(sudoku, nums);
-  
-  // Fill in any cells with one candidate
-  for(int i = 0; i < 81; ++i) {
-    if(sudoku[i] == 0) {
-      if(candidates[i].size() == 1) {
-        sudoku[i] = candidates[i][0];
-      }
-    }
-  }
   
   // Get empties
   std::vector<int> empties;
