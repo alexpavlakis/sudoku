@@ -255,7 +255,7 @@ bool solveBacktrack(std::vector<int>& sudoku, std::vector< std::vector<int> >& c
 
 // Full solver
 // [[Rcpp::export]]
-std::vector<int> solve_sudoku_(std::vector<int>& sudoku, std::vector<int>& nums) {
+std::vector<int> solve_sudoku_(std::vector<int> sudoku, std::vector<int> nums) {
   
   // Get candidates
   std::vector< std::vector<int> > candidates;

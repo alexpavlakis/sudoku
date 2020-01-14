@@ -19,13 +19,13 @@ BEGIN_RCPP
 END_RCPP
 }
 // solve_sudoku_
-std::vector<int> solve_sudoku_(std::vector<int>& sudoku, std::vector<int>& nums);
+std::vector<int> solve_sudoku_(std::vector<int> sudoku, std::vector<int> nums);
 RcppExport SEXP _sudokuplyr_solve_sudoku_(SEXP sudokuSEXP, SEXP numsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< std::vector<int>& >::type sudoku(sudokuSEXP);
-    Rcpp::traits::input_parameter< std::vector<int>& >::type nums(numsSEXP);
+    Rcpp::traits::input_parameter< std::vector<int> >::type sudoku(sudokuSEXP);
+    Rcpp::traits::input_parameter< std::vector<int> >::type nums(numsSEXP);
     rcpp_result_gen = Rcpp::wrap(solve_sudoku_(sudoku, nums));
     return rcpp_result_gen;
 END_RCPP
