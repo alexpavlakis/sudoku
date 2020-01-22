@@ -21,13 +21,12 @@ solve_sudoku <- function(s, ...) {
   s <- c(s)
   s[is.na(s)] <- 0
   solved <- solve_sudoku_(s, 1L:9L)
-  out <- matrix(solved, nrow = 9)
   
   # Return
-  if(!is_legal(out)) {
+  if(!is_legal(solved)) {
     print('no solution was found')
   } else {
-    return(as.sudoku(out))
+    return(as.sudoku(solved))
   }
 }
 

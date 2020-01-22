@@ -8,11 +8,12 @@
 #' @examples
 #' solved_puzzle <- solve_sudoku(sudoku)
 #' is_legal(solved_puzzle)
-is_legal <- function(sudoku_df) {
-  if(nrow(sudoku_df) == 9) sudoku_df <- as_sdf(sudoku_df)
-  if(any(is.na(sudoku_df))) return(FALSE)
-  check_integrity(sudoku_df)
+is_legal <- function(s, ...) {
+  if(any(is.na(s)) | any(s == 0)) return(FALSE)
+  s <- as_sdf(s)
+  check_integrity(s)
 }
+
 
 
 #' Check if a puzzle has a unique solution

@@ -25,6 +25,10 @@ solve_sudoku_ <- function(sudoku, nums) {
     .Call(`_sudokuplyr_solve_sudoku_`, sudoku, nums)
 }
 
+solveBacktrackAll <- function(sudoku, candidates, empties, stop_early, counter, out) {
+    .Call(`_sudokuplyr_solveBacktrackAll`, sudoku, candidates, empties, stop_early, counter, out)
+}
+
 as_sudoku_df_ <- function(values, row, col, box) {
     .Call(`_sudokuplyr_as_sudoku_df_`, values, row, col, box)
 }

@@ -77,6 +77,22 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// solveBacktrackAll
+List solveBacktrackAll(std::vector<int>& sudoku, std::vector< std::vector<int> >& candidates, std::vector<int>& empties, bool stop_early, int& counter, List& out);
+RcppExport SEXP _sudokuplyr_solveBacktrackAll(SEXP sudokuSEXP, SEXP candidatesSEXP, SEXP emptiesSEXP, SEXP stop_earlySEXP, SEXP counterSEXP, SEXP outSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< std::vector<int>& >::type sudoku(sudokuSEXP);
+    Rcpp::traits::input_parameter< std::vector< std::vector<int> >& >::type candidates(candidatesSEXP);
+    Rcpp::traits::input_parameter< std::vector<int>& >::type empties(emptiesSEXP);
+    Rcpp::traits::input_parameter< bool >::type stop_early(stop_earlySEXP);
+    Rcpp::traits::input_parameter< int& >::type counter(counterSEXP);
+    Rcpp::traits::input_parameter< List& >::type out(outSEXP);
+    rcpp_result_gen = Rcpp::wrap(solveBacktrackAll(sudoku, candidates, empties, stop_early, counter, out));
+    return rcpp_result_gen;
+END_RCPP
+}
 // as_sudoku_df_
 IntegerMatrix as_sudoku_df_(IntegerVector values, IntegerVector row, IntegerVector col, IntegerVector box);
 RcppExport SEXP _sudokuplyr_as_sudoku_df_(SEXP valuesSEXP, SEXP rowSEXP, SEXP colSEXP, SEXP boxSEXP) {
@@ -237,6 +253,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_sudokuplyr_getCandidates", (DL_FUNC) &_sudokuplyr_getCandidates, 2},
     {"_sudokuplyr_solveBacktrack", (DL_FUNC) &_sudokuplyr_solveBacktrack, 3},
     {"_sudokuplyr_solve_sudoku_", (DL_FUNC) &_sudokuplyr_solve_sudoku_, 2},
+    {"_sudokuplyr_solveBacktrackAll", (DL_FUNC) &_sudokuplyr_solveBacktrackAll, 6},
     {"_sudokuplyr_as_sudoku_df_", (DL_FUNC) &_sudokuplyr_as_sudoku_df_, 4},
     {"_sudokuplyr_can_bes_getter_index", (DL_FUNC) &_sudokuplyr_can_bes_getter_index, 2},
     {"_sudokuplyr_cant_bes_getter", (DL_FUNC) &_sudokuplyr_cant_bes_getter, 1},

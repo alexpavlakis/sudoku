@@ -110,7 +110,7 @@ std::vector<int> getEmpties(std::vector<int>& sudoku) {
 // [[Rcpp::export]]
 std::vector<int> getLengths(std::vector< std::vector<int> >& candidates, std::vector<int>& empties) {
   std::vector<int> lens(empties.size());
-  for(int i = 0; i < empties.size(); i++) {
+  for(int i = 0; i < empties.size(); ++i) {
     lens[i] = candidates[empties[i]].size();
   }
   return lens;
@@ -132,7 +132,7 @@ std::vector<int> sortEmpties(std::vector<int>& empties, std::vector<int>& lens) 
   
   // Initialize pairs of lengths and empties
   std::vector<Pairs> v(lens.size());
-  for(int i = 0; i < lens.size(); i++) {
+  for(int i = 0; i < lens.size(); ++i) {
     v[i].length = lens[i];
     v[i].empty  = empties[i];
   } 
@@ -140,7 +140,7 @@ std::vector<int> sortEmpties(std::vector<int>& empties, std::vector<int>& lens) 
   sort(v.begin(), v.end(), compareInterval); 
   
   // Reorder empties
-  for(int i = 0; i < empties.size(); i++) {
+  for(int i = 0; i < empties.size(); ++i) {
     empties[i] = v[i].empty;
   }
   
@@ -153,7 +153,7 @@ std::vector< std::vector<int> > getCandidates(std::vector<int>& sudoku, std::vec
   
   std::vector< std::vector<int> > out(81);
   
-  for(int i = 0; i < 81; i++) {
+  for(int i = 0; i < 81; ++i) {
     
     if(sudoku[i] != 0) {
       std::vector<int> s(1);
@@ -162,7 +162,7 @@ std::vector< std::vector<int> > getCandidates(std::vector<int>& sudoku, std::vec
     } else {
       std::vector<int> diff(9);
       diff = nums;
-      for(int j = 0; j < 20; j++) {
+      for(int j = 0; j < 20; ++j) {
         int val = arr[i][j];
         if(sudoku[val] != 0) {
           diff.erase(std::remove(diff.begin(), diff.end(), sudoku[val]), diff.end());
@@ -178,7 +178,8 @@ std::vector< std::vector<int> > getCandidates(std::vector<int>& sudoku, std::vec
 
 // Fast backtracking solver
 // [[Rcpp::export]]
-bool solveBacktrack(std::vector<int>& sudoku, std::vector< std::vector<int> >& candidates,
+bool solveBacktrack(std::vector<int>& sudoku, 
+                    std::vector< std::vector<int> >& candidates,
                     std::vector<int>& empties) {
   
   // If completed, return true
@@ -203,6 +204,7 @@ bool solveBacktrack(std::vector<int>& sudoku, std::vector< std::vector<int> >& c
   // Vector to record which elements' candidates are updates
   std::vector<int> to_update(20);
   int nupdated = 0;
+
   
   // Loop over candidates, filling them in then backtracking if it doesn't work;
   for(int o = 0; o < clen; ++o) {
@@ -239,10 +241,9 @@ bool solveBacktrack(std::vector<int>& sudoku, std::vector< std::vector<int> >& c
     }
     
     // Otherwise backtrack 
+    sudoku[index] = 0;
     empties.insert(empties.end(), index);
     BACKTRACK : {
-      // Backtrack value
-      sudoku[index] = 0;
       // Backtrack candidates for peers
       for(int j = 0; j < nupdated; ++j) {
         candidates[to_update[j]].insert(candidates[to_update[j]].end(), v);
@@ -281,11 +282,73 @@ std::vector<int> solve_sudoku_(std::vector<int> sudoku, std::vector<int> nums) {
 }
 
 
-
-
-
-
-
+// Full solver
+// [[Rcpp::export]]
+List solveBacktrackAll(std::vector<int>& sudoku, 
+                       std::vector< std::vector<int> >& candidates,
+                       std::vector<int>& empties, bool stop_early,
+                       int &counter, List &out) {
+  if(empties.size() == 0) {
+    counter += 1;
+    out.push_back(sudoku);
+    if(stop_early && counter > 1) {
+      return out;
+    }
+  }
+  else {
+    // Find the empty element with the minimum number of candidates
+    int index = empties[0];
+    int clen = candidates[index].size();
+    
+    // Vector to record which elements' candidates are updates
+    std::vector<int> to_update(20);
+    int nupdated = 0;
+    
+    // Loop over candidates, filling them in then backtracking if it doesn't work;
+    for(int o = 0; o < clen; ++o) {
+      
+      // Fill in option
+      int v = candidates[index][o];
+      sudoku[index] = v;
+      empties.erase(std::remove(empties.begin(), empties.end(), index), empties.end());
+      
+      // Loop over all peers.  Remove value from peers if it's there.  Backtrack if
+      // any peer is left with no candidates.
+      for(int j = 0; j < 20; ++j) {
+        
+        if(sudoku[arr[index][j]] == 0) {
+          
+          int p = arr[index][j];
+          for(int l = 0; l < candidates[p].size(); ++l) {
+            if(candidates[p][l] == v) {
+              if(candidates[p].size() == 1) {
+                goto BACKTRACK;
+              }
+              to_update[nupdated] = p;
+              candidates[p].erase(candidates[p].begin() + l);
+              nupdated += 1;
+              break;
+            }
+          }
+        }
+      }
+      
+      // Fil in the element, update the vector of empty cells, and solve
+      out = solveBacktrackAll(sudoku, candidates, empties, stop_early, counter, out);
+      
+      // Backtrack 
+      BACKTRACK : {
+        sudoku[index] = 0;
+        // Backtrack candidates for peers
+        for(int j = 0; j < nupdated; ++j) {
+          candidates[to_update[j]].insert(candidates[to_update[j]].end(), v);
+        } 
+      }
+    }
+    empties.insert(empties.end(), index);
+  }
+  return out;
+}
 
 
 
