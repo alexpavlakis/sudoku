@@ -4,10 +4,12 @@
 \alias{is_legal}
 \title{Check if a solution is legal}
 \usage{
-is_legal(sudoku_df)
+is_legal(s, ...)
 }
 \arguments{
-\item{sudoku_df}{a sudoku matrix}
+\item{s}{a sudoku}
+
+\item{...}{additional arguments}
 }
 \description{
 This function allows you to check whether a sudoku solution is good

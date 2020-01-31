@@ -5,6 +5,52 @@
 
 using namespace Rcpp;
 
+// getEmpties
+std::vector<int> getEmpties(std::vector<int>& sudoku);
+RcppExport SEXP _sudokuplyr_getEmpties(SEXP sudokuSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< std::vector<int>& >::type sudoku(sudokuSEXP);
+    rcpp_result_gen = Rcpp::wrap(getEmpties(sudoku));
+    return rcpp_result_gen;
+END_RCPP
+}
+// getLengths
+std::vector<int> getLengths(std::vector< std::vector<int> >& candidates, std::vector<int>& empties);
+RcppExport SEXP _sudokuplyr_getLengths(SEXP candidatesSEXP, SEXP emptiesSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< std::vector< std::vector<int> >& >::type candidates(candidatesSEXP);
+    Rcpp::traits::input_parameter< std::vector<int>& >::type empties(emptiesSEXP);
+    rcpp_result_gen = Rcpp::wrap(getLengths(candidates, empties));
+    return rcpp_result_gen;
+END_RCPP
+}
+// sortEmpties
+std::vector<int> sortEmpties(std::vector<int>& empties, std::vector<int>& lens);
+RcppExport SEXP _sudokuplyr_sortEmpties(SEXP emptiesSEXP, SEXP lensSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< std::vector<int>& >::type empties(emptiesSEXP);
+    Rcpp::traits::input_parameter< std::vector<int>& >::type lens(lensSEXP);
+    rcpp_result_gen = Rcpp::wrap(sortEmpties(empties, lens));
+    return rcpp_result_gen;
+END_RCPP
+}
+// getCandidates
+std::vector< std::vector<int> > getCandidates(std::vector<int>& sudoku);
+RcppExport SEXP _sudokuplyr_getCandidates(SEXP sudokuSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< std::vector<int>& >::type sudoku(sudokuSEXP);
+    rcpp_result_gen = Rcpp::wrap(getCandidates(sudoku));
+    return rcpp_result_gen;
+END_RCPP
+}
 // solveBacktrack
 bool solveBacktrack(std::vector<int>& sudoku, std::vector< std::vector<int> >& candidates, std::vector<int>& empties);
 RcppExport SEXP _sudokuplyr_solveBacktrack(SEXP sudokuSEXP, SEXP candidatesSEXP, SEXP emptiesSEXP) {
@@ -19,14 +65,13 @@ BEGIN_RCPP
 END_RCPP
 }
 // solve_sudoku_
-std::vector<int> solve_sudoku_(std::vector<int>& sudoku, std::vector<int>& nums);
-RcppExport SEXP _sudokuplyr_solve_sudoku_(SEXP sudokuSEXP, SEXP numsSEXP) {
+std::vector<int> solve_sudoku_(std::vector<int> sudoku);
+RcppExport SEXP _sudokuplyr_solve_sudoku_(SEXP sudokuSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< std::vector<int>& >::type sudoku(sudokuSEXP);
-    Rcpp::traits::input_parameter< std::vector<int>& >::type nums(numsSEXP);
-    rcpp_result_gen = Rcpp::wrap(solve_sudoku_(sudoku, nums));
+    Rcpp::traits::input_parameter< std::vector<int> >::type sudoku(sudokuSEXP);
+    rcpp_result_gen = Rcpp::wrap(solve_sudoku_(sudoku));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -184,8 +229,12 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
+    {"_sudokuplyr_getEmpties", (DL_FUNC) &_sudokuplyr_getEmpties, 1},
+    {"_sudokuplyr_getLengths", (DL_FUNC) &_sudokuplyr_getLengths, 2},
+    {"_sudokuplyr_sortEmpties", (DL_FUNC) &_sudokuplyr_sortEmpties, 2},
+    {"_sudokuplyr_getCandidates", (DL_FUNC) &_sudokuplyr_getCandidates, 1},
     {"_sudokuplyr_solveBacktrack", (DL_FUNC) &_sudokuplyr_solveBacktrack, 3},
-    {"_sudokuplyr_solve_sudoku_", (DL_FUNC) &_sudokuplyr_solve_sudoku_, 2},
+    {"_sudokuplyr_solve_sudoku_", (DL_FUNC) &_sudokuplyr_solve_sudoku_, 1},
     {"_sudokuplyr_as_sudoku_df_", (DL_FUNC) &_sudokuplyr_as_sudoku_df_, 4},
     {"_sudokuplyr_can_bes_getter_index", (DL_FUNC) &_sudokuplyr_can_bes_getter_index, 2},
     {"_sudokuplyr_cant_bes_getter", (DL_FUNC) &_sudokuplyr_cant_bes_getter, 1},

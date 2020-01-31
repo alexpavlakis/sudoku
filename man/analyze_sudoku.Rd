@@ -7,11 +7,11 @@
 analyze_sudoku(sudoku_matrix)
 }
 \arguments{
-\item{sudoku_matrix}{a sudoku matrix}
+\item{sudoku_matrix}{a sudoku}
 }
 \description{
 This function returns a puzzle's number of clues, naked singles, hidden signles, whether it is solvable, and whether its solution is unique.
 }
 \examples{
-analyze_sudoku(sudoku_matrix = sudoku)
+analyze_sudoku(sudoku)
 }
