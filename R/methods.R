@@ -8,14 +8,15 @@ as.sudoku <- function(x, ...) UseMethod("as.sudoku")
 #' @export
 as.sudoku.matrix <- function(x, ...) {
   if(nrow(x) != 9 | ncol(x) != 9) stop('matrix must be 9x9 to convert to sudoku')
+  x[is.na(x)] <- 0
   structure(x, class = c('sudoku', 'matrix'))
 }
 
 
 as_sudoku_chr <- function(x, ...) {
   s <- strsplit(x, "")[[1]]
-  s[s == "."] <- NA
-  s[s == 0] <- NA
+  s[s == "."] <- 0
+  s[is.na(s)] <- 0
   s <- as.integer(s)
   if(length(s) != 81) stop('sudoku must contain 81 elements')
   as.sudoku(matrix(s, nrow = 9))
@@ -36,6 +37,12 @@ as.sudoku.default <- function(x, ...) {
 }
 
 
+#' @export
+as.matrix.sudoku <- function(x, ...) {
+  x[x == 0] <- NA
+  matrix(x, nrow = 9, ncol = 9)
+}
+
 
 #' Print a sudoku puzzle
 #' 
@@ -45,7 +52,7 @@ as.sudoku.default <- function(x, ...) {
 print_sudoku <- function(x, ...) {
   sdf <- cbind(x, cbind(matrix(rep(rep(NA, 9), 4), ncol = 4)))[,c(10,1:3,11,4:6,12,7:9,13)]
   sdf <- rbind(sdf, rbind(matrix(rep(rep(NA, 13), 4), nrow = 4)))[c(10,1:3,11,4:6,12,7:9,13),]
-  sdf <- apply(sdf, 2, function(x) ifelse(is.na(x), '', x))
+  sdf <- apply(sdf, 2, function(x) ifelse(is.na(x) | x == 0, '', x))
   out <- matrix('', 13, 13)
   for(i in 1:13) {
     for(j in 1:13) {

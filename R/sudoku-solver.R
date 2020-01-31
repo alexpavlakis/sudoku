@@ -18,9 +18,7 @@ solve_sudoku <- function(s, ...) {
   }
   
   # Solve
-  s <- c(s)
-  s[is.na(s)] <- 0
-  solved <- solve_sudoku_(s, 1L:9L)
+  solved <- solve_sudoku_(c(s))
   
   # Return
   if(!is_legal(solved)) {
@@ -44,16 +42,14 @@ solve_sudoku <- function(s, ...) {
 #' length(all_solutions)
 get_all_solutions <- function(sudoku_matrix, stop_early = FALSE, ...) {
   
-  if(!check_sudoku(sudoku_matrix)) {
-    stop('sudoku_matrix must by a 9x9 numeric matrix with NAs for empty values')
-  }
+  sudoku_matrix <- as.sudoku(sudoku_matrix)
   
   # Concert to sudoku df
   sudoku_df <- as_sdf(sudoku_matrix)
   out <- NULL
   tryCatch( {
     out <- solve_backtracking_all_(sudoku_df  = sudoku_df,
-                                   empties    = which(is.na(sudoku_df[, 1]))-1,
+                                   empties    = which(sudoku_df[, 1] == 0) - 1,
                                    verbose    = FALSE,
                                    ind_list   = sudokuplyr::ind_list,
                                    shuffle    = FALSE,

@@ -10,8 +10,8 @@ using namespace Rcpp;
 
 // This is a fast and simple pure backtracking solver -- no use of hidden singles, naked singles, etc.
 
-// Array of peers for each element
-const int arr[81][20] = { {1,2,3,4,5,6,7,8,9,10,11,18,19,20,27,36,45,54,63,72},
+// peersay of peers for each element
+const int peers[81][20] = { {1,2,3,4,5,6,7,8,9,10,11,18,19,20,27,36,45,54,63,72},
                           {0,2,3,4,5,6,7,8,9,10,11,18,19,20,28,37,46,55,64,73},
                           {0,1,3,4,5,6,7,8,9,10,11,18,19,20,29,38,47,56,65,74},
                           {0,1,2,4,5,6,7,8,12,13,14,21,22,23,30,39,48,57,66,75},
@@ -149,23 +149,25 @@ std::vector<int> sortEmpties(std::vector<int>& empties, std::vector<int>& lens) 
 
 // Return candidates for each element
 // [[Rcpp::export]]
-std::vector< std::vector<int> > getCandidates(std::vector<int>& sudoku, std::vector<int> nums) {
+std::vector< std::vector<int> > getCandidates(std::vector<int>& sudoku) {
   
-  std::vector< std::vector<int> > out(81);
+  vector< vector<int> > out(81);
   
-  for(int i = 0; i < 81; ++i) {
-    
+  for(int i = 0; i < 81; i++) {
     if(sudoku[i] != 0) {
-      std::vector<int> s(1);
+      vector<int> s(1);
       s[0] = sudoku[i];
       out[i] = s;
     } else {
-      std::vector<int> diff(9);
-      diff = nums;
-      for(int j = 0; j < 20; ++j) {
-        int val = arr[i][j];
-        if(sudoku[val] != 0) {
-          diff.erase(std::remove(diff.begin(), diff.end(), sudoku[val]), diff.end());
+      vector<int> diff(9);
+      for(int n = 0; n < 9; n++) {
+        diff[n] = n+1;
+      } 
+      for(int j = 0; j < 20; j++) {
+        if(sudoku[peers[i][j]] != 0) {
+          if(find(diff.begin(), diff.end(), sudoku[peers[i][j]]) != diff.end()) {
+            diff.erase(remove(diff.begin(), diff.end(), sudoku[peers[i][j]]), diff.end());
+          }
         }
       }
       out[i] = diff;
@@ -216,9 +218,9 @@ bool solveBacktrack(std::vector<int>& sudoku,
     // any peer is left with no candidates.
     for(int j = 0; j < 20; ++j) {
       
-      if(sudoku[arr[index][j]] == 0) {
+      if(sudoku[peers[index][j]] == 0) {
         
-        int p = arr[index][j];
+        int p = peers[index][j];
         for(int l = 0; l < candidates[p].size(); ++l) {
           if(candidates[p][l] == v) {
             if(candidates[p].size() == 1) {
@@ -258,11 +260,11 @@ bool solveBacktrack(std::vector<int>& sudoku,
 
 // Full solver
 // [[Rcpp::export]]
-std::vector<int> solve_sudoku_(std::vector<int> sudoku, std::vector<int> nums) {
+std::vector<int> solve_sudoku_(std::vector<int> sudoku) {
   
   // Get candidates
   std::vector< std::vector<int> > candidates;
-  candidates = getCandidates(sudoku, nums);
+  candidates = getCandidates(sudoku);
   
   // Get empties
   std::vector<int> empties;
@@ -282,8 +284,7 @@ std::vector<int> solve_sudoku_(std::vector<int> sudoku, std::vector<int> nums) {
 }
 
 
-// Full solver
-// [[Rcpp::export]]
+// Fast solve get all solutions (still doesn't work quite right)
 List solveBacktrackAll(std::vector<int>& sudoku, 
                        std::vector< std::vector<int> >& candidates,
                        std::vector<int>& empties, bool stop_early,
@@ -316,9 +317,9 @@ List solveBacktrackAll(std::vector<int>& sudoku,
       // any peer is left with no candidates.
       for(int j = 0; j < 20; ++j) {
         
-        if(sudoku[arr[index][j]] == 0) {
+        if(sudoku[peers[index][j]] == 0) {
           
-          int p = arr[index][j];
+          int p = peers[index][j];
           for(int l = 0; l < candidates[p].size(); ++l) {
             if(candidates[p][l] == v) {
               if(candidates[p].size() == 1) {

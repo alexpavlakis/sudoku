@@ -13,20 +13,16 @@ sortEmpties <- function(empties, lens) {
     .Call(`_sudokuplyr_sortEmpties`, empties, lens)
 }
 
-getCandidates <- function(sudoku, nums) {
-    .Call(`_sudokuplyr_getCandidates`, sudoku, nums)
+getCandidates <- function(sudoku) {
+    .Call(`_sudokuplyr_getCandidates`, sudoku)
 }
 
 solveBacktrack <- function(sudoku, candidates, empties) {
     .Call(`_sudokuplyr_solveBacktrack`, sudoku, candidates, empties)
 }
 
-solve_sudoku_ <- function(sudoku, nums) {
-    .Call(`_sudokuplyr_solve_sudoku_`, sudoku, nums)
-}
-
-solveBacktrackAll <- function(sudoku, candidates, empties, stop_early, counter, out) {
-    .Call(`_sudokuplyr_solveBacktrackAll`, sudoku, candidates, empties, stop_early, counter, out)
+solve_sudoku_ <- function(sudoku) {
+    .Call(`_sudokuplyr_solve_sudoku_`, sudoku)
 }
 
 as_sudoku_df_ <- function(values, row, col, box) {

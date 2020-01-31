@@ -1,7 +1,8 @@
 #' Check if a solution is legal
 #'
 #' This function allows you to check whether a sudoku solution is good
-#' @param sudoku_df a sudoku matrix
+#' @param s a sudoku 
+#' @param ... additional arguments
 #' @useDynLib sudokuplyr, .registration = TRUE
 #' @importFrom Rcpp sourceCpp
 #' @export
